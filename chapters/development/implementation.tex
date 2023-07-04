@@ -193,154 +193,154 @@ The representation of a subtree in the \textit{BehaviorTree.CPP} library, shown 
     \label{fig:subtrees_impl}
 \end{figure}
 
-% \subsection{Behaviors Controller Tree}
+\subsection{Behaviors Controller Tree}
 
-% The \textit{Behaviors Controller} tree implementation is basically the same as its specification, being the only notable difference the fact that it is now made explicit in the trees that they have a shared blackboard, by setting the \texttt{\_\_shared\_blackboard} to true.
+The \textit{Behaviors Controller} tree implementation is basically the same as its specification, being the only notable difference the fact that it is now made explicit in the trees that they have a shared blackboard, by setting the \texttt{\_\_shared\_blackboard} to true.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=0.7\linewidth]{images/implementation/BehaviorsController.png}
-%     \caption{Base structure implementation of the Coach’s Behavior Tree}
-%     \label{fig:behaviors_controller_bt_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/implementation/BehaviorsController.png}
+    \caption{Base structure implementation of the Coach’s Behavior Tree}
+    \label{fig:behaviors_controller_bt_impl}
+\end{figure}
 
-% \subsection{Roles Swapper Initializer}
+\subsection{Roles Swapper Initializer}
 
-% In the implementation of the \texttt{Roles Swapper Initializer}, modifications were made to the tree specification, taking into account the information provided about the common nodes in Subsection \ref{subsubsec:common_action_nodes_spec}. The resulting implementation is depicted in Figure \ref{fig:roles_swapper_initializer_impl}. It is important to note that there is one implementation detail in this tree that deviates from its original specification, which is the data types of the variables stored in the blackboard.
+In the implementation of the \texttt{Roles Swapper Initializer}, modifications were made to the tree specification, taking into account the information provided about the common nodes in Subsection \ref{subsubsec:common_action_nodes_spec}. The resulting implementation is depicted in Figure \ref{fig:roles_swapper_initializer_impl}. It is important to note that there is one implementation detail in this tree that deviates from its original specification, which is the data types of the variables stored in the blackboard.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapperInitializer.png}
-%     \caption{Roles Swapper Initializer subtree specification}
-%     \label{fig:roles_swapper_initializer_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapperInitializer.png}
+    \caption{Roles Swapper Initializer subtree specification}
+    \label{fig:roles_swapper_initializer_impl}
+\end{figure}
 
-% In this tree and its subtrees, six blackboard variables are manipulated, which are the \texttt{game\_state}, the \texttt{game\_state\_team}, the \texttt{game\_state\_side}, the \texttt{use\_penalty\_mode}, the \texttt{use\_two\_strikers\_mode} and the \texttt{team\_state}. 
+In this tree and its subtrees, six blackboard variables are manipulated, which are the \texttt{game\_state}, the \texttt{game\_state\_team}, the \texttt{game\_state\_side}, the \texttt{use\_penalty\_mode}, the \texttt{use\_two\_strikers\_mode} and the \texttt{team\_state}. 
 
-% In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team} and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent the data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer. 
+In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team} and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent the data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer. 
 
-% The \texttt{use\_penalty\_mode} and the \texttt{use\_two\_strikers\_mode} variables were previously declared as booleans, nevertheless, to take advantage of the formerly developed \texttt{Set Blackboard Int} node, their data types were changed to integers as well, being \texttt{0} equivalent to \texttt{False} and \texttt{1} to \texttt{True}. 
+The \texttt{use\_penalty\_mode} and the \texttt{use\_two\_strikers\_mode} variables were previously declared as booleans, nevertheless, to take advantage of the formerly developed \texttt{Set Blackboard Int} node, their data types were changed to integers as well, being \texttt{0} equivalent to \texttt{False} and \texttt{1} to \texttt{True}. 
 
-% The last variable, the \texttt{game\_state}, did not have its data type changed, it remained as a string for reasons of simplification and easier understanding of the tree.
+The last variable, the \texttt{game\_state}, did not have its data type changed, it remained as a string for reasons of simplification and easier understanding of the tree.
 
-% \begin{table}[!htbp]
-%     \centering
-%     \begin{tabular}{c c}
-%         \toprule
-%         Event Name   & Value \\ 
-%         \midrule
-%         Free Kick    & 0     \\ 
-%         Penalty Kick & 1     \\ 
-%         Goal Kick    & 2     \\ 
-%         Free Ball    & 3     \\ 
-%         Kickoff      & 4     \\ 
-%         Stop         & 5     \\ 
-%         Game On      & 6     \\ 
-%         Halt         & 7     \\ 
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Integer identifications of the events sent by the \textit{VSSReferee}, see \cite{VSSProto}}
-%     \label{tab:referee_events_ids}
-% \end{table}
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Event Name   & Value \\ 
+        \midrule
+        Free Kick    & 0     \\ 
+        Penalty Kick & 1     \\ 
+        Goal Kick    & 2     \\ 
+        Free Ball    & 3     \\ 
+        Kickoff      & 4     \\ 
+        Stop         & 5     \\ 
+        Game On      & 6     \\ 
+        Halt         & 7     \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Integer identifications of the events sent by the \textit{VSSReferee}, see \cite{VSSProto}}
+    \label{tab:referee_events_ids}
+\end{table}
 
-% \begin{table}[!htbp]
-%     \centering
-%     \begin{tabular}{c c}
-%         \toprule
-%         Target Team & Value \\ 
-%         \midrule
-%         Friends     & 0     \\ 
-%         Foes        & 1     \\ 
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Codification of the target team of the event received from the \textit{VSSReferee}, using the event and the team color}
-%     \label{tab:target_team_event_codification}
-% \end{table}
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Target Team & Value \\ 
+        \midrule
+        Friends     & 0     \\ 
+        Foes        & 1     \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Codification of the target team of the event received from the \textit{VSSReferee}, using the event and the team color}
+    \label{tab:target_team_event_codification}
+\end{table}
 
-% \begin{table}[!htbp]
-%     \centering
-%     \begin{tabular}{c c}
-%         \toprule
-%         Side of field & Value \\ 
-%         \midrule
-%         Friends' side & 0     \\ 
-%         Foes' side    & 1     \\ 
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Codification of the side of the field in which the event received from the \textit{VSSReferee} occurred, using the event and the team color}
-%     \label{tab:field_side_event_codification}
-% \end{table}
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Side of field & Value \\ 
+        \midrule
+        Friends' side & 0     \\ 
+        Foes' side    & 1     \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Codification of the side of the field in which the event received from the \textit{VSSReferee} occurred, using the event and the team color}
+    \label{tab:field_side_event_codification}
+\end{table}
 
-% \subsection{Events Handler and its subtrees}
+\subsection{Events Handler and its subtrees}
 
-% The \texttt{Events Handler} subtree has the same structure as its specification, the only difference from its specification is that it defines the \texttt{\_\_shared\_blackboard} attributes of its subtrees. The implementation can be seen in Figure \ref{fig:events_handler_impl}.
+The \texttt{Events Handler} subtree has the same structure as its specification, the only difference from its specification is that it defines the \texttt{\_\_shared\_blackboard} attributes of its subtrees. The implementation can be seen in Figure \ref{fig:events_handler_impl}.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=1.0\linewidth]{images/implementation/EventsHandler.png}
-%     \caption{Events Handler subtree implementation}
-%     \label{fig:events_handler_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/implementation/EventsHandler.png}
+    \caption{Events Handler subtree implementation}
+    \label{fig:events_handler_impl}
+\end{figure}
 
-% Considering the changes presented in Subsection \ref{subsec:common_nodes_impl} and the changes to the data types of the variables on the blackboard, the implementations of all subtrees of the \texttt{Events Handler} subtree are analogous to their specifications. The implementations of the four subtrees are represented in Figures \ref{fig:penalty_kick_event_handler_impl}, \ref{fig:goal_kick_event_handler_impl}, \ref{fig:free_ball_event_handler_impl} and \ref{fig:kickoff_event_handler_impl}.
+Considering the changes presented in Subsection \ref{subsec:common_nodes_impl} and the changes to the data types of the variables on the blackboard, the implementations of all subtrees of the \texttt{Events Handler} subtree are analogous to their specifications. The implementations of the four subtrees are represented in Figures \ref{fig:penalty_kick_event_handler_impl}, \ref{fig:goal_kick_event_handler_impl}, \ref{fig:free_ball_event_handler_impl} and \ref{fig:kickoff_event_handler_impl}.
 
-% One simple implementation detail that deserves attention is the presence of parameters in the \texttt{Set Penalty Mode} node in the \texttt{Penalty Kick Event Handler}. These parameters were added to the node so it could be more generic, instead of having those values hardcoded to the node's code.
+One simple implementation detail that deserves attention is the presence of parameters in the \texttt{Set Penalty Mode} node in the \texttt{Penalty Kick Event Handler}. These parameters were added to the node so it could be more generic, instead of having those values hardcoded to the node's code.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=0.7\linewidth]{images/implementation/PenaltyKickEventHandler.png}
-%     \caption{Penalty Kick Event Handler subtree implementation}
-%     \label{fig:penalty_kick_event_handler_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/implementation/PenaltyKickEventHandler.png}
+    \caption{Penalty Kick Event Handler subtree implementation}
+    \label{fig:penalty_kick_event_handler_impl}
+\end{figure}
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=0.9\linewidth]{images/implementation/GoalKickEventHandler.png}
-%     \caption{Goal Kick Event Handler subtree implementation}
-%     \label{fig:goal_kick_event_handler_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/implementation/GoalKickEventHandler.png}
+    \caption{Goal Kick Event Handler subtree implementation}
+    \label{fig:goal_kick_event_handler_impl}
+\end{figure}
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=0.9\linewidth]{images/implementation/FreeBallEventHandler.png}
-%     \caption{Free Ball Event Handler subtree implementation}
-%     \label{fig:free_ball_event_handler_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/implementation/FreeBallEventHandler.png}
+    \caption{Free Ball Event Handler subtree implementation}
+    \label{fig:free_ball_event_handler_impl}
+\end{figure}
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=0.65\linewidth]{images/implementation/KickoffEventHandler.png}
-%     \caption{Kickoff Event Handler subtree implementation}
-%     \label{fig:kickoff_event_handler_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.65\linewidth]{images/implementation/KickoffEventHandler.png}
+    \caption{Kickoff Event Handler subtree implementation}
+    \label{fig:kickoff_event_handler_impl}
+\end{figure}
 
-% \subsection{Roles Swapper}
+\subsection{Roles Swapper}
 
-% Taking into account the insights discussed in Subsection \ref{subsec:common_nodes_impl}, the implementation of \texttt{Roles Swapper} adheres closely to its specification, as depicted in Figure \ref{fig:roles_swapper_impl}.
+Taking into account the insights discussed in Subsection \ref{subsec:common_nodes_impl}, the implementation of \texttt{Roles Swapper} adheres closely to its specification, as depicted in Figure \ref{fig:roles_swapper_impl}.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapper.png}
-%     \caption{Roles Swapper subtree implementation}
-%     \label{fig:roles_swapper_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapper.png}
+    \caption{Roles Swapper subtree implementation}
+    \label{fig:roles_swapper_impl}
+\end{figure}
 
-% \subsection{Attack Swapper and Defense Swapper}
+\subsection{Attack Swapper and Defense Swapper}
 
-% Finally, the \texttt{Attack Swapper} and \texttt{Defense Swapper} subtrees were also implemented taking into account the modifications discussed in Subsection \ref{subsec:common_nodes_impl}, the result is illustrated in Figure \ref{fig:attack_swapper_impl} and \ref{fig:defense_swapper_impl}, respectively.
+Finally, the \texttt{Attack Swapper} and \texttt{Defense Swapper} subtrees were also implemented taking into account the modifications discussed in Subsection \ref{subsec:common_nodes_impl}, the result is illustrated in Figure \ref{fig:attack_swapper_impl} and \ref{fig:defense_swapper_impl}, respectively.
 
-% Regarding the implementation of the nodes in both of these trees, it is important to note how the nodes that perform the roles changes and swap were developed. To enhance the performance of the trees, these nodes were developed as asynchronous nodes, specifically using coroutines as their foundation. This design choice allows the role changes to be executed in parallel with the rest of the tree, without blocking its execution. The use of coroutines to develop the nodes was possible thanks to the \textit{BehaviorTree.CPP} library, which provides many ways of creating asynchronous nodes.
+Regarding the implementation of the nodes in both of these trees, it is important to note how the nodes that perform the roles changes and swap were developed. To enhance the performance of the trees, these nodes were developed as asynchronous nodes, specifically using coroutines as their foundation. This design choice allows the role changes to be executed in parallel with the rest of the tree, without blocking its execution. The use of coroutines to develop the nodes was possible thanks to the \textit{BehaviorTree.CPP} library, which provides many ways of creating asynchronous nodes.
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=1.0\linewidth]{images/implementation/AttackSwapper.png}
-%     \caption{Attack state internal swap subtree implementation}
-%     \label{fig:attack_swapper_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/implementation/AttackSwapper.png}
+    \caption{Attack state internal swap subtree implementation}
+    \label{fig:attack_swapper_impl}
+\end{figure}
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=1.0\linewidth]{images/implementation/DefenseSwapper.png}
-%     \caption{Defense state internal swap subtree implementation}
-%     \label{fig:defense_swapper_impl}
-% \end{figure}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/implementation/DefenseSwapper.png}
+    \caption{Defense state internal swap subtree implementation}
+    \label{fig:defense_swapper_impl}
+\end{figure}
