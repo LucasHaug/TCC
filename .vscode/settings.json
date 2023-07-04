@@ -20,6 +20,7 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "-shell-escape",
                 "%DOC%"
             ],
             "env": {}
@@ -38,4 +39,5 @@
         "Font shape",
         "Some font shapes",
     ],
+    "grammarly.files.include": ["**/README.md", "**/*.tex"],
 }
