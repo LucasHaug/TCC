@@ -15,6 +15,7 @@
 *.ist
 *.lof
 *.bbl
+*.blg
 
 # Output directories
 out/
