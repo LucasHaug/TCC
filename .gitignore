@@ -1,0 +1,12 @@
+# Latex files
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.gz
+
+# Output directories
+out/
