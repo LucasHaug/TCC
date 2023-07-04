@@ -8,6 +8,7 @@
                 "-interaction=nonstopmode",
                 "-file-line-error",
                 "-pdf",
+                "-shell-escape",
                 "-outdir=.out/",
                 "%DOC%"
             ],
@@ -21,6 +22,7 @@
                 "-interaction=nonstopmode",
                 "-file-line-error",
                 "-shell-escape",
+                "-outdir=.out/",
                 "%DOC%"
             ],
             "env": {}
