@@ -1,0 +1,34 @@
+\usepackage[external]{forest}
+\usepackage{xcolor}
+
+\usetikzlibrary{arrows.meta}
+
+\definecolor{GreenAction}{rgb}{0.702,0.941,0.702}
+\definecolor{YellowCondition}{rgb}{0.98,0.941,0.431}
+\definecolor{PurpleDecorator}{rgb}{0.8,0.8,1}
+
+\forestset{
+  controlflow/.style={draw, black, rectangle, minimum height=12mm, minimum width=12mm},
+  decorator/.style={draw, fill=PurpleDecorator, diamond, minimum height=11mm, minimum width=11mm},
+  action/.style={draw, fill=GreenAction, rectangle, minimum height=15mm, minimum width=25mm},
+  condition/.style={draw, fill=YellowCondition, ellipse, minimum height=15mm, minimum width=19mm},
+  subtree/.style={draw, fill=lightgray, rectangle, minimum height=15mm, minimum width=25mm},
+  default preamble={
+    for tree={
+        semithick,
+        font=\footnotesize,
+        edge={semithick, -{Stealth}},
+        l sep+=12pt,
+        align=center,
+        anchor=center,
+        child anchor=north,
+    },
+  },
+}
+
+\def \root {\Large{$\mathbf{\varnothing}$}}
+\def \fallback {\Large{$\mathbf{?^*}$}}
+\def \reactivefallback {\Large{$\mathbf{?}$}}
+\def \sequence {\Large{$\mathbf{\rightarrow^*}$}}
+\def \reactivesequence {\Large{$\mathbf{\rightarrow}$}}
+\def \parallel {\Large{$\mathbf{\rightrightarrows}$}}

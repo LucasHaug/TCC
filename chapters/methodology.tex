@@ -1,0 +1,56 @@
+\chapter{Methodology}
+\label{ch:methodology}
+
+An analysis of the feasibility of adopting the MOISE \cite{MOISEp} model was carried out to define the new strategy, based on the modeling of the current team using this model, which will be presented in Chapter \ref{ch:target_system}. From this mapping, it was observed that \textit{Coach} implicitly had an organizational model for the team. In the current solution \textit{Coach} is described as a Finite State Machine (FSM).
+
+Thus, for the development of the new strategy, the team organization will be modeled using the \textit{Moise} \cite{MOISEp} model. The modeling will be specified through a behavior tree (BT), in order to enable the implementation of the team organization in a decentralized way. In addition, a package will be developed to collect system metrics, so that the improvements obtained can be evaluated.
+
+After the system improvements are implemented, all changes will be tested in academic competitions. The initial intention is to make preliminary tests in the \textit{Competição Brasileira de Futebol de Robôs Simulado} (CBFRS), a competition in the style of a round-robin tournament, in which the team is already participating. After verifying the team's performance in this competition, improvements will be introduced to participate in a second competition, the \textit{IRONCup 2023} \cite{IRONCup2023}.
+
+\section{Activities and Schedule}
+
+To this end, the following activities will be carried out:
+
+\begin{itemize}
+    \item {\bf At. 1} Writing of the monograph;
+    \item {\bf At. 2} Modeling of the Coach's BT;
+    \item {\bf At. 3} Review of the Coach's BT;
+    \item {\bf At. 4} Integration of the Coach's package to use BTs;
+    \item {\bf At. 5} Development of the nodes of the BT;
+    \item {\bf At. 6} Assembly of the Coach's BT;
+    \item {\bf At. 7} Coach's migration from the FSM to the BT;
+    \item {\bf At. 8} Tests of the system with the FSM against the system with the BT;
+    \item {\bf At. 9} Creation of the metrics analysis package;
+    \item {\bf At. 10} Definition of metrics for performance analysis;
+    \item {\bf At. 11} Creation of a library to perform analyses;
+    \item {\bf At. 12} Creation of a ROS node to collect metrics.
+\end{itemize}
+
+Distributing these activities over the weeks, the following distribution of activities is obtained.
+
+\begin{table}[!htbp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+                    & At. 1 & At. 2 & At. 3 & At. 4 & At. 5 & At. 6 & At. 7 & At. 8 & At. 9 & At. 10 & At. 11 & At. 12 \\ \hline
+        8/5 a 14/5  & X     & X     &       &       &       &       &       &       &       &        &        &        \\ \hline
+        15/5 a 21/5 &       & X     &       &       &       &       &       &       &       &        &        &        \\ \hline
+        22/5 a 28/5 & X     & X     &       &       &       &       &       &       &       &        &        &        \\ \hline
+        29/5 a 4/6  & X     & X     & X     &       &       &       &       &       &       &        &        &        \\ \hline
+        5/6 a 11/6  & X     &       & X     &       &       &       &       &       &       &        &        &        \\ \hline
+        12/6 a 18/6 &       &       &       &       &       &       &       &       &       &        &        &        \\ \hline
+        19/6 a 25/6 & X     &       &       &       &       &       &       &       &       &        &        &        \\ \hline
+        26/6 a 2/7  & X     &       &       &       &       &       &       &       &       &        &        &        \\ \hline
+        3/7 a 9/7   & X     &       &       &       &       &       &       &       &       &        &        &        \\ \hline
+        10/7 a 16/7 &       &       &       & X     & X     &       &       &       &       &        &        &        \\ \hline
+        17/7 a 23/7 &       &       &       & X     & X     &       &       &       &       &        &        &        \\ \hline
+        24/7 a 30/7 &       &       &       &       &       &       &       &       &       &        &        &        \\ \hline
+        31/7 a 6/8  &       &       &       &       & X     &       &       &       & X     & X      &        &        \\ \hline
+        7/8 a 13/8  &       &       &       &       & X     &       &       &       &       &        & X      &        \\ \hline
+        14/8 a 20/8 &       &       &       &       &       & X     & X     & X     &       &        & X      & X      \\ \hline
+        21/8 a 27/8 &       &       &       &       &       &       &       & X     &       &        & X      & X      \\ \hline
+        \end{tabular}%
+    }
+    \caption{Distribution of tasks over the weeks}
+\end{table}

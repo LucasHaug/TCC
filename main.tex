@@ -1,0 +1,145 @@
+\documentclass[]{politex}
+
+% ========== Packages ==========
+
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{glossaries}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{booktabs}
+
+% ========== Behavior Trees ==========
+
+\input{bts_config}
+\tikzexternalize[prefix=tikz/]
+
+% ========== Language options ==========
+% \usepackage[brazil]{babel}
+\usepackage[english]{babel}
+
+% ========== ABNT (requer ABNTeX 2) ==========
+%	http://www.ctan.org/tex-archive/macros/latex/contrib/abntex2
+\usepackage[num]{abntex2cite}
+
+% Forçar o abntex2 a usar [ ] nas referências ao invés de ( )
+\citebrackets{[}{]}
+
+% ========== Opções do documento ==========
+
+\graphicspath{ {./images/} }
+\makeglossaries
+%\input{chapters/glossario.tex}
+
+% Título
+\titulo{A multi-agent strategy for coordinating a robot soccer team}
+
+% Autor
+\autor{Lucas Haug}
+
+% Orientadora / Coorientador
+\orientadora{Anarosa Alves Franco Brandão}
+\coorientador{Arthur Henrique Casals do Nascimento}
+
+% Tipo de documento
+\tcc{Electrical}{with emphasis on Computing}
+
+% Departamento e área de concentração
+\departamento{Computer and Digital Systems Engineering}
+\areaConcentracao{Computer Engineering}
+
+% Local
+\local{São Paulo}
+
+% Ano
+\data{2022}
+
+
+\begin{document}
+% ========== Capa e folhas de rosto ==========
+\capa
+\falsafolhaderosto
+\folhaderosto 
+
+% ========== Folha de assinaturas (opcional) ==========
+% \begin{folhadeaprovacao}
+% 	\assinatura{Anarosa Alves Franco Brandão}
+% \end{folhadeaprovacao}
+
+% ========== Ficha catalográfica ==========
+% Fazer solicitação no site:
+%	http://www.poli.usp.br/en/bibliotecas/servicos/catalogacao-na-publicacao.html
+
+% ========== Dedicatória (opcional) ==========
+%\dedicatoria{Dedicatória}
+
+% ========== Agradecimentos ==========
+%\begin{agradecimentos}
+
+%\end{agradecimentos}
+
+% ========== Abstract ==========
+\begin{abstract}
+\input{chapters/abstract.tex}
+%
+\\[3\baselineskip]
+%
+\textbf{Keywords} IEEE Very Small Size Soccer, Robots Soccer, Multi-agent System, Behavior Tree, ROS.
+\end{abstract}
+
+% ========== Resumo ==========
+\begin{resumo}
+\input{chapters/resumo.tex}
+%
+\\[3\baselineskip]
+%
+\textbf{Palavras-Chave} IEEE Very Small Size Soccer, Futebol de Robôs, Sistemas Multiagentes, Árvores de Comportamento, ROS.
+\end{resumo}
+
+% ========== Listas (opcional) ==========
+\listadefiguras
+\listadetabelas
+
+% ========== Listas definidas pelo usuário (opcional) ==========
+%\input{chapters/listaDeSimbolos.tex}
+
+% ========== Sumário ==========
+\sumario
+
+% ========== Elementos textuais ==========
+
+\input{chapters/introduction}
+
+\input{chapters/background}
+
+\input{chapters/methodology}
+
+\input{chapters/target_system}
+
+\input{chapters/requirements}
+
+\input{chapters/development/development}
+
+\input{chapters/results}
+
+\input{chapters/final_considerations}
+
+% ========== Glossário & Referências ==========
+
+% \nocite{*}
+
+\bibliographystyle{abntex2-num}
+\bibliography{references}
+\printglossaries
+
+% ========== Apêndices (opcional) ==========
+%\input{chapters/apendice.tex}
+
+\end{document}
+\grid

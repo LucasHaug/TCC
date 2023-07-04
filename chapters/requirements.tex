@@ -1,0 +1,44 @@
+\chapter{Requirements}
+\label{ch:requirements}
+
+This chapter presents the technical requirements for improving the system discussed in Chapter \ref{ch:target_system}.
+
+This improvement will be based on the refinement of the organization of the multi-agent system, using behavior trees to describe all the entities of the system.
+
+\section{Functional requirements}
+
+For the development of the new game strategy based on a behavior tree, the new model must be able to cover all the use cases of the model that uses a finite state machine, dealing with the various events stated in Section \ref{sec:rules}.
+
+Therefore, the model must be able to receive events from the referee, handle those events, control whether the robots should play or not, and most importantly, switch robot roles based on the current state of the game.
+
+\section{Non-functional requirements}
+
+When it comes to non-functional requirements, it is vital to ensure that all proposed changes do not adversely affect the team's performance in a game. Consequently, the team must maintain a comparable or improved level of performance.
+
+Furthermore, for the changes to qualify as system improvements, the new strategy must improve maintainability, enhance the flexibility for changes and be easier to understand. These objectives can be specified by means of the following qualifications:
+
+\begin{itemize}
+    \item \textbf{Qualitative scalability}. From page 85 of \cite{MASScalability}: 
+    
+    \begin{citacaoLonga}
+    This is about (i) actors or agents with a more complex and richer inner life, i.e. with manifold interests and motives, abilities and features and advanced possibilities to build relationships to other actors or agents, or (ii) institutionalised behaviour patterns and regularities on different levels of sociality independent from special persons and interactions (like in organizations).
+\end{citacaoLonga}
+
+    \item \textbf{Quantitative scalability}. From page 85 of \cite{MASScalability}: 
+
+    \begin{citacaoLonga}
+    This form refers to the size of the constellation under research (whether it is composed of human actors in a social context or artificial agents in a multiagent system). Hence, the focus is on mechanisms that help increasing population sizes to reproduce sociality, and social order.
+    \end{citacaoLonga}
+
+    \item \textbf{Modularity}. From page 6 of \cite{BTsInRobotics}: 
+
+    \begin{citacaoLonga}
+    Modular design is an approach that subdivides a system into smaller parts or modules, that can be independently created and then used in different systems. A modular system can be characterized by functional partitioning into discrete and scalable modules. A modular design is loosely connected with code reusability and it can allow an heterogeneity of code developers’ expertise.
+    \end{citacaoLonga}
+
+    \item \textbf{Human readability}. From page 6 of \cite{BTsInRobotics}: 
+
+    \begin{citacaoLonga}
+    A readable structure is desirable for reducing the cost of developing and debugging, especially when the task is human designed. The structure should remain readable even for large systems. Human readability requires a coherent and compact structure.
+    \end{citacaoLonga}
+\end{itemize}
