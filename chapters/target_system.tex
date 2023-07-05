@@ -1,7 +1,7 @@
 \chapter{Target System}
 \label{ch:target_system}
 
-\def \MOISEp {$\mathcal{M}OISE^+$} 
+\def \MOISEp {$\mathcal{M}OISE^+$}
 
 To enable a better understanding of the proposed improvements, it is necessary to comprehend the functioning of the system prior to the changes. For this, the rules to which the system must obey and the organizational model used before the changes, following the structure of the \MOISEp \cite{MOISEp} model, will be explained and, based on these two factors, the previous game strategy will be presented.
 
@@ -25,7 +25,7 @@ The game events described in the rules are:
  \end{itemize}
 
 Meanwhile, the control events are specified as follows:
-    
+
 \begin{itemize}
      \item Game On: Event that indicates that the game is running.
      \item Stop: Event that indicates that the game is not running.
@@ -64,9 +64,9 @@ Regarding the roles listed, some of these are played while the team is attacking
 
 Thus, for a robot that is playing a certain role to play another role, there must be a compatibility between the two roles, for example, the attacker role is not compatible with the goalkeeper role, due to different positioning and functionalities, meanwhile, the assistant and attacker roles are compatible with each other, thanks to the high synergy between the two roles in the attack state.
 
-In general, the roles of penalty kicker and defender are used only when a penalty event occurs, with the penalty kicker being used in place of the attacker and the penalty defender in the place of the goalkeeper. However, the team supports many penalty modes, thus there is also the case where a penalty can be kicked by an attacker or defended by the goalkeeper. In other moments of the game, while the team is defending, the roles of goalkeeper, fullback and wingback are used and while the team is attacking, the roles of goalkeeper, assistant and striker are usually used. Besides that, in some special moments of the game, an extra striker can be used in place of the assistant to make the team more offensive. 
+In general, the roles of penalty kicker and defender are used only when a penalty event occurs, with the penalty kicker being used in place of the attacker and the penalty defender in the place of the goalkeeper. However, the team supports many penalty modes, thus there is also the case where a penalty can be kicked by an attacker or defended by the goalkeeper. In other moments of the game, while the team is defending, the roles of goalkeeper, fullback and wingback are used and while the team is attacking, the roles of goalkeeper, assistant and striker are usually used. Besides that, in some special moments of the game, an extra striker can be used in place of the assistant to make the team more offensive.
 
-To implement the Coach and all the swaps between the roles, the current structure uses a finite state machine, which will be described in the next section.  
+To implement the Coach and all the swaps between the roles, the current structure uses a finite state machine, which will be described in the next section.
 
 \section{Game Strategy}
 
@@ -79,6 +79,6 @@ Bearing in mind the roles used and the compatibilities between them, which allow
     \label{fig:behaviors_controller_fsm}
 \end{figure}
 
-The current solution can be seen in Figure \ref{fig:behaviors_controller_fsm}. In the finite state machine, it is possible to observe that there are eight possible states for the system, three of which are states in which role swaps occur and the other five are input and waiting states. The determination of which state the state machine will start in is done in advance, upon receiving one of the events described in Section \ref{sec:rules}, for example, upon receiving a penalty event for the opposing team, the entry state will be the penalty defense state. Each transition between states is controlled by a guard function and when the condition of this function is satisfied, a transition function is called, all these functions are listed in Figure \ref{fig:behaviors_controller_fsm}. 
+The current solution can be seen in Figure \ref{fig:behaviors_controller_fsm}. In the finite state machine, it is possible to observe that there are eight possible states for the system, three of which are states in which role swaps occur and the other five are input and waiting states. The determination of which state the state machine will start in is done in advance, upon receiving one of the events described in Section \ref{sec:rules}, for example, upon receiving a penalty event for the opposing team, the entry state will be the penalty defense state. Each transition between states is controlled by a guard function and when the condition of this function is satisfied, a transition function is called, all these functions are listed in Figure \ref{fig:behaviors_controller_fsm}.
 
 An important feature to note is that in all cases, to go to a swap state, a swap condition is analyzed, meanwhile, to exit these states and return to the attack or defense states, the negation of the swap condition is analyzed. This is necessary to ensure that the swap state will only be exited when the swap is complete and cannot happen immediately afterward, guaranteeing a hysteresis to the system and avoiding multiple subsequent swaps that would make the system unstable.
