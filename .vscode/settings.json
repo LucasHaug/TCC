@@ -42,4 +42,7 @@
         "Some font shapes",
     ],
     "grammarly.files.include": ["**/README.md", "**/*.tex"],
+    "[latex]": {
+        "editor.wordWrap": "on",
+    },
 }
