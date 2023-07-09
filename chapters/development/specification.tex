@@ -70,7 +70,7 @@ From all the action nodes used in the trees, there are two types of action nodes
 
 The first commonly used action node, depicted in Figure \ref{fig:always_success_action_node_spec}, is a simple node that always returns success when ticked. 
 
-On the other hand, the second commonly used action node, illustrated in Figure \ref{fig:set_blackboard_action_node_spec}, is more complex. It is configured to assign an input value to an environment variable. This node is referred to as the \texttt{Set Blackboard} node, as it employs the blackboard pattern \cite{BlackboardDesignPattern} to facilitate the sharing of environment variables among nodes.
+On the other hand, the second commonly used action node, illustrated in Figure \ref{fig:set_blackboard_action_node_spec}, is more complex. It is configured to assign an input value to an environment variable. This node is referred to as the \texttt{Set Blackboard} node, as it employs the blackboard pattern to facilitate the sharing of environment variables among nodes.
 
 \begin{figure}[!h]
     \centering
@@ -439,7 +439,7 @@ Finally, to carry out the role swaps between the attack roles when in the attack
 
 \begin{figure}[!h]
     \centering
-    \resizebox{\textwidth}{!} {
+    \resizebox{0.8\textwidth}{!} {
         \begin{forest}
             [\root, controlflow
                 [\fallback, controlflow    

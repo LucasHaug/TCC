@@ -23,7 +23,7 @@ The root node is represented as shown in Figure \ref{fig:root_node_impl}.
 
 \subsubsection{Control Nodes}
 
-In contrast to the representation of control nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore,  as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are denoted as reactive nodes, rather than marking the non-reactive nodes differently.
+In contrast to the representation of control nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are denoted as reactive nodes, rather than marking the non-reactive nodes differently. However, it is important to note that the \texttt{Sequence} node is a little bit different from the non-reactive sequence presented in Chapter \ref{ch:background}, since when one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree.
 
 \begin{figure}[!h]
     \centering
