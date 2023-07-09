@@ -16,6 +16,7 @@
 *.lof
 *.bbl
 *.blg
+*.xml
 
 # Output directories
 out/
