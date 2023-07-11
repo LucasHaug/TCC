@@ -16,7 +16,7 @@ The root node is represented as shown in Figure \ref{fig:root_node_impl}.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.15\linewidth]{images/implementation/RootNode.png}
+    \includegraphics[width=0.15\linewidth]{chapters/development/images/RootNode.png}
     \caption{Root node in \textit{Groot}}
     \label{fig:root_node_impl}
 \end{figure}
@@ -29,19 +29,19 @@ In contrast to the representation of control nodes discussed in Subsubsection \r
     \centering
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.52\linewidth]{images/implementation/FallbackNode.png}
+        \includegraphics[width=0.52\linewidth]{chapters/development/images/FallbackNode.png}
         \caption{Non-reactive fallback}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.57\linewidth]{images/implementation/SequenceNode.png}
+        \includegraphics[width=0.57\linewidth]{chapters/development/images/SequenceNode.png}
         \caption{Non-reactive sequence}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.8\linewidth]{images/implementation/ReactiveSequenceNode.png}
+        \includegraphics[width=0.8\linewidth]{chapters/development/images/ReactiveSequenceNode.png}
         \caption{Reactive sequence}
     \end{subfigure}
     \caption{Used control nodes representations in \textit{Groot}}
@@ -56,20 +56,20 @@ The implementation of the common action nodes, in Figure \ref{fig:common_action_
     \centering
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.7\linewidth]{images/implementation/AlwaysSuccessNode.png}
+        \includegraphics[width=0.7\linewidth]{chapters/development/images/AlwaysSuccessNode.png}
         \caption{Always success}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.85\linewidth]{images/implementation/SetBlackboardIntNode.png}
+        \includegraphics[width=0.85\linewidth]{chapters/development/images/SetBlackboardIntNode.png}
         \caption{Set Blackboard Int}
         \label{fig:set_blackboard_int_impl}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.32\linewidth}
         \centering
-        \includegraphics[width=0.85\linewidth]{images/implementation/SetBlackboardStringNode.png}
+        \includegraphics[width=0.85\linewidth]{chapters/development/images/SetBlackboardStringNode.png}
         \caption{Set Blackboard String}
         \label{fig:set_blackboard_string_impl}
     \end{subfigure}
@@ -83,22 +83,22 @@ In contrast to the tree specification, the common condition node specified in Su
 
 \subsubsection{Decorator Nodes}
 
-The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value and return success or failure depending on the result. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose. 
+The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value and return success or failure depending on the result. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose.
 
-Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, if both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they accept, as the first accepts integers and the second accepts strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field. 
+Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, if both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they accept, as the first accepts integers and the second accepts strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field.
 
 \begin{figure}[!h]
     \centering
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.65\linewidth]{images/implementation/BlackboardCheckIntNode.png}
+        \includegraphics[width=0.65\linewidth]{chapters/development/images/BlackboardCheckIntNode.png}
         \caption{Blackboard Check Int}
         \label{fig:blackboard_check_int_impl}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.65\linewidth]{images/implementation/BlackboardCheckStringNode.png}
+        \includegraphics[width=0.65\linewidth]{chapters/development/images/BlackboardCheckStringNode.png}
         \caption{Blackboard Check String}
         \label{fig:blackboard_check_string_impl}
     \end{subfigure}
@@ -106,7 +106,7 @@ Two decorators from the library were used to substitute the condition nodes, the
     \label{fig:common_decorator_nodes_impl}
 \end{figure}
 
-Regarding the use of these decorators, as it is not possible to simply replace a condition node with a decorator, it was necessary to make changes to the structure of the tree specification where the condition nodes which check the blackboard were used. To implement these modifications, an analysis of the structure which utilizes the \texttt{Blackboard Check} as a condition node was conducted, leading to the development of two alternative approaches using the \texttt{Blackboard Check} decorator implementation of the library. 
+Regarding the use of these decorators, as it is not possible to simply replace a condition node with a decorator, it was necessary to make changes to the structure of the tree specification where the condition nodes which check the blackboard were used. To implement these modifications, an analysis of the structure which utilizes the \texttt{Blackboard Check} as a condition node was conducted, leading to the development of two alternative approaches using the \texttt{Blackboard Check} decorator implementation of the library.
 
 Considering the tree specification, all the use cases of the \texttt{Blackboard Check} as a condition node can be abstracted as the two structures in Figure \ref{fig:blackboard_check_eq_condition_node}. The first structure, Figure \ref{fig:blackboard_check_eq_condition_node_fall}, represents the cases where the condition node is used as the first child of a non-reactive fallback, whereas the second structure, Figure \ref{fig:blackboard_check_eq_condition_node_seq}, represents the cases where the parent node of the condition node is a non-reactive sequence instead.
 
@@ -157,14 +157,14 @@ Therefore, the tree implementation, which will be presented in the next subsecti
     \centering
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.85\linewidth]{images/implementation/BlackboardCheck - Equivalence 1.png}
+        \includegraphics[width=0.85\linewidth]{chapters/development/images/BlackboardCheck - Equivalence 1.png}
         \caption{\texttt{Blackboard Check} as a decorator with conditional action in sequence}
         \label{fig:blackboard_check_eq_action_in_sequence}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.85\linewidth]{images/implementation/BlackboardCheck - Equivalence 2.png}
+        \includegraphics[width=0.85\linewidth]{chapters/development/images/BlackboardCheck - Equivalence 2.png}
         \caption{\texttt{Blackboard Check} as a decorator with conditional action as child}
         \label{fig:blackboard_check_eq_action_as_child}
     \end{subfigure}
@@ -180,13 +180,13 @@ The representation of a subtree in the \textit{BehaviorTree.CPP} library, shown 
     \centering
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.6\linewidth]{images/implementation/SubtreeNode - Not Shared BB.png}
+        \includegraphics[width=0.6\linewidth]{chapters/development/images/SubtreeNode - Not Shared BB.png}
         \caption{Subtree without shared blackboard}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.49\linewidth}
         \centering
-        \includegraphics[width=0.6\linewidth]{images/implementation/SubtreeNode - Shared BB.png}
+        \includegraphics[width=0.6\linewidth]{chapters/development/images/SubtreeNode - Shared BB.png}
         \caption{Subtree with shared blackboard}
     \end{subfigure}
     \caption{Subtree node representation in \textit{Groot}}
@@ -199,7 +199,7 @@ The \textit{Behaviors Controller} tree implementation is basically the same as i
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.7\linewidth]{images/implementation/BehaviorsController.png}
+    \includegraphics[width=0.7\linewidth]{chapters/development/images/BehaviorsController.png}
     \caption{Base structure implementation of the Coach’s Behavior Tree}
     \label{fig:behaviors_controller_bt_impl}
 \end{figure}
@@ -210,16 +210,16 @@ In the implementation of the \texttt{Roles Swapper Initializer}, modifications w
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapperInitializer.png}
+    \includegraphics[width=1.0\linewidth]{chapters/development/images/RolesSwapperInitializer.png}
     \caption{Roles Swapper Initializer subtree specification}
     \label{fig:roles_swapper_initializer_impl}
 \end{figure}
 
-In this tree and its subtrees, six blackboard variables are manipulated, which are the \texttt{game\_state}, the \texttt{game\_state\_team}, the \texttt{game\_state\_side}, the \texttt{use\_penalty\_mode}, the \texttt{use\_two\_strikers\_mode} and the \texttt{team\_state}. 
+In this tree and its subtrees, six blackboard variables are manipulated, which are the \texttt{game\_state}, the \texttt{game\_state\_team}, the \texttt{game\_state\_side}, the \texttt{use\_penalty\_mode}, the \texttt{use\_two\_strikers\_mode} and the \texttt{team\_state}.
 
-In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team} and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent the data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer. 
+In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team} and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent the data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer.
 
-The \texttt{use\_penalty\_mode} and the \texttt{use\_two\_strikers\_mode} variables were previously declared as booleans, nevertheless, to take advantage of the formerly developed \texttt{Set Blackboard Int} node, their data types were changed to integers as well, being \texttt{0} equivalent to \texttt{False} and \texttt{1} to \texttt{True}. 
+The \texttt{use\_penalty\_mode} and the \texttt{use\_two\_strikers\_mode} variables were previously declared as booleans, nevertheless, to take advantage of the formerly developed \texttt{Set Blackboard Int} node, their data types were changed to integers as well, being \texttt{0} equivalent to \texttt{False} and \texttt{1} to \texttt{True}.
 
 The last variable, the \texttt{game\_state}, did not have its data type changed, it remained as a string for reasons of simplification and easier understanding of the tree.
 
@@ -227,16 +227,16 @@ The last variable, the \texttt{game\_state}, did not have its data type changed,
     \centering
     \begin{tabular}{c c}
         \toprule
-        Event Name   & Value \\ 
+        Event Name   & Value \\
         \midrule
-        Free Kick    & 0     \\ 
-        Penalty Kick & 1     \\ 
-        Goal Kick    & 2     \\ 
-        Free Ball    & 3     \\ 
-        Kickoff      & 4     \\ 
-        Stop         & 5     \\ 
-        Game On      & 6     \\ 
-        Halt         & 7     \\ 
+        Free Kick    & 0     \\
+        Penalty Kick & 1     \\
+        Goal Kick    & 2     \\
+        Free Ball    & 3     \\
+        Kickoff      & 4     \\
+        Stop         & 5     \\
+        Game On      & 6     \\
+        Halt         & 7     \\
         \bottomrule
     \end{tabular}
     \caption{Integer identifications of the events sent by the \textit{VSSReferee}, see \cite{VSSProto}}
@@ -247,10 +247,10 @@ The last variable, the \texttt{game\_state}, did not have its data type changed,
     \centering
     \begin{tabular}{c c}
         \toprule
-        Target Team & Value \\ 
+        Target Team & Value \\
         \midrule
-        Friends     & 0     \\ 
-        Foes        & 1     \\ 
+        Friends     & 0     \\
+        Foes        & 1     \\
         \bottomrule
     \end{tabular}
     \caption{Codification of the target team of the event received from the \textit{VSSReferee}, using the event and the team color}
@@ -261,10 +261,10 @@ The last variable, the \texttt{game\_state}, did not have its data type changed,
     \centering
     \begin{tabular}{c c}
         \toprule
-        Side of field & Value \\ 
+        Side of field & Value \\
         \midrule
-        Friends' side & 0     \\ 
-        Foes' side    & 1     \\ 
+        Friends' side & 0     \\
+        Foes' side    & 1     \\
         \bottomrule
     \end{tabular}
     \caption{Codification of the side of the field in which the event received from the \textit{VSSReferee} occurred, using the event and the team color}
@@ -277,7 +277,7 @@ The \texttt{Events Handler} subtree has the same structure as its specification,
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\linewidth]{images/implementation/EventsHandler.png}
+    \includegraphics[width=1.0\linewidth]{chapters/development/images/EventsHandler.png}
     \caption{Events Handler subtree implementation}
     \label{fig:events_handler_impl}
 \end{figure}
@@ -288,28 +288,28 @@ One simple implementation detail that deserves attention is the presence of para
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.7\linewidth]{images/implementation/PenaltyKickEventHandler.png}
+    \includegraphics[width=0.7\linewidth]{chapters/development/images/PenaltyKickEventHandler.png}
     \caption{Penalty Kick Event Handler subtree implementation}
     \label{fig:penalty_kick_event_handler_impl}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.9\linewidth]{images/implementation/GoalKickEventHandler.png}
+    \includegraphics[width=0.9\linewidth]{chapters/development/images/GoalKickEventHandler.png}
     \caption{Goal Kick Event Handler subtree implementation}
     \label{fig:goal_kick_event_handler_impl}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.9\linewidth]{images/implementation/FreeBallEventHandler.png}
+    \includegraphics[width=0.9\linewidth]{chapters/development/images/FreeBallEventHandler.png}
     \caption{Free Ball Event Handler subtree implementation}
     \label{fig:free_ball_event_handler_impl}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.65\linewidth]{images/implementation/KickoffEventHandler.png}
+    \includegraphics[width=0.65\linewidth]{chapters/development/images/KickoffEventHandler.png}
     \caption{Kickoff Event Handler subtree implementation}
     \label{fig:kickoff_event_handler_impl}
 \end{figure}
@@ -320,7 +320,7 @@ Taking into account the insights discussed in Subsection \ref{subsec:common_node
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\linewidth]{images/implementation/RolesSwapper.png}
+    \includegraphics[width=1.0\linewidth]{chapters/development/images/RolesSwapper.png}
     \caption{Roles Swapper subtree implementation}
     \label{fig:roles_swapper_impl}
 \end{figure}
@@ -333,14 +333,14 @@ Regarding the implementation of the nodes in both of these trees, it is importan
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\linewidth]{images/implementation/AttackSwapper.png}
+    \includegraphics[width=1.0\linewidth]{chapters/development/images/AttackSwapper.png}
     \caption{Attack state internal swap subtree implementation}
     \label{fig:attack_swapper_impl}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\linewidth]{images/implementation/DefenseSwapper.png}
+    \includegraphics[width=1.0\linewidth]{chapters/development/images/DefenseSwapper.png}
     \caption{Defense state internal swap subtree implementation}
     \label{fig:defense_swapper_impl}
 \end{figure}
