@@ -1,5 +1,5 @@
-\def \MOISEp {$\mathcal{M}OISE^+$} 
-\def \MOISEpBf {$\mathbf{\mathcal{M}OISE^+}$} 
+\def \MOISEp {$\mathcal{M}OISE^+$}
+\def \MOISEpBf {$\mathbf{\mathcal{M}OISE^+}$}
 
 \chapter{Background}
 \label{ch:background}
@@ -52,9 +52,9 @@ From this example, it is possible to understand the different categories of link
             \bottomrule
         \end{tabular}
         \begin{center}
-            \footnotesize 
+            \footnotesize
             \emph{Note}: \sourceagent stands for the agent playing the source role of the link \\
-            and \destagent stands for the agent playing the destination role. \\   
+            and \destagent stands for the agent playing the destination role. \\
         \end{center}
     \end{minipage}
     \caption{Types of links between the roles in \MOISEp}
@@ -63,7 +63,7 @@ From this example, it is possible to understand the different categories of link
 
 Conversely, the \textbf{Functional Specification} is employed to define a way the goals of the organization can be achieved. It involves defining global plans, a structured way of combining goals, and utilizing a set of global goals to formulate missions. These missions serve as the foundation for the organization's social scheme, and agents within the organization can commit to missions in accordance with the rules defined in the social scheme of how many agents can commit to a specified mission. An example of a social scheme is illustrated in Figure \ref{fig:moise_fs}.
 
-Lastly, the \textbf{Deontic Specification} establishes the relationship between the Structural and Functional Specifications by specifying the permissions and obligations associated with each role in relation to a mission. 
+Lastly, the \textbf{Deontic Specification} establishes the relationship between the Structural and Functional Specifications by specifying the permissions and obligations associated with each role in relation to a mission.
 
 \begin{figure}[!h]
     \centering
@@ -82,11 +82,38 @@ Lastly, the \textbf{Deontic Specification} establishes the relationship between 
 
 \section{Control Architectures}
 
-a
+As defined in \cite{BTsInRobotics2}, a control architecture is a way of encoding a robot's functionality, by defining how a specified task is carried out. A control architecture provides a structured form of defining the intelligence of an agent, facilitating its comprehension, development, and debugging. There are many different types of control architectures that have been developed, each featuring a distinct set of tools, rules, and guidelines for organizing how to control a system.
 
-\section{Finite State Machines}
+In this section, two of the most common control architectures in robotics are presented, the Finite State Machines (FSM) and the Hierarchical Finite State Machines (HFSM). In the next section, the control architecture that is the focus of this work is presented, the Behavior Trees (BT).
 
-\section{Hierarchical State Machines}
+\subsection{Finite State Machines}
+
+FSMs are a very common mathematical model of computation, a FSM represents a system which, at any moment in time, can only be in one of a finite number of states. A FSM is defined by a list of states, an initial state, and a set of transition functions that determine how the system transits from one state to another, depending on some inputs, in addition to also being able to have final states of the system. The FSM can be represented as a directed graph, where the states are the nodes and the transitions are the edges. An example of a FSM can be seen in Figure \ref{fig:fsm_example}, where a FSM with three states is depicted, in which $s_1$ is the initial state, $s_3$ is the final one and the transitions between states are triggered by receiving a 1 or a 0.
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+        \tikzstyle{every state}=[fill={rgb:black,1;white,10}]
+
+        \node[state,initial]   (s_1)                {$s_1$};
+        \node[state]           (s_2) [right of=s_1] {$s_2$};
+        \node[state,accepting] (s_3) [right of=s_2] {$s_3$};
+
+        \path[->]
+        (s_1) edge [loop above] node {0} (   )
+        (s_1) edge [bend left]  node {1} (s_2)
+        (s_2) edge [bend left]  node {1} (s_3)
+        (s_2) edge [loop above] node {0} (   );
+    \end{tikzpicture}
+    \caption{Example of a FSM}
+    \label{fig:fsm_example}
+\end{figure}
+
+As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architecture and can be easily implemented, however, they are not very suitable for describing complex systems. FSMs usually do not scale well, as adding more and more states and transitions to the system, makes it harder to understand and modify. Besides that, FSMs have also a problem regarding maintainability, as adding or removing states can result in re-evaluating numerous transitions and internal states, making FSMs prone to human design errors and impractical for automated design purposes.
+
+\subsection{Hierarchical Finite State Machines}
+
+
 
 \section{Behavior Trees}
 
@@ -101,9 +128,9 @@ a
 
 \subsection{Types of Nodes}
 
-\subsubsection{Root Node} 
+\subsubsection{Root Node}
 
-\subsubsection{Control Nodes} 
+\subsubsection{Control Nodes}
 \label{subsubsec:control_nodes}
 
 \subsubsection{Action Nodes}
@@ -116,7 +143,7 @@ a
 
 \subsection{Reactivity}
 
-\section{BT vs other Control Architectures}
+\subsection{BTs vs other Control Architectures}
 
 \section{Blackboard}
 
