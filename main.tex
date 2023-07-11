@@ -25,12 +25,11 @@
 % \usepackage[brazil]{babel}
 \usepackage[english]{babel}
 
-% ========== ABNT (requer ABNTeX 2) ==========
-%	http://www.ctan.org/tex-archive/macros/latex/contrib/abntex2
-\usepackage[num]{abntex2cite}
+% ========== References ==========
 
-% Forçar o abntex2 a usar [ ] nas referências ao invés de ( )
-\citebrackets{[}{]}
+\usepackage{csquotes}
+\usepackage[style=abnt-numeric,sorting=none]{biblatex}
+\addbibresource{references.bib}
 
 % ========== Opções do documento ==========
 
@@ -135,8 +134,7 @@
 
 % \nocite{*}
 
-\bibliographystyle{abntex2-num}
-\bibliography{references}
+\printbibliography
 \printglossaries
 
 % ========== Apêndices (opcional) ==========
