@@ -84,7 +84,7 @@ Lastly, the \textbf{Deontic Specification} establishes the relationship between 
 
 As defined in \cite{BTsInRobotics2}, a control architecture is a way of encoding a robot's functionality, by defining how a specified task is carried out. A control architecture provides a structured form of defining the intelligence of an agent, facilitating its comprehension, development, and debugging. There are many different types of control architectures that have been developed, each featuring a distinct set of tools, rules, and guidelines for organizing how to control a system.
 
-In this section, two of the most common control architectures in robotics are presented, the Finite State Machines (FSM) and the Hierarchical Finite State Machines (HFSM). In the next section, the control architecture that is the focus of this work is presented, the Behavior Trees (BT).
+In this section, two of the most common control architectures in robotics are presented, Finite State Machines (FSM) and Hierarchical Finite State Machines (HFSM). In the next section, the control architecture that is the focus of this work is presented, the Behavior Trees (BT).
 
 \subsection{Finite State Machines}
 
@@ -113,7 +113,16 @@ As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architec
 
 \subsection{Hierarchical Finite State Machines}
 
+Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is another type of control architecture that is derived from FSMs. HFSMs are based on the concept of superstates, the idea that a state can contain one or more substates. Thus, in HFSMs there is also the concept of \textit{generalized transitions}, which allow transition from one superstate to another instead of countless transitions between substates, reducing the total number of transitions specified in the system. It is also important to note that, each superstate designates one substate as the starting state, which executes whenever a transition to the superstate occurs. An example of HFSM is illustrated in Figure \ref{fig:hfsm_example}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{chapters/background/images/HFSM Example.png}
+    \caption{Example of a HFSM controlling a NPC of a combat game. \textit{Patrol}, \textit{Use Rifle}, and \textit{Use Handgun} are superstates. Taken from \cite{BTsInRobotics}}
+    \label{fig:hfsm_example}
+\end{figure}
+
+As it is possible to observe, HFSMs were developed to address some of the shortcomings of FSMs, trying, for example, to alleviate the problem of the number of transitions in complex systems by the means of using \textit{generalized transitions}. Additionally, this control architecture offers enhanced modularity, allowing tasks to be divided into subtasks, and supports behavior inheritance, enabling a substate to inherit properties from its superstate. However, HFSMs still have some of the same problems as FSMs, such as the difficulty of maintaining and modifying the system, and other problems such as editing the system hierarchy manually.
 
 \section{Behavior Trees}
 
@@ -122,7 +131,6 @@ As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architec
 % arrumar ref na implementacao sobre reactive
 
 % \linkhttps{https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)}
-% https://www.overleaf.com/learn/latex/TikZ_package
 % https://forum.thunderatz.org/t/arquiteturas-de-controle/3640
 % https://www.behaviortree.dev/docs/learn-the-basics/BT_basics
 
