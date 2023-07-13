@@ -126,30 +126,146 @@ As it is possible to observe, HFSMs were developed to address some of the shortc
 
 \section{Behavior Trees}
 
-% https://www.overleaf.com/learn/latex/Algorithms
+Behavior Trees (BTs) are a versatile control architecture widely known for their flexibility, modularity, ease of comprehension, and maintainability \cite{BTsInRobotics}. They can be described as a mathematical model that is structured as a directed rooted tree of hierarchical nodes. A BT is composed of two primary types of nodes: the control flow nodes, which are the internal nodes of the tree, and the execution nodes, which are the leaves. By combining various control flow and execution nodes, it is possible to construct a tree that describes an agent's behavior.
 
-% arrumar ref na implementacao sobre reactive
+As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree.
 
-% \linkhttps{https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)}
-% https://forum.thunderatz.org/t/arquiteturas-de-controle/3640
-% https://www.behaviortree.dev/docs/learn-the-basics/BT_basics
+The internal nodes of the tree, the so called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, sequence node, parallel node, and decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
 
 \subsection{Types of Nodes}
 
 \subsubsection{Root Node}
 
-\subsubsection{Control Nodes}
-\label{subsubsec:control_nodes}
+As previously explained, the root node is the one responsible for sending the tick signal to the whole tree. The node is usually represented as illustrated in Figure \ref{fig:background_root_node}.
 
-\subsubsection{Action Nodes}
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [\root, controlflow]
+        \end{forest}
+    }
+    \caption{Representation of a root node}
+    \label{fig:background_root_node}
+\end{figure}
 
-\subsubsection{Condition Nodes}
+\subsubsection{Fallback Node}
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [\reactivefallback, controlflow]
+        \end{forest}
+    }
+    \caption{Representation of a fallback node}
+    \label{fig:background_fallback_node}
+\end{figure}
+
+\subsubsection{Sequence Node}
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [\reactivesequence, controlflow]
+        \end{forest}
+    }
+    \caption{Representation of sequence node}
+    \label{fig:background_sequence_node}
+\end{figure}
+
+\subsubsection{Parallel Node}
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [\parallel, controlflow]
+        \end{forest}
+    }
+    \caption{Representation of a parallel node}
+    \label{fig:background_parallel_node}
+\end{figure}
 
 \subsubsection{Decorator Nodes}
 
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [$\mathbf{\delta}$, decorator]
+        \end{forest}
+    }
+    \caption{Representation of a decorator node with policy $\mathbf{\delta}$}
+    \label{fig:background_decorator_node}
+\end{figure}
+
+\subsubsection{Action Nodes}
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [Action, action, minimum height=7mm, minimum width=10mm]
+        \end{forest}
+    }
+    \caption{Representation of an action node}
+    \label{fig:background_action_node}
+\end{figure}
+
+\subsubsection{Condition Nodes}
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [Condition, condition, minimum height=7mm, minimum width=10mm]
+        \end{forest}
+    }
+    \caption{Representation of a condition node}
+    \label{fig:background_condition_node}
+\end{figure}
+
 \subsubsection{Subtree Nodes}
 
+\begin{figure}[!h]
+    \centering
+    \scalebox{1.0} {
+        \begin{forest}
+            [{Subtree}, subtree, minimum height=7mm, minimum width=10mm]
+        \end{forest}
+    }
+    \caption{Representation of a subtree node}
+    \label{fig:background_subtree_node}
+\end{figure}
+
 \subsection{Reactivity}
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}[b]{.49\linewidth}
+        \centering
+        \scalebox{1.0} {
+            \begin{forest}
+                [\fallback, controlflow]
+            \end{forest}
+        }
+        \caption{Non-reactive fallback}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{.49\linewidth}
+        \centering
+        \scalebox{1.0} {
+            \begin{forest}
+                [\sequence, controlflow]
+            \end{forest}
+        }
+        \caption{Non-reactive sequence}
+    \end{subfigure}
+    \caption{Representation of non-reactive nodes}
+    \label{fig:control_nodes_spec}
+\end{figure}
 
 \subsection{BTs vs other Control Architectures}
 

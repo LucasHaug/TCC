@@ -21,9 +21,13 @@ The root node is represented as shown in Figure \ref{fig:root_node_impl}.
     \label{fig:root_node_impl}
 \end{figure}
 
-\subsubsection{Control Nodes}
+\subsubsection{Control Flow Nodes}
 
-In contrast to the representation of control nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are denoted as reactive nodes, rather than marking the non-reactive nodes differently. However, it is important to note that the \texttt{Sequence} node is a little bit different from the non-reactive sequence presented in Chapter \ref{ch:background}, since when one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree.
+In contrast to the representation of control nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are denoted as reactive nodes, rather than marking the non-reactive nodes differently. 
+
+However, it is important to note that the \texttt{Sequence} node is a little bit different from the non-reactive sequence presented in Chapter \ref{ch:background}, since when one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree. 
+
+In addition, another type of control flow node is used in the tree implementation, which is the decorator node, however, the reason why this node was used in the tree implementation will not be explained in this subsubsection, but in Subsubsection \ref{subsubsec:decator_nodes_impl}.
 
 \begin{figure}[!h]
     \centering
@@ -50,7 +54,9 @@ In contrast to the representation of control nodes discussed in Subsubsection \r
 
 \subsubsection{Action Nodes}
 
-The implementation of the common action nodes, in Figure \ref{fig:common_action_node_impl}, is very similar to the specification presented in Subsubsection \ref{subsubsec:common_action_nodes_spec}, the \texttt{Always Success} node is precisely the same and the node that sets a variable in the blackboard is a little bit different. In the tree specification, all blackboard variables were represented as strings or booleans, however, in the implementation, some of those variables were created as integer variables instead, therefore, two nodes that store variables in the blackboard were used, one that stores strings and another that stores integers. These two nodes have the same syntax, in the node, the \texttt{value} field receives the value to be stored in the blackboard and the \texttt{output\_key} receives the name of the variable where the value will be stored. One thing important to note is that the node in Figure \ref{fig:set_blackboard_string_impl} is a built-in node of the library, while the node in Figure \ref{fig:set_blackboard_int_impl} is a custom node made inspired by the node from the library.
+The implementation of the common action nodes, in Figure \ref{fig:common_action_node_impl}, is very similar to the specification presented in Subsubsection \ref{subsubsec:common_action_nodes_spec}, the \texttt{Always Success} node is precisely the same and the node that sets a variable in the blackboard is a little bit different. 
+
+In the tree specification, all blackboard variables were represented as strings or booleans, however, in the implementation, some of those variables were created as integer variables instead, therefore, two nodes that store variables in the blackboard were used, one that stores strings and another that stores integers. These two nodes have the same syntax, in the node, the \texttt{value} field receives the value to be stored in the blackboard and the \texttt{output\_key} receives the name of the variable where the value will be stored. One thing important to note is that the node in Figure \ref{fig:set_blackboard_string_impl} is a built-in node of the library, while the node in Figure \ref{fig:set_blackboard_int_impl} is a custom node made inspired by the node from the library.
 
 \begin{figure}[!h]
     \centering
@@ -82,6 +88,7 @@ The implementation of the common action nodes, in Figure \ref{fig:common_action_
 In contrast to the tree specification, the common condition node specified in Subsubsection \ref{subsubsec:common_condition_nodes_spec} is no longer used in the tree implementation, a decorator is used instead, as it will be explained in the next subsubsection.
 
 \subsubsection{Decorator Nodes}
+\label{subsubsec:decator_nodes_impl}
 
 The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value and return success or failure depending on the result. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose.
 
