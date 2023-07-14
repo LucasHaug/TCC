@@ -19,7 +19,10 @@
 % ========== Diagrams ==========
 
 \usepackage{tikz}
-\usetikzlibrary{automata, positioning, arrows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata}
+\usetikzlibrary{external}
+\usetikzlibrary{positioning}
 
 \input{bts_config}
 \tikzexternalize[prefix=tikz/]
@@ -34,60 +37,67 @@
 \usepackage[style=abnt-numeric,sorting=none]{biblatex}
 \addbibresource{references.bib}
 
-% ========== Opções do documento ==========
+% ========== Document options ==========
 
 \graphicspath{ {./images/} }
 \makeglossaries
 %\input{chapters/glossario.tex}
 
-% Título
+% Title
 \titulo{A multi-agent strategy for coordinating a robot soccer team}
 
-% Autor
+% Author
 \autor{Lucas Haug}
 
-% Orientadora / Coorientador
+% Advisors
 \orientadora{Anarosa Alves Franco Brandão}
 \coorientador{Arthur Henrique Casals do Nascimento}
 
-% Tipo de documento
+% Document type
 \tcc{Electrical}{with emphasis on Computing}
 
-% Departamento e área de concentração
+% Department and area
 \departamento{Computer and Digital Systems Engineering}
 \areaConcentracao{Computer Engineering}
 
 % Local
 \local{São Paulo}
 
-% Ano
-\data{2022}
+% Year
+\data{2023}
 
 
 \begin{document}
-% ========== Capa e folhas de rosto ==========
+
+% ========== Cover and front pages ==========
+
 \capa
 \falsafolhaderosto
-\folhaderosto 
+\folhaderosto
 
-% ========== Folha de assinaturas (opcional) ==========
+% ========== Signature sheet (optional) ==========
+
 % \begin{folhadeaprovacao}
 % 	\assinatura{Anarosa Alves Franco Brandão}
 % \end{folhadeaprovacao}
 
-% ========== Ficha catalográfica ==========
-% Fazer solicitação no site:
+% ========== Cataloging sheet ==========
+
+% Make a request on the website:
 %	http://www.poli.usp.br/en/bibliotecas/servicos/catalogacao-na-publicacao.html
 
-% ========== Dedicatória (opcional) ==========
+% ========== Dedicatory (optional) ==========
+
 %\dedicatoria{Dedicatória}
 
-% ========== Agradecimentos ==========
-%\begin{agradecimentos}
+% ========== Acknowledgment ==========
 
+%\begin{agradecimentos}
+    % \input{chapters/acknowledgments}
 %\end{agradecimentos}
 
 % ========== Abstract ==========
+
 \begin{abstract}
     \input{chapters/abstract.tex}
     %
@@ -97,6 +107,7 @@
 \end{abstract}
 
 % ========== Resumo ==========
+
 \begin{resumo}
     \input{chapters/resumo.tex}
     %
@@ -105,17 +116,20 @@
     \textbf{Palavras-Chave} IEEE Very Small Size Soccer, Futebol de Robôs, Sistemas Multiagentes, Árvores de Comportamento, ROS.
 \end{resumo}
 
-% ========== Listas (opcional) ==========
+% ========== Lists (optional) ==========
+
 \listadefiguras
 \listadetabelas
 
-% ========== Listas definidas pelo usuário (opcional) ==========
+% ========== User defined lists (optional) ==========
+
 %\input{chapters/listaDeSimbolos.tex}
 
-% ========== Sumário ==========
+% ========== Summary ==========
+
 \sumario
 
-% ========== Elementos textuais ==========
+% ========== Textual elements ==========
 
 \input{chapters/introduction/introduction}
 
@@ -133,14 +147,15 @@
 
 \input{chapters/final_considerations/final_considerations}
 
-% ========== Glossário & Referências ==========
+% ========== Glossary and References ==========
 
 % \nocite{*}
 
 \printbibliography
 \printglossaries
 
-% ========== Apêndices (opcional) ==========
-%\input{chapters/apendice.tex}
+% ========== Appendix (optional) ==========
+
+%\input{chapters/appendix.tex}
 
 \end{document}

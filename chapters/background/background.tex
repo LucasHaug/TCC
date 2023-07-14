@@ -128,7 +128,7 @@ As it is possible to observe, HFSMs were developed to address some of the shortc
 
 Behavior Trees (BTs) are a versatile control architecture widely known for their flexibility, modularity, ease of comprehension, and maintainability \cite{BTsInRobotics}. They can be described as a mathematical model that is structured as a directed rooted tree of hierarchical nodes. A BT is composed of two primary types of nodes: the control flow nodes, which are the internal nodes of the tree, and the execution nodes, which are the leaves. By combining various control flow and execution nodes, it is possible to construct a tree that describes an agent's behavior.
 
-As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree.
+As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree. In a typical BT, the tick signal is propagated from left to right, therefore, a parent node will always tick its leftmost child before ticking the ones from the right.
 
 The internal nodes of the tree, the so called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, sequence node, parallel node, and decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
 
@@ -140,7 +140,7 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
             [\root, controlflow]
         \end{forest}
@@ -151,11 +151,18 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Fallback Node}
 
+The \textit{fallback} node, also called \textit{selector}, is a control flow node that iterates through its children from left to right, returning the first occurrence of a child returning either \textit{success} or \textit{running}. If all children return \textit{failure}, the fallback node also returns \textit{failure}. A typical representation of a fallback is a box with the "?" symbol, as can be seen in Figure \ref{fig:background_fallback_node}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [\reactivefallback, controlflow]
+            [\reactivefallback, controlflow
+                [{Child 1}, controlflow]
+                [{Child 2}, controlflow]
+                [{...}, minimum height=12mm, minimum width=12mm]
+                [{Child N}, controlflow]
+            ]
         \end{forest}
     }
     \caption{Representation of a fallback node}
@@ -164,11 +171,18 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Sequence Node}
 
+The \textit{sequence} node is also a control flow node that iterates through its children from left to right, however, this node returns \textit{success} only if all of its children return \textit{success} as well, otherwise, it returns \textit{running} or \textit{failure}, depending on its child status. The sequence node is usually represented as a box with the "$\rightarrow$" symbol, as illustrated in Figure \ref{fig:background_sequence_node}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [\reactivesequence, controlflow]
+            [\reactivesequence, controlflow
+                [{Child 1}, controlflow]
+                [{Child 2}, controlflow]
+                [{...}, minimum height=12mm, minimum width=12mm]
+                [{Child N}, controlflow]
+            ]
         \end{forest}
     }
     \caption{Representation of sequence node}
@@ -177,11 +191,18 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Parallel Node}
 
+The parallel node simultaneously ticks all of its children and returns \textit{success} if a specified number, M, of its N children return \textit{success}. It returns \textit{failure} if $N - M + 1$ of its children return \textit{failure}, and it returns \textit{running} otherwise. A representation of the use of a parallel node is depicted in Figure \ref{fig:background_parallel_node}, showing that the node is commonly represented using the "$\rightrightarrows$" symbol.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [\parallel, controlflow]
+            [\parallel, controlflow
+                [{Child 1}, controlflow]
+                [{Child 2}, controlflow]
+                [{...}, minimum height=12mm, minimum width=12mm]
+                [{Child N}, controlflow]
+            ]
         \end{forest}
     }
     \caption{Representation of a parallel node}
@@ -190,11 +211,15 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Decorator Nodes}
 
+Decorator nodes are a special type of control flow node that transforms the result received from its child, depending on a specified policy $\mathbf{\delta}$. The policies of a decorator node can vary greatly, for example, it is possible to use a decorator to invert its child's status, as well as to execute its child a certain number of times. Decorators are represented as rhombus-shaped nodes, with their policy indicated inside, as illustrated in Figure \ref{fig:background_decorator_node}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{0.9} {
         \begin{forest}
-            [$\mathbf{\delta}$, decorator]
+            [$\mathbf{\delta}$, decorator
+                [{Child}, controlflow]
+            ]
         \end{forest}
     }
     \caption{Representation of a decorator node with policy $\mathbf{\delta}$}
@@ -203,11 +228,13 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Action Nodes}
 
+The action nodes, represented in Figure \ref{fig:background_action_node}, are a type of execution node, which, as its name implies, perform an action. After being ticked, if the node needs more time to complete its action, it returns the status \textit{running} to its parent, if the action finished successfully, it returns \textit{success}, otherwise, returns \textit{failure}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [Action, action, minimum height=7mm, minimum width=10mm]
+            [Action, action]
         \end{forest}
     }
     \caption{Representation of an action node}
@@ -216,11 +243,13 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Condition Nodes}
 
+The condition nodes, depicted in Figure \ref{fig:background_condition_node}, are used to check propositions. In case the proposition is true, the node returns \textit{success}, otherwise returns \textit{failure}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [Condition, condition, minimum height=7mm, minimum width=10mm]
+            [Condition, condition]
         \end{forest}
     }
     \caption{Representation of a condition node}
@@ -229,11 +258,13 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Subtree Nodes}
 
+In addition to the aforementioned nodes, an essential concept in BT design is that of subtrees. When building large-scale trees, it is very useful to be able to divide the tree into smaller parts, creating small modules that are independent of each other, simplifying the development of the overall system. This can be achieved using subtrees, which can be used as components to be incorporated into a larger tree. When the main tree ticks a subtree, the root node of the subtree ticks its children, as if all nodes of the subtree were included in the parent tree. The representation of a subtree is sown in Figure \ref{fig:background_subtree_node}.
+
 \begin{figure}[!h]
     \centering
-    \scalebox{1.0} {
+    \scalebox{.9} {
         \begin{forest}
-            [{Subtree}, subtree, minimum height=7mm, minimum width=10mm]
+            [{Subtree}, subtree]
         \end{forest}
     }
     \caption{Representation of a subtree node}
@@ -241,6 +272,38 @@ As previously explained, the root node is the one responsible for sending the ti
 \end{figure}
 
 \subsection{Reactivity}
+
+Another very important characteristic of BTs is their ability to show reactive and non-reactive behaviors. Reactive behaviors are defined through nodes without memory, that is, every time the node is ticked, it restarts all the execution of its children, allowing the tree to respond faster to changes. On the other hand, non-reactive nodes are denoted as nodes with memory, as these nodes store the statuses of the children that have already been executed. They assume that the statuses of the previously executed children will remain unchanged and proceed to tick the next child that hasn't been ticked yet. This allows for efficient execution and avoids re-evaluating the statuses of already executed children.
+
+This reactivity of the trees is more related to the control flow nodes, more specifically to the fallback and sequence nodes.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Type of Fallback & Child returns \textit{running} \\
+        \midrule
+        Reactive         & Restart                        \\
+        Non-reactive     & Tick again                     \\
+        \bottomrule
+   \end{tabular}
+   \caption{Behavior of reactive and non-reactive fallback nodes when ticked}
+   \label{tab:fallback_reactivity}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c c}
+        \toprule
+        Type of Sequence & Child returns \textit{running} & Child returns \textit{failure} \\
+        \midrule
+        Reactive         & Restart                        & Restart                        \\
+        Non-reactive     & Tick again                     & Tick again                     \\
+        \bottomrule
+    \end{tabular}
+    \caption{Behavior of reactive and non-reactive sequence nodes when ticked}
+    \label{tab:sequence_reactivity}
+\end{table}
 
 \begin{figure}[!h]
     \centering
