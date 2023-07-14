@@ -8,7 +8,17 @@ This chapter will explain the theoretical foundation for understanding this work
 
 \section{Multi-agents systems}
 
+As presented in \cite{MASSurvey}, Multi-Agent Systems (MAS) is a subfield of Distributed Artificial Intelligence, in which a system is composed of multiple autonomous agents that interact with each other and their environment to achieve individual and collective goals. Agents can communicate, cooperate, and learn with each other, forming complex interactions and using all the gained knowledge to perform actions on the environment. Multi-agent systems (MAS) are well-suited for solving problems in many fields, such as computer science, civil engineering, and electrical engineering. Developing MAS involves tackling a wide range of complex challenges, including agent coordination, learning, and security.
 
+Multi-agent systems (MAS) can be categorized in various ways, depending on the specific characteristics and properties of the system. The four most important types of MAS classifications for this work will be detailed as follows.
+
+The first characteristic of a system is regarding its leadership, a MAS can be either leader-follow or leaderless. A leader-follow system is a system that contains an agent that acts as the leader of the organization, while a leaderless MAS does not. This leader agent is an agent responsible for defining what the other agents should do, by performing task assignments. The leader can be predefined or can be collaboratively chosen by the other agents, besides that it is also possible to have multiple leaders in an organization, which work together to lead the other agents.
+
+The second attribute is the heterogeneity of the MAS. A MAS can be composed of many agents that have different characteristics and functionalities or be composed of agents that have the same features, in the first case the system is categorized as a heterogeneous system, and in the second case as a homogeneous system.
+
+The third characteristic is related to the topology of the MAS. The system topology defines the position and relationship between the agents in the organization, defining, for example, which agents each one can communicate with. This topology can be either static, remaining the same during the MAS execution, or dynamic, changing over time.
+
+Lastly, the fourth attribute regards the mobility of the agents, which specifies if the agents in the system are mobile or static. A static agent always remains in the same position in the environment, while a mobile agent can move around.
 
 \section{\MOISEpBf}
 
@@ -275,21 +285,7 @@ In addition to the aforementioned nodes, an essential concept in BT design is th
 
 Another very important characteristic of BTs is their ability to show reactive and non-reactive behaviors. Reactive behaviors are defined through nodes without memory, that is, every time the node is ticked, it restarts all the execution of its children, allowing the tree to respond faster to changes. On the other hand, non-reactive nodes are denoted as nodes with memory, as these nodes store the statuses of the children that have already been executed. They assume that the statuses of the previously executed children will remain unchanged and proceed to tick the next child that hasn't been ticked yet. This allows for efficient execution and avoids re-evaluating the statuses of already executed children.
 
-This reactivity of the trees is more related to the control flow nodes, more specifically to the fallback and sequence nodes.
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{c c}
-        \toprule
-        Type of Fallback & Child returns \textit{running} \\
-        \midrule
-        Reactive         & Restart                        \\
-        Non-reactive     & Tick again                     \\
-        \bottomrule
-   \end{tabular}
-   \caption{Behavior of reactive and non-reactive fallback nodes when ticked}
-   \label{tab:fallback_reactivity}
-\end{table}
+This reactivity of the trees is more related to the control flow nodes, more specifically to the sequence and fallback nodes. The difference between the behavior of sequence and fallback nodes regarding their reactivity is presented in Tables \ref{tab:sequence_reactivity} and \ref{tab:fallback_reactivity}, respectively.
 
 \begin{table}[h]
     \centering
@@ -297,26 +293,32 @@ This reactivity of the trees is more related to the control flow nodes, more spe
         \toprule
         Type of Sequence & Child returns \textit{running} & Child returns \textit{failure} \\
         \midrule
-        Reactive         & Restart                        & Restart                        \\
-        Non-reactive     & Tick again                     & Tick again                     \\
+        Reactive         & Restart from first child       & Restart from first child       \\
+        Non-reactive     & Tick running child again       & Tick failed child again        \\
         \bottomrule
     \end{tabular}
     \caption{Behavior of reactive and non-reactive sequence nodes when ticked}
     \label{tab:sequence_reactivity}
 \end{table}
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c}
+        \toprule
+        Type of Fallback & Child returns \textit{running} \\
+        \midrule
+        Reactive         & Restart from first child       \\
+        Non-reactive     & Tick running child again       \\
+        \bottomrule
+   \end{tabular}
+   \caption{Behavior of reactive and non-reactive fallback nodes when ticked}
+   \label{tab:fallback_reactivity}
+\end{table}
+
+To differentiate the nodes with and without memory, in \cite{BTsInRobotics}, the nodes with memory are marked with the symbol "*", that is, a sequence node with memory is identified by "$\rightarrow^*$", while a fallback node is represented by "$?^*$", as depicted in Figure \ref{fig:background_non_reactive_nodes}.
+
 \begin{figure}[!h]
     \centering
-    \begin{subfigure}[b]{.49\linewidth}
-        \centering
-        \scalebox{1.0} {
-            \begin{forest}
-                [\fallback, controlflow]
-            \end{forest}
-        }
-        \caption{Non-reactive fallback}
-    \end{subfigure}
-    \hfill
     \begin{subfigure}[b]{.49\linewidth}
         \centering
         \scalebox{1.0} {
@@ -326,12 +328,26 @@ This reactivity of the trees is more related to the control flow nodes, more spe
         }
         \caption{Non-reactive sequence}
     \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{.49\linewidth}
+        \centering
+        \scalebox{1.0} {
+            \begin{forest}
+                [\fallback, controlflow]
+            \end{forest}
+        }
+        \caption{Non-reactive fallback}
+    \end{subfigure}
     \caption{Representation of non-reactive nodes}
-    \label{fig:control_nodes_spec}
+    \label{fig:background_non_reactive_nodes}
 \end{figure}
 
-\subsection{BTs vs other Control Architectures}
+\subsection{Advantages and Disadvantages}
+
+According to \cite{BTsInRobotics}, Behavior Trees (BTs) offer several advantageous characteristics. One notable advantage is their modularity, allowing for easy rearrangement of system blocks and simplifying the subdivision of complex systems. Additionally, the building blocks of BTs can be reused, facilitating the development of large systems. The hierarchical organization of BTs enhances their analysis and understanding, and their human readability is also noteworthy. Another advantage is their ability to exhibit reactive behaviors, enabling quick and efficient responses to events. Lastly, BTs are highly expressive, capable of encoding various behaviors and generalizing numerous control architectures.
+
+However, BTs also present some disadvantages, for example, the fact that compared to FSMs and HFSMs, they are much less mature, although there are already many new technologies related to BTs. Besides that, implementing a BT engine is a complex task, while a FSM can be implemented with a switch statement, however, this problem can be mitigated using already implemented frameworks for developing BTs. Finally, it is important to note that working with BTs requires a shift in mindset compared to FSMs. In BTs, the concept of states, commonly found in FSMs, is not typically used. Instead, the focus is on the hierarchical structure and the flow of execution within the tree. While BTs are generally easier to understand, it is important to approach them with a different perspective.
 
 \section{Blackboard}
 
-\cite{BlackboardDesignPattern}
+A blackboard \cite{BlackboardDesignPattern} is a design pattern in software engineering used when separated processes need to work together in order to make collective decisions. Blackboards are basically a shared memory space or data structure that allows different modules of a system to exchange information. They serve as a central repository where data, variables, and states can be stored and accessed by various parts of the system. Blackboards are very commonly used in the context of control architectures, enabling the exchange of data between the different modules of the system, for example, in the case of BTs, share the output of one node to another node.
