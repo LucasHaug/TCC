@@ -3,15 +3,17 @@
 
 This chapter presents the technical requirements for improving the system discussed in Chapter \ref{ch:target_system}.
 
-This improvement will be based on the refinement of the organization of the multi-agent system, using behavior trees to describe all the entities of the system.
+This improvement will be based on the restructuring of the coordinating agent of the multi-agent system, using behavior trees to model the referred agent.
 
 \section{Functional requirements}
+\label{sec:functional_requirements}
 
 For the development of the new game strategy based on a behavior tree, the new model must be able to cover all the use cases of the model that uses a finite state machine, dealing with the various events stated in Section \ref{sec:rules}.
 
 Therefore, the model must be able to receive events from the referee, handle those events, control whether the robots should play or not, and most importantly, switch robot roles based on the current state of the game.
 
 \section{Non-functional requirements}
+\label{sec:non_functional_requirements}
 
 When it comes to non-functional requirements, it is vital to ensure that all proposed changes do not adversely affect the team's performance in a game. Consequently, the team must maintain a comparable or improved level of performance.
 
