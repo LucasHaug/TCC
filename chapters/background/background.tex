@@ -168,10 +168,10 @@ The \textit{fallback} node, also called \textit{selector}, is a control flow nod
     \scalebox{.9} {
         \begin{forest}
             [\reactivefallback, controlflow
-                [{Child 1}, controlflow]
-                [{Child 2}, controlflow]
-                [{...}, minimum height=12mm, minimum width=12mm]
-                [{Child N}, controlflow]
+                    [{Child 1}, controlflow]
+                    [{Child 2}, controlflow]
+                    [{...}, minimum height=12mm, minimum width=12mm]
+                    [{Child N}, controlflow]
             ]
         \end{forest}
     }
@@ -188,10 +188,10 @@ The \textit{sequence} node is also a control flow node that iterates through its
     \scalebox{.9} {
         \begin{forest}
             [\reactivesequence, controlflow
-                [{Child 1}, controlflow]
-                [{Child 2}, controlflow]
-                [{...}, minimum height=12mm, minimum width=12mm]
-                [{Child N}, controlflow]
+                    [{Child 1}, controlflow]
+                    [{Child 2}, controlflow]
+                    [{...}, minimum height=12mm, minimum width=12mm]
+                    [{Child N}, controlflow]
             ]
         \end{forest}
     }
@@ -208,10 +208,10 @@ The parallel node simultaneously ticks all of its children and returns \textit{s
     \scalebox{.9} {
         \begin{forest}
             [\parallel, controlflow
-                [{Child 1}, controlflow]
-                [{Child 2}, controlflow]
-                [{...}, minimum height=12mm, minimum width=12mm]
-                [{Child N}, controlflow]
+                    [{Child 1}, controlflow]
+                    [{Child 2}, controlflow]
+                    [{...}, minimum height=12mm, minimum width=12mm]
+                    [{Child N}, controlflow]
             ]
         \end{forest}
     }
@@ -228,7 +228,7 @@ Decorator nodes are a special type of control flow node that transforms the resu
     \scalebox{0.9} {
         \begin{forest}
             [$\mathbf{\delta}$, decorator
-                [{Child}, controlflow]
+                    [{Child}, controlflow]
             ]
         \end{forest}
     }
@@ -310,9 +310,9 @@ This reactivity of the trees is more related to the control flow nodes, more spe
         Reactive         & Restart from first child       \\
         Non-reactive     & Tick running child again       \\
         \bottomrule
-   \end{tabular}
-   \caption{Behavior of reactive and non-reactive fallback nodes when ticked}
-   \label{tab:fallback_reactivity}
+    \end{tabular}
+    \caption{Behavior of reactive and non-reactive fallback nodes when ticked}
+    \label{tab:fallback_reactivity}
 \end{table}
 
 To differentiate the nodes with and without memory, in \cite{BTsInRobotics}, the nodes with memory are marked with the symbol "*", that is, a sequence node with memory is identified by "$\rightarrow^*$", while a fallback node is represented by "$?^*$", as depicted in Figure \ref{fig:background_non_reactive_nodes}.
