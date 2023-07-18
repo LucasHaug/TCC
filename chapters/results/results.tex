@@ -1,25 +1,159 @@
 \chapter{Results}
 \label{ch:results}
 
-\section{Comparison between models}
+In this chapter, the tests and results obtained from the implemented changes will be presented. A comprehensive comparison will be conducted between the new strategy and the old strategy, verifying whether all project requirements were fulfilled. To complete the comparison between the models, a detailed analysis of games played between the system using the old strategy and the system using the new one will be presented. Lastly, the chapter will include the results of applying the new strategy in a real robotics academic competition.
 
-This differs from the previous system with the FSM, where the initialization process occurred outside the FSM during the definition of the FSM's entry state.
+\section{Formal comparison between models}
 
-flags use penalty mode, use two strikers
+To perform a formal comparison between the two models, it is necessary to take into account the design requirements presented in Chapter \ref{ch:requirements}.
 
-These configurations were modeled in the FSM as entry states, however, in the behavior tree they were adapted as flags, being able to be activated and deactivated.
+First, considering the functional requirements of the project, the new strategy should be able to cover the same use cases as the previous model. When comparing the functions performed by the BT with those of the FSM, it is possible to observe that this requirement was fulfilled. 
 
-\section{Tests and Evaluation}
+In the FSM, the events received from the referee were handled prior to the FSM start in order to decide which state would be the FSM entry state. There were five entry states, one for the attack state, one for the defense, one for when using two strikers instead of one, and two others for when a penalty occurred. This functionality was refactored when implementing the BT to integrate the definition of these configurations more seamlessly into the model, thus, blackboard variables were used that emulate the same behavior, as presented in Section \ref{sec:implementation}. In addition, the FSM also presented states to carry out role changes, which were incorporated into the tree in the \textit{RolesSwapper} subtree and on its subtrees. The role changes between the attack and the defense subgroups are carried out in the \textit{RolesSwapper} subtree itself, while the internal attack role changes are performed in the \textit{AttackSwapper} subtree and the defense role changes in the \textit{DefenseSwapper} subtree.
 
-% numero de testes
-% setup de testes
-% statisticas
-% jogos
+Regarding the non-functional requirements, it is also possible to state that the project managed to meet all the requirements described.
 
-\section{Discussion}
+The system had its scalability improved both qualitatively and quantitatively. Previously, adding new functionality to the Coach or incorporating robots with different roles required defining specific states and managing all related transitions. However, with the new strategy, this process has become more flexible. The addition of new functionalities can now be achieved by utilizing blackboard variables to control the tree's flow. Similarly, introducing new robots with different roles only requires adding the specific nodes that handle the swaps of these roles to the \textit{AttackSwapper} or \textit{DefenseSwapper} subtrees and updating the nodes responsible for switching between attacking and defending roles.
 
-% ṕerformance pelo menos igual
+In terms of system modularity, the model using a BT is significantly more modular than the model using the FSM. This fact becomes evident when examining the various subtrees that constitute the new strategy. In relation to human readability, it is possible to state that the graphical representation of the BT seems more complex than the representation of the FSM, but it is not the case. 
 
-In order to compare the performance of the system that uses a finite state machine with the system that uses a behavior tree to model the organization, all other parts of the system must be kept unchanged. This is necessary so that test games can be made, where the two systems with different strategies would face each other, so that some game metrics can be collected for statistical comparison of the solutions, comparing metrics such as ball possession, number of goals, time in each quadrant of the field, among others.
+The BT presents a more transparent structure of what is happening in the Coach, showing more clearly the entire process of changing roles, and the priority between the role changes. Additionally, the BT also incorporates the entire initialization part in the \textit{RolesSwapperInitializer} subtree, which was previously done more obscurely by defining the entry state of the FSM prior to the FSM execution.
 
-falar sobre os requisitos
+\section{Tests between models}
+
+To validate the effectiveness of the new strategy, a series of games were conducted between the system using the BT and the system using the FSM. Both teams were configured with identical settings, with the only distinction being the color used to identify them during the matches. A total of 250 games were played to evaluate the performance of the system. Each game consisted of two halves, each lasting five minutes, resulting in a cumulative total of 2500 game hours. In this section, the setup to perform these tests will be explained, alongside the results of the games, and an analysis of the outcomes.
+
+\subsection{Setup}
+
+To better guarantee the equality of the two systems during the tests and enable the automation of the test execution, all test games between the two teams were carried out in a simulated way. Thus, the FIRASim simulator \cite{FIRASim} was used to simulate the environment, and the VSSReferee \cite{VSSReferee} was used to control the start of the game, the occurrence of fouls and define when the game ended.
+
+In order to carry out the tests in an automated way, simplifying the validation process and the collection of metrics, it was necessary to use headless versions of both FIRASim and VSSReferee. However, the official version of VSSReferee does not yet support running headless, therefore a modified version of the system was used. The version used is currently a fork of the original repository, available on the ThundeRatz team's GitHub organization\footnote{https://github.com/ThundeRatz/VSSReferee}. Changes made to this repository were based on changes made to another fork\footnote{https://github.com/thiagohenrique1/VSSReferee}, by a member of the VSSS category community.
+
+To facilitate the execution of the test system on any machine, \texttt{Docker}\footnote{https://www.docker.com/} and \texttt{Docker Compose}\footnote{https://docs.docker.com/compose/} were utilized to run FIRASim, VSSReferee, and the code from both teams. This approach allowed for a simple and efficient setup. Additionally, a bash script was created to automate the execution of the test system multiple times using \texttt{Docker Compose}.
+
+\subsection{Evaluation}
+
+The evaluation of the performance of the games between the two teams was made through the logs generated by VSSReferee. To read the log files, parse them and calculate performance metrics, a script was made using the Python language. The results of the games can be seen in Tables \ref{tab:wins}, \ref{tab:goals_number_metrics}, \ref{tab:goals_reasons}, and \ref{tab:fouls_count}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c c c}
+        \toprule
+        BT-based System Wins & Ties    & FSM-based System Wins \\
+        \midrule
+        31.20\%              & 43.20\% & 25.60\%  \\
+        \bottomrule
+    \end{tabular}
+    \caption{BT-based system versus FSM-based system - Wins, losses and ties ratio}
+    \label{tab:wins}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l c c}
+        \toprule
+                                          & BT-based System & FSM-based System \\
+        \midrule
+        Total goal                        & 185             & 156              \\
+        Maximum goals in a game           & 5               & 3                \\
+        Average goals per game            & 0.74            & 0.62             \\
+        Average goals difference per game & 0.12            & -0.12            \\
+        \bottomrule
+    \end{tabular}
+    \caption{BT-based system versus FSM-based system - Metrics related to the number of goals}
+    \label{tab:goals_number_metrics}
+\end{table}
+
+\begin{table}[h]
+    \begin{minipage}{\columnwidth}
+        \centering
+        \begin{tabular}{l c c c c c}
+            \toprule
+                             & Free Ball & Penalty Kick & Goal Kick & Kickoff & Other \\
+            \midrule
+            BT-based System  & 20        & 22           & 3         & 0       & 139   \\
+            FSM-based System & 25        & 10           & 2         & 0       & 119   \\
+            \bottomrule
+        \end{tabular}
+        \begin{center}
+            \footnotesize
+            \emph{Note}: An event was considered as a cause of a goal if it occurred within three seconds after the event.
+        \end{center}
+    \end{minipage}
+    \caption{BT-based system versus FSM-based system - Relationship of team goals with the events that caused them}
+    \label{tab:goals_reasons}
+\end{table}
+
+\begin{table}[h]
+    \begin{minipage}{\columnwidth}
+        \centering
+        \begin{tabular}{l c c}
+            \toprule
+            Events        & BT-based System & FSM-based System \\
+            \midrule
+            Free Balls    & 2113            & 2144             \\
+            Penalty Kicks & 349             & 323              \\
+            Goal Kicks    & 142             & 146              \\
+            Kickoffs      & 400             & 431              \\
+            \bottomrule
+        \end{tabular}
+        \begin{center}
+            \footnotesize
+            \emph{Note}: In the case of Free Ball events, the name of the team refers \\ 
+            to the side of the field where the foul occurred.
+        \end{center}
+    \end{minipage}
+    \caption{BT-based system versus FSM-based system - Number of events received for each team}
+    \label{tab:fouls_count}
+\end{table}
+
+\section{Evaluation in robotics academic competition}
+
+Given ThunderVolt's objective to compete at a high level with other teams, it is crucial that the implemented changes in the project have a positive impact on real competitions. Therefore, the changes presented in this work were tested in a Brazilian robotics academic competition, the IRONCup 2023 \cite{IRONCup2023}. The competition was held in February 2023 and in a virtual format, all games were played in the FIRASim simulator. The competition featured the participation of multiple teams including ThunderVolt, RobôCIn\footnote{https://robocin.com.br/}, Robotbulls\footnote{https://inatel.br/robotica/}, ITAndroids\footnote{https://www.itandroids.com.br/en/}, Red Dragons\footnote{https://www.linkedin.com/company/reddragons/}, Rinobot\footnote{https://www.linkedin.com/company/rinobot-team/}, and Neon\footnote{https://projectneon.dev/}.
+
+The competition consisted of a round-robin tournament, that is, all teams faced each other once and accumulated points according to the games won. The tiebreaker between teams with the same number of points was the goal difference. The results of the games played by the ThunderVolt team are presented in Table \ref{tab:ironcup_games}, while the overall results of the competition are displayed in Table  \ref{tab:ironcup_results}. The ThunderVolt team won second place in the competition, which proves the effectiveness of the coordination structure.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l c c c l}
+        \toprule
+        Blue team   &   &   &    & Yellow team \\
+        \midrule
+        ThunderVolt	& 7	& x	&  0 & Red Dragons \\
+        Neon        & 0 & x & 14 & ThunderVolt \\
+        ThunderVolt & 4 & x &  0 & ITAndroids  \\
+        Rinobot     & 0 & x &  5 & ThunderVolt \\
+        RobôCIn	    & 3 & x &  0 & ThunderVolt \\
+        Robotbulls  & 0 & x &  2 & ThunderVolt \\
+        \bottomrule
+    \end{tabular}
+    \caption{Results of the games played by the ThunderVolt team \cite{ResultsIRONCup2023}}
+    \label{tab:ironcup_games}
+\end{table}
+
+\begin{table}[h]
+    \begin{minipage}{\columnwidth}
+        \begin{center}
+            \begin{tabular}{l c c c c c c c}
+                \toprule
+                Team        & Pts & GP & W & L & GS & GC & GD  \\
+                \midrule
+                RobôCIn     & 18  & 6  & 6 & 0 & 68 & 17 &  51 \\
+                ThunderVolt & 15  & 6  & 5 & 1 & 32 &  3 &  29 \\
+                Robotbulls  & 12  & 6  & 4 & 2 & 34 & 23 &  11 \\
+                ITAndroids  &  9  & 6  & 3 & 3 & 36 & 17 &  19 \\
+                Red Dragons &  6  & 6  & 2 & 4 & 36 & 36 &   0 \\
+                Rinobot     &  3  & 6  & 1 & 5 & 14 & 54 & -40 \\
+                Neon        &  0  & 6  & 0 & 6 &  7 & 46 & -39 \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+        \begin{center}
+            \footnotesize 
+            \emph{Legend:} Pts: Points; GP: Games Played; W: Wins; L: Losses; GS: Goals Scored; \\GC: Goals Conceded; GD: Goal Difference.\\   
+            \emph{Points Count}: Each victory counts as three points and each tie counts as one point.
+        \end{center}
+    \end{minipage}
+    \caption{Final results and ranking of the competition \cite{ResultsIRONCup2023}}
+    \label{tab:ironcup_results}
+\end{table}

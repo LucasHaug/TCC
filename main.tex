@@ -2,7 +2,6 @@
 
 % ========== Packages ==========
 
-\usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -10,11 +9,12 @@
 \usepackage{amsthm}
 \usepackage{booktabs}
 \usepackage{float}
-\usepackage{glossaries}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{makecell}
 \usepackage{subcaption}
+\usepackage[utf8]{inputenc}
+\usepackage[acronym]{glossaries}
 
 % ========== Diagrams ==========
 
@@ -41,7 +41,6 @@
 
 \graphicspath{ {./images/} }
 \makeglossaries
-%\input{chapters/glossario.tex}
 
 % Title
 \titulo{A multi-agent strategy for coordinating a robot soccer team}
@@ -69,24 +68,28 @@
 
 \begin{document}
 
-% ========== Cover and front pages ==========
+% ========== Cover and fake front page ==========
 
 \capa
 \falsafolhaderosto
-\folhaderosto
 
-% ========== Signature sheet (optional) ==========
+% ========== Signature sheet ==========
 
 % \begin{folhadeaprovacao}
 % 	\assinatura{Anarosa Alves Franco Brandão}
+% 	\assinatura{Arthur Henrique Casals do Nascimento}
 % \end{folhadeaprovacao}
+
+% ========== Front page ==========
+
+\folhaderosto
 
 % ========== Cataloging sheet ==========
 
 % Make a request on the website:
 %	http://www.poli.usp.br/en/bibliotecas/servicos/catalogacao-na-publicacao.html
 
-% ========== Dedicatory (optional) ==========
+% ========== Dedicatory ==========
 
 %\dedicatoria{Dedicatória}
 
@@ -116,14 +119,14 @@
     \textbf{Palavras-Chave} IEEE Very Small Size Soccer, Futebol de Robôs, Sistemas Multiagentes, Árvores de Comportamento, ROS.
 \end{resumo}
 
-% ========== Lists (optional) ==========
+% ========== Lists ==========
 
 \listadefiguras
 \listadetabelas
 
-% ========== User defined lists (optional) ==========
+% ========== User-defined lists ==========
 
-%\input{chapters/listaDeSimbolos.tex}
+% \input{list_of_acronyms.tex}
 
 % ========== Summary ==========
 
@@ -152,10 +155,9 @@
 % \nocite{*}
 
 \printbibliography
-\printglossaries
 
 % ========== Appendix (optional) ==========
 
-%\input{chapters/appendix.tex}
+%\input{appendices.tex}
 
 \end{document}

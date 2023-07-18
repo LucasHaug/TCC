@@ -2,10 +2,25 @@
 \label{ch:final_considerations}
 
 \section{Conclusions}
-% Apresentar o balanço do trabalho: resultados atingidos e não atingidos, com justificativas.
+
+This work demonstrated the feasibility of utilizing BTs to implement coordination strategies in multi-agent systems. Specifically, it showcased the successful implementation of a BT to define the behavior of the agent that is the leader of the MAS organization.
+
+BTs provide a highly flexible, modular, and comprehensible control architecture that has significantly enhanced the system's scalability, maintainability, and adaptability to incorporate new functionalities, as adding new functionalities to the Coach's BT is much easier than adding new states in the previous FSM model. Therefore, in terms of architecture, BTs proved to be a great alternative to FSMs for defining complex behaviors of intelligent agents.
+
+On the other hand, in terms of performance, the new strategy presented a subtle improvement to the system, observing a higher rate of victories over the team using the FSM. There are some factors that can justify this performance change.  Firstly, it should be noted that the BT implementation is not a direct translation of the previous FSM-based strategy, but rather a reinterpretation in light of the functionalities of BTs. In addition, something that can also have influenced the slightly better performance of the BT is the reactive nature of BTs and the greater ease in defining priorities between role changes in the new structure.
 
 \section{Contributions}
-% Apresentar as contribuições do trabalho, ressaltando o que foi efetivamente da autoria da equipe
+
+The efforts put into this work have resulted in contributions in three main areas: the ThunderVolt project, the VSSS community, and the academic field.
+
+Firstly, two major contributions were made to the ThunderVolt project, the first being the main focus of this work, which is the restructuring of the coordination strategy using BTs. The second contribution refers to the development of the test structure for the project, which greatly facilitates the validation of changes and enables a numerical analysis of the changes made.
+
+Secondly, the contributions made to this work also impacted the VSSS community. In order to automate the tests using VSSReferee, the refereeing system had to be modified so that it could collect all game data when running the system without a graphical interface. These modifications are open-source and can be used by anyone in the VSSS community.
+
+Lastly, this work extends the research on the use of BTs in multi-agent systems, especially in the context of dynamic allocation of tasks and task switching between the agents. This contribution was described in a paper that was submitted to the Intelligent Robotics and Multi-Agent Systems (IRMAS) track of the ACM Symposium on Applied Computing (SAC)\footnote{https://sac2024-irmas.isr.uc.pt/} and is currently under revision. This paper can be found in Appendix \ref{appendix:paper}.
 
 \section{Continuity Prospects}
-% Descrever os trabalhos que podem ser realizados como continuação do projeto de formatura.
+
+The ThunderVolt project is constantly changing to improve its performance and obtain better results in academic competitions. The changes made in this work ensure a better project structure and improved maintainability. The improvement made the project more flexible to changes so that the system coordination strategy can be improved even further later, in order to have a greater impact on the performance of the team.
+
+Additionally, the introduction of an automated testing system and the development of a script for collecting metrics have added significant value to the project. These tools enable the team to validate and evaluate the impact of the changes made. These testing and metrics collection capabilities open up the possibility for investing in machine learning techniques that can be combined with the developed BT to further improve the system's performance.
