@@ -15,7 +15,7 @@
 \usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage[utf8]{inputenc}
-\usepackage[acronym]{glossaries}
+\usepackage[acronym,nonumberlist]{glossaries}
 
 % ========== Diagrams ==========
 
@@ -41,7 +41,7 @@
 % ========== Document options ==========
 
 \graphicspath{ {./images/} }
-\makeglossaries
+\input{list_of_acronyms.tex}
 
 % Title
 \titulo{A multi-agent strategy for coordinating a robot soccer team}
@@ -127,7 +127,8 @@
 
 % ========== User-defined lists ==========
 
-% \input{list_of_acronyms.tex}
+\glsaddall
+\printnoidxglossary[type=\acronymtype,title=List of Acronyms]
 
 % ========== Summary ==========
 
