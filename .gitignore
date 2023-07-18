@@ -18,5 +18,8 @@
 *.blg
 *.xml
 
+# Ignore pdf appendices
+!appendices/*.pdf
+
 # Output directories
 out/
