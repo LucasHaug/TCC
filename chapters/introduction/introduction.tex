@@ -4,21 +4,21 @@
 
 From robots used for the automation of industrial processes to personal assistants robots and exploring robots for areas of difficult access, in the robotics area, we observe several applications with approaches from the least to the most complex in order to solve the most varied problems. Therefore, in order to develop the most distinct solutions, robotics appears as a multidisciplinary field, covering different lines of research, such as artificial intelligence, electronics, control algorithms, embedded systems, among many others.
 
-One of the most prominent areas today is mobile robots, which aim to solve more complex tasks, in which the robot needs to move to carry out its activities. The difficulty of this branch is in how to control and coordinate the actions of robots so that they can interact with the environment and achieve their goal. For the accomplishment of some tasks, only one robot is not enough, being necessary then to use multiple robots, which makes the system more complex. Such systems prove how it is indispensable to have a control architecture for the coordination of all robots and a model of the organization of the system, capable of managing all the tasks that robots must perform, in order to achieve the system's objective, as can be seen in \cite{ACMultiplosRobos} and \cite{Moise}.
+One of the most prominent areas today is mobile robots, which aim to solve more complex tasks, in which the robot needs to move to carry out its activities. The difficulty of this branch is in how to control and coordinate the actions of robots so that they can interact with the environment and achieve their goal. For the accomplishment of some tasks, only one robot is not enough, being necessary then to use multiple robots, which makes the system even more complex. Such systems prove how it is indispensable to have a control architecture for the coordination of all robots and a model of the organization of the system, capable of managing all the tasks that robots must perform, in order to achieve the system's objective, as can be seen in \cite{ACMultiplosRobos} and \cite{Moise}.
 
-At the same time, in the line of development of control architectures for modeling intelligent agents in robotics, one of the fronts is the use of behavior trees to build the behavior of intelligent agents. Behavior trees were already widely used in the game development scenario, for modeling the behavior of non-player characters, and, thanks to their modularity and flexibility, they have been gaining more and more notoriety in robotics as a control architecture \cite{BTsInRobotics}.
+At the same time, in the line of development of control architectures for modeling intelligent agents in robotics, one of the fronts is the use of behavior trees to build the behavior of intelligent agents. Behavior trees were already widely used in the game development scenario, for modeling the behavior of non-player characters, and, thanks to their modularity and flexibility, they have been gaining more and more popularity in robotics as a control architecture \cite{BTsInRobotics, BTsAndFSMApplications}.
 
-Thus, it is possible to take advantage of the structure provided by the behavior trees to model systems in which it is necessary to control the actions of several robots, being able to model both the behavior of the robots with behavior trees, as well as the strategy that will coordinate all robots.
+Thus, it is possible to take advantage of the structure provided by the behavior trees to control systems in which it is necessary to coordinate the actions of several robots, being able to model both the behavior of the robots with behavior trees, as well as the strategy that will handle the coordination of the robots.
 
 \section{Project Context}
 
 \subsection{The ThundeRatz Robotics Team}
 
-In order to develop national robotics and participate in academic competitions, the robotics team at the Polytechnic School of the University of São Paulo was founded in 2001. This team, initially called \textit{Los Cuervos}, was reformed in 2005, giving rise to ThundeRatz \cite{ThundeRatz}.
+With the aim of developing national robotics and participating in academic competitions, a robotics team was founded in 2001 at the Polytechnic School of the University of São Paulo. This team, initially called \textit{Los Cuervos}, was reformed in 2005, giving rise to the ThundeRatz \cite{ThundeRatz} robotics team.
 
 Currently supervised by Prof. Dr. Rafael Traldi Moura, the group aims to learn about several topics that touch the state of the art of robotic systems, having contact with the newest lines of research. All this technical knowledge is used to design projects that encompass several areas of engineering, so that the team can submit these projects to test in national and international robotics competitions, gaining prominence on the robotics world stage.
 
-At the moment, the team has several projects, having combat robots, sumo, hockey robots and autonomous robots that perform the most varied tasks, such as playing soccer or following a line on the ground.
+At the moment, the team has several projects, having combat robots, sumo, hockey robots, and autonomous robots that perform the most varied tasks, such as playing soccer and following a line on the ground.
 
 \begin{figure}[!h]
     \centering
@@ -28,13 +28,13 @@ At the moment, the team has several projects, having combat robots, sumo, hockey
 
 \subsection{The IEEE Very Small Size Soccer category}
 
-One of the most challenging and stimulating academic robotics competition categories is the \textit{IEEE Very Small Size Soccer (VSSS)} category. In this category, competitors must develop an engineering solution for a team of robots that must play soccer autonomously, being each team composed of three players, each with maximum dimensions of 75 mm x 75 mm x 75 mm. The match is played on a 130mm x 150mm field and consists of two game periods, each lasting five minutes, with a half-time break of ten minutes.
+One of the most challenging and stimulating academic robotics competition categories is the \textit{IEEE Very Small Size Soccer (VSSS)} category. In this category, competitors must develop an engineering solution for a team of robots that must play soccer autonomously, being each team composed of three players, each with maximum dimensions of 75 mm x 75 mm x 75 mm. The match is played on a 130 mm x 150 mm field and consists of two game periods, each lasting five minutes, with a half-time break of ten minutes.
 
 Originally, the category had only its version with physical robots, in which matches are played on a black field with white markings and the robots have colored markings on their top, so they can be identified by means of a camera located above the field. However, due to the COVID-19 pandemic, the category adapted to the health context and also started to occur in a simulated environment, using the FIRASim \cite{FIRASim} simulator.
 
-For the physical version, in addition to game strategies, the teams need to develop the mechanical and electronic system of the robots, as well as a computer vision system to identify the positions and speeds of the robots in the field and a communication system between the computer that runs game strategy and physical robots, for the transmission of movement commands.
+For the physical version, in addition to game strategies, the teams need to develop the mechanical and electronic system of the robots, as well as a computer vision system to identify the positions and speeds of the robots in the field and a communication system between the physical robots and the computer that runs the game strategy, so movement commands can be transmitted.
 
-As for the simulated version, there is no need to develop the parts of the systems related to the physical world, only the system to determine the game strategy and a communication interface with the game simulator and with an automatic judge \cite{VSSReferee} developed for the category.
+As for the simulated version, there is no need to develop the parts of the systems related to the physical world, only the system to determine the game strategy, in addition to a communication interface with the game simulator and with an automatic judge \cite{VSSReferee} developed for the category.
 
 \begin{figure}[!h]
     \centering
@@ -45,9 +45,9 @@ As for the simulated version, there is no need to develop the parts of the syste
 
 \subsection{The ThunderVolt Team}
 
-To participate in the \textit{VSSS} category, the ThundeRatz team developed a team of robots called ThunderVolt \cite{ThunderVolt, TDPThunderVolt}.
+To participate in the \textit{VSSS} category, ThundeRatz developed a team of robots called ThunderVolt \cite{ThunderVolt, TDPThunderVolt}.
 
-For its physical version, four robots were developed, called: Alan, Dorothy, Grace and Alex. Each one was inspired by a figure in science and engineering, with the honorees being, respectively, Alan Turing, Dorothy Vaughan, Grace Hopper, and Alessandro Volta. In addition, a computer vision system was developed, using the library \textit{OpenCV} \cite{OpenCV}, as well as a communication system with the physical robots, by the means of using the radio frequency modules nRF24L01 alongside an open source library developed by team \cite{STM3232RF24}. Meanwhile, for its simulated version, a communication interface with the simulator and the automatic judge was developed using the UDP protocol.
+For its physical version, six robots were developed, called: Alan, Dora, Grace, Alex, Ada, and Mike. Each one was inspired by a figure in science and engineering, with the honorees being, respectively, Alan Turing, Dorothy Vaughan, Grace Hopper, Alessandro Volta, Ada Lovelace, and Michael Faraday. In addition, a computer vision system was developed, using the \textit{OpenCV} \cite{OpenCV} library, as well as a communication system with the physical robots, by the means of using the radio frequency modules nRF24L01 alongside an open source library developed by team \cite{STM3232RF24}. Meanwhile, for its simulated version, a communication interface with the simulator and the automatic judge was developed using the UDP protocol.
 
 \begin{figure}[!ht]
     \centering
@@ -80,7 +80,7 @@ Furthermore, it is worth noting that in the majority of the presented research s
 
 In \cite{Event-DrivenBTs}, an extension of BTs to address the coordination of non-player characters is proposed, presenting a way of developing an agent that can react to events and can communicate with other agents. On the other hand, \cite{Self-ReactivePlanningOfMulti-Robots} introduces a method of coordinating swarms of robots using a BT that formalizes a coordination behavior and applying this BT to all robots, so that the robots can exchange information with each other to perform a task. However, in this article, it is not described how to handle the part of assigning tasks to robots with a BT. In \cite{BTsMultRobot}, the advantages of using BTs in multi-robot systems are presented, showing BTs that can be used to perform specific tasks and others to handle the assignment of tasks to agents in the system, but not handling task switches between the robots.
 
-Thus, the ThunderVolt project is an excellent case study for the use of BTs in multi-agent organizations, extending the research of the presented works, as the project needs to constantly react to changes in real-time, not just when events are received, and needs to dynamically assign tasks to the robots and switch tasks between the robots, by the means of using a BT.
+Thus, the ThunderVolt project is an excellent case study for the use of BTs in multi-agent organizations, extending the research of the presented works, as the project needs to constantly react to changes in real-time, not just when events are received, and needs to dynamically assign tasks to the robots and switch tasks between the robots.
 
 \section{Project Organization}
 
@@ -90,9 +90,9 @@ In Chapter \ref{ch:background}, a review of the literature is performed, coverin
 
 In Chapter \ref{ch:methodology}, the methodologies employed throughout the project will be outlined, providing insights into how the work was executed.
 
-In Chapter \ref{ch:target_system}, the relevant information of the target system of this work, the ThunderVolt team, will be explained, detailing the rules that the project needs to follow and how it worked prior to the proposed changes, describing its previous structure and the old game strategy.
+In Chapter \ref{ch:target_system}, the relevant information of the target system of this work, the ThunderVolt team, will be explained, detailing the rules that the project needs to follow and how it worked prior to the implemented changes, describing its previous structure and the old game strategy.
 
-In Chapter \ref{ch:requirements}, the requirements of the team improvement proposal will be described, defining functional and non-functional requirements.
+In Chapter \ref{ch:requirements}, the requirements of the team improvement will be described, defining functional and non-functional requirements.
 
 In Chapter \ref{ch:development}, a deep explanation of the new strategy specification and implementation will be performed, highlighting the technologies used in the process.
 
