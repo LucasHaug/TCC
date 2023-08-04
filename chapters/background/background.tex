@@ -43,7 +43,7 @@ The \textbf{Structural Specification} delineates the organizational structure, d
     \label{fig:moise_ss}
 \end{figure}
 
-From this example, it is possible to understand the different categories of links between the roles that exist. A link has two attributes, its type, presented in Table \ref{tab:types_of_links_in_moise}, and its scope, which can be intra-group or inter-group. An intra-group link is used to specify that an agent playing the link source role is linked to all agents playing the destination role within the group or any of its sub-groups. Meanwhile, an inter-group link connects despite the groups the agents it connects belongs to.
+From this example, it is possible to understand the different categories of links between the roles that exist. A link has two attributes, its type, presented in Table \ref{tab:types_of_links_in_moise}, and its scope, which can be intra-group or inter-group. An intra-group link is used to specify that an agent playing the link's source role is linked to all agents playing the destination role within the group or any of its sub-groups. Meanwhile, an inter-group link connects roles despite their groups.
 
 \def \sourceagent{$a_s$ }
 \def \destagent{$a_d$ }
@@ -71,7 +71,7 @@ From this example, it is possible to understand the different categories of link
     \label{tab:types_of_links_in_moise}
 \end{table}
 
-Conversely, the \textbf{Functional Specification} is employed to define a way the goals of the organization can be achieved. It involves defining global plans, a structured way of combining goals, and utilizing a set of global goals to formulate missions. These missions serve as the foundation for the organization's social scheme, and agents within the organization can commit to missions in accordance with the rules defined in the social scheme of how many agents can commit to a specified mission. An example of a social scheme is illustrated in Figure \ref{fig:moise_fs}.
+Conversely, the \textbf{Functional Specification} is employed to define a way the goals of the organization can be achieved. It involves defining global plans, which are a structured way of combining goals, and utilizing a set of global goals to formulate missions. These missions serve as the foundation for the organization's social scheme, and agents within the organization can commit to missions in accordance with the rules defined in the social scheme of how many agents can commit to a specified mission. An example of a social scheme is illustrated in Figure \ref{fig:moise_fs}.
 
 Lastly, the \textbf{Deontic Specification} establishes the relationship between the Structural and Functional Specifications by specifying the permissions and obligations associated with each role in relation to a mission.
 
@@ -94,7 +94,7 @@ Lastly, the \textbf{Deontic Specification} establishes the relationship between 
 
 As defined in \cite{BTsInRobotics2}, a control architecture is a way of encoding a robot's functionality, by defining how a specified task is carried out. A control architecture provides a structured form of defining the intelligence of an agent, facilitating its comprehension, development, and debugging. There are many different types of control architectures that have been developed, each featuring a distinct set of tools, rules, and guidelines for organizing how to control a system.
 
-In this section, two of the most common control architectures in robotics are presented, Finite State Machines (FSM) and Hierarchical Finite State Machines (HFSM). In the next section, the control architecture that is the focus of this work is presented, the Behavior Trees (BT).
+In this section, two of the most common control architectures in robotics are presented, the Finite State Machines (FSM) and the Hierarchical Finite State Machines (HFSM). Additionally, in the next section, the control architecture that is the focus of this work, the Behavior Trees (BT), will be detailed.
 
 \subsection{Finite State Machines}
 
@@ -119,11 +119,11 @@ FSMs are a very common mathematical model of computation, a FSM represents a sys
     \label{fig:fsm_example}
 \end{figure}
 
-As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architecture and can be easily implemented, however, they are not very suitable for describing complex systems. FSMs usually do not scale well, as adding more and more states and transitions to the system, makes it harder to understand and modify. Besides that, FSMs have also a problem regarding maintainability, as adding or removing states can result in re-evaluating numerous transitions and internal states, making FSMs prone to human design errors and impractical for automated design purposes.
+As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architecture and can be easily implemented, however, they are not very suitable for describing complex systems. FSMs usually do not scale well, as adding more and more states and transitions to the system, makes it harder to understand and modify. Besides that, FSMs also have a problem regarding maintainability, as adding or removing states can result in re-evaluating numerous transitions and states, making FSMs prone to human design errors and impractical for automated design purposes.
 
 \subsection{Hierarchical Finite State Machines}
 
-Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is another type of control architecture that is derived from FSMs. HFSMs are based on the concept of superstates, the idea that a state can contain one or more substates. Thus, in HFSMs there is also the concept of \textit{generalized transitions}, which allow transition from one superstate to another instead of countless transitions between substates, reducing the total number of transitions specified in the system. It is also important to note that, each superstate designates one substate as the starting state, which executes whenever a transition to the superstate occurs. An example of HFSM is illustrated in Figure \ref{fig:hfsm_example}.
+Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is another type of control architecture that is derived from FSMs. HFSMs are based on the concept of superstates, the idea that a state can contain one or more substates. Thus, in HFSMs there is also the concept of \textit{generalized transitions}, which allow transition from one superstate to another instead of countless transitions between substates, reducing the total number of transitions specified in the system. It is also important to note that, each superstate designates one substate as the starting state, which is the one that is executed whenever a transition to the superstate occurs. An example of HFSM is illustrated in Figure \ref{fig:hfsm_example}.
 
 \begin{figure}
     \centering
@@ -132,7 +132,7 @@ Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is a
     \label{fig:hfsm_example}
 \end{figure}
 
-As it is possible to observe, HFSMs were developed to address some of the shortcomings of FSMs, trying, for example, to alleviate the problem of the number of transitions in complex systems by the means of using \textit{generalized transitions}. Additionally, this control architecture offers enhanced modularity, allowing tasks to be divided into subtasks, and supports behavior inheritance, enabling a substate to inherit properties from its superstate. However, HFSMs still have some of the same problems as FSMs, such as the difficulty of maintaining and modifying the system, and other problems such as editing the system hierarchy manually.
+As it is possible to observe, HFSMs were developed to address some of the shortcomings of FSMs, trying, for example, to alleviate the problem of the number of transitions in complex systems by the means of using \textit{generalized transitions}. Additionally, this control architecture offers enhanced modularity, by allowing tasks to be divided into subtasks, and supports behavior inheritance, by enabling a substate to inherit properties from its superstate. However, HFSMs still have some of the same problems as FSMs, such as the difficulty of maintaining and modifying the system, and other problems such as editing the system hierarchy manually.
 
 \section{Behavior Trees}
 
@@ -140,13 +140,13 @@ Behavior Trees (BTs) are a versatile control architecture widely known for their
 
 As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree. In a typical BT, the tick signal is propagated from left to right, therefore, a parent node will always tick its leftmost child before ticking the ones from the right.
 
-The internal nodes of the tree, the so called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, sequence node, parallel node, and decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
+The internal nodes of the tree, the so called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, the sequence node, the parallel node, and the decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
 
 \subsection{Types of Nodes}
 
 \subsubsection{Root Node}
 
-As previously explained, the root node is the one responsible for sending the tick signal to the whole tree. The node is usually represented as illustrated in Figure \ref{fig:background_root_node}.
+As previously explained, the root node is the one responsible for sending the tick signal to the whole tree. This node is usually represented as illustrated in Figure \ref{fig:background_root_node}.
 
 \begin{figure}[!h]
     \centering
@@ -161,7 +161,7 @@ As previously explained, the root node is the one responsible for sending the ti
 
 \subsubsection{Fallback Node}
 
-The \textit{fallback} node, also called \textit{selector}, is a control flow node that iterates through its children from left to right, returning the first occurrence of a child returning either \textit{success} or \textit{running}. If all children return \textit{failure}, the fallback node also returns \textit{failure}. A typical representation of a fallback is a box with the "?" symbol, as can be seen in Figure \ref{fig:background_fallback_node}.
+The \textit{fallback} node, also called \textit{selector}, is a control flow node that iterates through its children from left to right and returns \textit{success} or \textit{running} at the first occurrence of a child with a status \textit{success} or \textit{running}. If all children return \textit{failure}, the fallback node also returns \textit{failure}. A typical representation of a fallback is a box with the "?" symbol, as can be seen in Figure \ref{fig:background_fallback_node}.
 
 \begin{figure}[!h]
     \centering
@@ -221,7 +221,7 @@ The parallel node simultaneously ticks all of its children and returns \textit{s
 
 \subsubsection{Decorator Nodes}
 
-Decorator nodes are a special type of control flow node that transforms the result received from its child, depending on a specified policy $\mathbf{\delta}$. The policies of a decorator node can vary greatly, for example, it is possible to use a decorator to invert its child's status, as well as to execute its child a certain number of times. Decorators are represented as rhombus-shaped nodes, with their policy indicated inside, as illustrated in Figure \ref{fig:background_decorator_node}.
+Decorator nodes are a special type of control flow node that transforms the result received from its child, depending on a specified $\mathbf{\delta}$ policy. The policies of a decorator node can vary greatly, for example, it is possible to use a decorator to invert its child's status, as well as to execute its child a certain number of times. Decorators are represented as rhombus-shaped nodes, with their policy indicated inside, as illustrated in Figure \ref{fig:background_decorator_node}.
 
 \begin{figure}[!h]
     \centering
@@ -232,7 +232,7 @@ Decorator nodes are a special type of control flow node that transforms the resu
             ]
         \end{forest}
     }
-    \caption{Representation of a decorator node with policy $\mathbf{\delta}$}
+    \caption{Representation of a decorator node with $\mathbf{\delta}$ policy}
     \label{fig:background_decorator_node}
 \end{figure}
 
@@ -268,7 +268,7 @@ The condition nodes, depicted in Figure \ref{fig:background_condition_node}, are
 
 \subsubsection{Subtree Nodes}
 
-In addition to the aforementioned nodes, an essential concept in BT design is that of subtrees. When building large-scale trees, it is very useful to be able to divide the tree into smaller parts, creating small modules that are independent of each other, simplifying the development of the overall system. This can be achieved using subtrees, which can be used as components to be incorporated into a larger tree. When the main tree ticks a subtree, the root node of the subtree ticks its children, as if all nodes of the subtree were included in the parent tree. The representation of a subtree is sown in Figure \ref{fig:background_subtree_node}.
+In addition to the aforementioned nodes, an essential concept in BTs design is that of subtrees. When building large-scale trees, it is very useful to be able to divide the tree into smaller parts, creating small modules that are independent of each other, simplifying the development of the overall system. This is achieved using subtrees, which can be used as components to be incorporated into a larger tree. When the main tree ticks a subtree, the root node of the subtree ticks its children, as if all nodes of the subtree were included in the parent tree. The representation of a subtree is sown in Figure \ref{fig:background_subtree_node}.
 
 \begin{figure}[!h]
     \centering
@@ -283,7 +283,7 @@ In addition to the aforementioned nodes, an essential concept in BT design is th
 
 \subsection{Reactivity}
 
-Another very important characteristic of BTs is their ability to show reactive and non-reactive behaviors. Reactive behaviors are defined through nodes without memory, that is, every time the node is ticked, it restarts all the execution of its children, allowing the tree to respond faster to changes. On the other hand, non-reactive nodes are denoted as nodes with memory, as these nodes store the statuses of the children that have already been executed. They assume that the statuses of the previously executed children will remain unchanged and proceed to tick the next child that hasn't been ticked yet. This allows for efficient execution and avoids re-evaluating the statuses of already executed children.
+Another very important characteristic of BTs is their ability to show reactive and non-reactive behaviors. Reactive behaviors are defined through nodes without memory, that is, every time the node is ticked, it restarts all the execution of its children, allowing the tree to respond faster to changes. On the other hand, non-reactive nodes are denoted as nodes with memory, as these nodes store the statuses of the children that have already been executed. They assume that the statuses of the previously executed children will remain unchanged and proceed to tick the next child that has not been ticked yet. This allows for efficient execution and avoids re-evaluating the statuses of already executed children.
 
 This reactivity of the trees is more related to the control flow nodes, more specifically to the sequence and fallback nodes. The difference between the behavior of sequence and fallback nodes regarding their reactivity is presented in Tables \ref{tab:sequence_reactivity} and \ref{tab:fallback_reactivity}, respectively.
 
@@ -315,7 +315,7 @@ This reactivity of the trees is more related to the control flow nodes, more spe
     \label{tab:fallback_reactivity}
 \end{table}
 
-To differentiate the nodes with and without memory, in \cite{BTsInRobotics}, the nodes with memory are marked with the symbol "*", that is, a sequence node with memory is identified by "$\rightarrow^*$", while a fallback node is represented by "$?^*$", as depicted in Figure \ref{fig:background_non_reactive_nodes}.
+To differentiate nodes with and without memory, in \cite{BTsInRobotics}, the nodes with memory are marked with the symbol "*", that is, a sequence node with memory is identified by "$\rightarrow^*$", while a fallback node is represented by "$?^*$", as depicted in Figure \ref{fig:background_non_reactive_nodes}.
 
 \begin{figure}[!h]
     \centering
@@ -346,8 +346,8 @@ To differentiate the nodes with and without memory, in \cite{BTsInRobotics}, the
 
 According to \cite{BTsInRobotics}, Behavior Trees offer several advantageous characteristics. One notable advantage is their modularity, allowing for easy rearrangement of system blocks and simplifying the subdivision of complex systems. Additionally, the building blocks of BTs can be reused, facilitating the development of large systems. The hierarchical organization of BTs enhances their analysis and understanding, and their human readability is also noteworthy. Another advantage is their ability to exhibit reactive behaviors, enabling quick and efficient responses to events. Lastly, BTs are highly expressive, capable of encoding various behaviors and generalizing numerous control architectures.
 
-However, BTs also present some disadvantages, for example, the fact that compared to FSMs and HFSMs, they are much less mature, although there are already many new technologies related to BTs. Besides that, implementing a BT engine is a complex task, while a FSM can be implemented with a switch statement, however, this problem can be mitigated using already implemented frameworks for developing BTs. Finally, it is important to note that working with BTs requires a shift in mindset compared to FSMs. In BTs, the concept of states, commonly found in FSMs, is not typically used. Instead, the focus is on the hierarchical structure and the flow of execution within the tree. While BTs are generally easier to understand, it is important to approach them with a different perspective.
+However, BTs also present some disadvantages, for example, the fact that compared to FSMs and HFSMs, they are much less mature, although there are already many new technologies related to BTs. Besides that, implementing a BT engine is a complex task, while a FSM can be implemented with a switch statement, however, this problem can be mitigated using already implemented frameworks for developing BTs. Finally, it is important to note that working with BTs requires a shift in mindset compared to FSMs. In BTs, the concept of states, commonly found in FSMs, is not typically used, instead, the focus is on the hierarchical structure and the flow of execution within the tree. While BTs are generally easier to understand, it is important to approach them with a different perspective.
 
 \section{Blackboard}
 
-A blackboard \cite{BlackboardDesignPattern} is a design pattern in software engineering used when separated processes need to work together in order to make collective decisions. Blackboards are basically a shared memory space or data structure that allows different modules of a system to exchange information. They serve as a central repository where data, variables, and states can be stored and accessed by various parts of the system. Blackboards are very commonly used in the context of control architectures, enabling the exchange of data between the different modules of the system, for example, in the case of BTs, share the output of one node to another node.
+A blackboard \cite{BlackboardDesignPattern} is a design pattern in software engineering used when separated processes need to work together in order to make collective decisions. Blackboards are basically a shared memory space or data structure that allows different modules of a system to exchange information. They serve as a central repository where data, variables, and states can be stored and accessed by various parts of the system. Blackboards are very commonly used in the context of control architectures, enabling the exchange of data between the different modules of the system, for example, in the case of BTs, share the output of one node with another one.

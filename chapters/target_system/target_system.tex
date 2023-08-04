@@ -3,7 +3,7 @@
 \chapter{Target System}
 \label{ch:target_system}
 
-To enable a better understanding of the proposed improvements, it is necessary to understand how the system worked before the changes. For this, the rules to which the system must obey and the organizational model used before the changes, following the structure of the \MOISEp model \cite{MOISEp}, will be explained, and, based on these two factors, the previous game strategy will be presented.
+To enable a better understanding of the proposed improvements, it is necessary to understand how the system worked before the changes. For this, the rules to which the system must obey and the organizational model used before the changes, following the structure of the \MOISEp model, will be explained, and, based on these two factors, the previous game strategy will be presented.
 
 \section{Game Rules}
 \label{sec:rules}
@@ -35,7 +35,7 @@ Meanwhile, the control events are specified as follows:
 \section{Organization Model}
 \label{sec:organization_model}
 
-Using the \MOISEp model \cite{MOISEp}, a mapping of the current solution was made, in order to validate the use of the model, facilitate the understanding of the current system and observe gaps for improvements. This mapping can be seen in Figure \ref{fig:moise_mapping}.
+Using the \MOISEp model, a mapping of the current solution was made, in order to validate the use of the model, facilitate the understanding of the current system and observe gaps for improvements. The structural specification of the team obtained from this mapping can be seen in Figure \ref{fig:moise_mapping}.
 
 \begin{figure}[!ht]
     \centering
@@ -44,9 +44,7 @@ Using the \MOISEp model \cite{MOISEp}, a mapping of the current solution was mad
     \label{fig:moise_mapping}
 \end{figure}
 
-From the diagram, it is possible to better understand the functioning of the system, which will be detailed below. 
-
-The ThunderVolt team is made up of three robots, however, to ensure greater versatility in what each robot can do, seven possible roles were defined that robots can play. The roles and their responsibilities are defined as follows:
+A team of the VSSS category just plays using three robots, however, as it is possible to observe in the structural specification, to ensure greater versatility in what each robot can do, seven possible roles have been defined that the ThunderVolt's robots can play. These roles and their responsibilities are defined as follows:
 
 \begin{itemize}
     \item Goalkeeper: Defends the goal.
@@ -58,19 +56,19 @@ The ThunderVolt team is made up of three robots, however, to ensure greater vers
     \item Wingback: Helps the defense, while trying to make counterattacks.
 \end{itemize}
 
-It is important to note that the behavior of these roles, meaning their functional specification, has already been implemented using behavior trees prior to this work. This experience of using behavior trees to define the roles to be performed proved to be quite advantageous, due to the ease of implementation, flexibility, and modularity.
+It is important to note that the behaviors of these roles, meaning their functional specification, have already been implemented using behavior trees prior to this work. This experience of using behavior trees to define the roles to be performed proved to be quite advantageous, due to the ease of implementation, flexibility, and modularity. It is also noteworthy that in this organization the deontic specification is very straightforward, since the roles present in the organization are actually differentiated according to their functional specification.
 
-Regarding the roles listed, some of these are played while the team is attacking and others while the team is defending. As not all roles can be performed simultaneously, there is an agent in the organization, called Coach, which is responsible for assigning each of the three robots a certain role in the game, corresponding to the leader of the organization. Taking into account that a game is a dynamic scenario, as time progresses, it is necessary to perform role swaps between the robots, these swaps are also coordinated by the Coach and depend on the role that each robot is playing at the moment.
+Regarding the listed roles, some of these are played while the team is attacking and others while the team is defending. As not all roles can be performed simultaneously, there is an agent in the organization, called Coach, which is the leader of the organization, meaning it is an agent responsible for assigning each of the three robots of the team a certain role in the game. Taking into account that a game is a dynamic scenario, as time progresses, it is also necessary to perform role swaps between the robots, these swaps are also coordinated by the Coach and depend on the role that each robot is playing at the moment.
 
-Thus, for a robot that is playing a certain role to play another role, there must be a compatibility between the two roles, for example, the attacker role is not compatible with the goalkeeper role, due to different positioning and functionalities, meanwhile, the assistant and attacker roles are compatible with each other, thanks to the high synergy between the two roles in the attack state.
+Thus, for a robot that is playing a certain role to play another role, there must be a compatibility link between the two roles, for example, the attacker role is not compatible with the goalkeeper role, due to different positioning and functionalities, meanwhile, the assistant and striker roles are compatible with each other, thanks to the high synergy between the two roles in the attack state.
 
-In general, the roles of penalty kicker and defender are used only when a penalty event occurs, with the penalty kicker being used in place of the attacker and the penalty defender in the place of the goalkeeper. However, the team supports many penalty modes, thus there is also the case where a penalty can be kicked by an attacker or defended by the goalkeeper. In other moments of the game, while the team is defending, the roles of goalkeeper, fullback, and wingback are used and while the team is attacking, the roles of goalkeeper, assistant, and striker are usually used. Besides that, in some special moments of the game, an extra striker can be used in place of the assistant to make the team more offensive.
+In general, the roles of penalty kicker and defender are used only when a penalty event occurs, with the penalty kicker being used in place of the striker and the penalty defender in the place of the goalkeeper. However, the team supports many penalty modes, thus there is also the case where a penalty can be kicked by a striker or defended by the goalkeeper. In other moments of the game, while the team is defending, the roles of goalkeeper, fullback, and wingback are used and while the team is attacking, the roles of goalkeeper, assistant, and striker are usually used instead. Besides that, in some special moments of the game, an extra striker can be used in place of the assistant to make the team more offensive.
 
-To implement the Coach and all the swaps between the roles, the previous structure used a finite state machine, which will be described in the next section. 
+To implement the Coach and all the swaps between the roles, the previous strategy used a finite state machine, which will be described in the next section. 
 
 \section{Game Strategy}
 
-Bearing in mind the roles used and the compatibilities between them, which allows the swap of roles between the robots, a finite state machine was developed to define the game strategy, that is the behavior of the Coach agent. With the increasing complexity of the strategy, this solution proved to be non-scalable and not sustainable for the project, which was a major gap for improvements in the previous system. The size of the strategy code significantly expanded, making it difficult for the FSM to accommodate and scale with the increased complexity.
+Bearing in mind the aforementioned roles and the compatibilities between them, which allows the swap of roles between the robots, a finite state machine was developed to define the game strategy, that is the behavior of the Coach agent. With the increasing complexity of the strategy, this solution proved to be non-scalable and not sustainable for the project, being a major gap for improvements in the previous system. The size of the strategy code significantly expanded, making it difficult for the FSM to accommodate and scale with the increased complexity.
 
 \begin{figure}[!h]
     \centering
@@ -79,6 +77,6 @@ Bearing in mind the roles used and the compatibilities between them, which allow
     \label{fig:behaviors_controller_fsm}
 \end{figure}
 
-The current solution can be seen in Figure \ref{fig:behaviors_controller_fsm}. In the finite state machine, it is possible to observe that there are eight possible states for the system, three of which are states in which role swaps occur and the other five are input and waiting states. The determination of which state the state machine will start in was done in advance, upon receiving one of the events described in Section \ref{sec:rules}. For example, when a penalty event for the opposing team was received, the entry state was set to be the penalty defense state. Each transition between states was controlled by a guard function and when the condition of this function was satisfied, a transition function was called, all these functions are listed in Figure \ref{fig:behaviors_controller_fsm}.
+The previous strategy can be seen in Figure \ref{fig:behaviors_controller_fsm}. In the FSM, it is possible to observe that there are eight possible states for the system, three of which are states in which role swaps occur and the other five are input and waiting states. The determination of which state of the FSM would be the entry state was made in advance, upon receiving one of the events described in Section \ref{sec:rules}. For example, when a penalty event for the opposing team was received, the entry state was set to be the penalty defense state. Each transition between states was controlled by a guard function and when the condition of this function was satisfied, a transition function was called, all these functions are listed in Figure \ref{fig:behaviors_controller_fsm}.
 
 An important feature to note is that in all cases, to go to a swap state, a swap condition was analyzed, meanwhile, to exit these states and return to the attack or defense states, the negation of the swap condition was analyzed. This was necessary to ensure that the swap state was only exited when the swap was complete and could not happen immediately afterward, guaranteeing a hysteresis to the system and avoiding multiple subsequent swaps that would make the system unstable.

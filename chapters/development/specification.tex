@@ -264,7 +264,7 @@ The \texttt{Penalty Kick Event Handler}, presented in Figure \ref{fig:penalty_ki
     \label{fig:penalty_kick_event_handler_spec}
 \end{figure}
 
-The first child of this sequence is a node called \texttt{Set Penalty Mode}, which sets a blackboard variable named \texttt{use\_penalty\_mode}. This variable controls whether the penalty kicker role will be used in place of the attacker and whether the penalty defender role will be used in place of the goalkeeper. The variable value is set in the blackboard and can be either \texttt{True} or \texttt{False}, its value is determined based on some user configurations for the match, depending on the opposing team.
+The first child of this sequence is a node called \texttt{Set Penalty Mode}, which sets a blackboard variable named \texttt{use\_penalty\_mode}. This variable controls whether the penalty kicker role will be used in place of the striker and whether the penalty defender role will be used in place of the goalkeeper. The variable value is set in the blackboard and can be either \texttt{True} or \texttt{False}, its value is determined based on some user configurations for the match, depending on the opposing team.
 
 The second child of the sequence is a fallback. The structure built by this fallback and its children is used to check whether the penalty event received was for the friends' team and, if it was, set the \texttt{team\_state} blackboard variable to be \texttt{attacking}, otherwise set it to be \texttt{defending}. To know for which team the penalty event was, the \texttt{game\_state\_team} blackboard variable is checked, which is a variables updated using the data from the \textit{VSSReferee}.
 
