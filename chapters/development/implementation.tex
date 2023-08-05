@@ -1,14 +1,14 @@
 \section{Implementation}
 \label{sec:implementation}
 
-This Section will detail the implementation of the specification described in Section \ref{sec:specification}, highlighting the differences between what was previously specified and the final implementation.
+This section will detail the implementation of the specification described in Section \ref{sec:specification}, highlighting the differences between what was previously specified and the final implementation.
 
-Similar to Section \ref{sec:specification}, this section will first present the nodes that are common to all trees and their representation, then each subtree of the strategy tree will be briefly introduced and any implementation details will be elucidated. All images of nodes and trees shown in this section were taken using the \textit{Groot 2} interface (see Subsubsection \ref{subsubsec:groot}).
+Similar to Section \ref{sec:specification}, this section will first present the nodes that are common to some trees, then each subtree of the strategy tree will be briefly introduced and any implementation details will be elucidated. All images of nodes and trees shown in this section were created using the \textit{Groot 2} interface (see Subsubsection \ref{subsubsec:groot}).
 
 \subsection{Common Nodes}
 \label{subsec:common_nodes_impl}
 
-The common nodes presented in this section are mostly very similar to the nodes presented in the Subsection \ref{subsec:common_nodes_spec}, changing just their representation. However, due to the implementation of the \textit{BehaviorTree.CPP} library, some of the nodes changed drastically and these changes will be clarified.
+The common nodes presented in this section are mostly very similar to the nodes presented in the Subsection \ref{subsec:common_nodes_spec}, changing just their representation. However, due to implementation details of the \textit{BehaviorTree.CPP} library, some of the nodes changed drastically and these changes will be clarified.
 
 \subsubsection{Root Node}
 
@@ -23,11 +23,11 @@ The root node is represented as shown in Figure \ref{fig:root_node_impl}.
 
 \subsubsection{Control Flow Nodes}
 
-In contrast to the representation of control nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are denoted as reactive nodes, rather than marking the non-reactive nodes differently. 
+In contrast to the representation of control flow nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control flow node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are specified as reactive nodes, rather than marking the non-reactive nodes differently. 
 
-However, it is important to note that the \texttt{Sequence} node is a little bit different from the non-reactive sequence presented in Chapter \ref{ch:background}, since when one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree. 
+However, it is important to note that the \texttt{Sequence} node in this implementation differs slightly from the non-reactive sequence presented in Chapter \ref{ch:background}. When one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with the same behavior of the sequence with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree. 
 
-In addition, another type of control flow node is used in the tree implementation, which is the decorator node, however, the reason why this node was used in the tree implementation will not be explained in this subsubsection, but in Subsubsection \ref{subsubsec:decator_nodes_impl}.
+Additionally, another type of control flow node was used in the tree implementation, which is the decorator node, however, the reason why this node was used in the tree implementation will not be explained in this subsubsection, but in Subsubsection \ref{subsubsec:decator_nodes_impl}.
 
 \begin{figure}[!h]
     \centering
@@ -56,7 +56,7 @@ In addition, another type of control flow node is used in the tree implementatio
 
 The implementation of the common action nodes, in Figure \ref{fig:common_action_node_impl}, is very similar to the specification presented in Subsubsection \ref{subsubsec:common_action_nodes_spec}, the \texttt{Always Success} node is precisely the same and the node that sets a variable in the blackboard is a little bit different. 
 
-In the tree specification, all blackboard variables were represented as strings or booleans, however, in the implementation, some of those variables were created as integer variables instead, therefore, two nodes that store variables in the blackboard were used, one that stores strings and another that stores integers. These two nodes have the same syntax, in the node, the \texttt{value} field receives the value to be stored in the blackboard and the \texttt{output\_key} receives the name of the variable where the value will be stored. One thing important to note is that the node in Figure \ref{fig:set_blackboard_string_impl} is a built-in node of the library, while the node in Figure \ref{fig:set_blackboard_int_impl} is a custom node made inspired by the node from the library.
+In the tree specification, all blackboard variables were represented as strings or booleans, however, in the implementation, some of those variables were created as integer variables instead, therefore, two nodes that store variables in the blackboard were used, one that stores strings and another that stores integers. These two nodes have the same syntax, in the node, the \texttt{value} field receives the value to be stored in the blackboard and the \texttt{output\_key} receives the name of the variable in which the value will be stored. One thing important to note is that the node in Figure \ref{fig:set_blackboard_string_impl} is a built-in node of the library, while the node in Figure \ref{fig:set_blackboard_int_impl} is a custom node inspired by the node from the library.
 
 \begin{figure}[!h]
     \centering
@@ -85,14 +85,14 @@ In the tree specification, all blackboard variables were represented as strings 
 
 \subsubsection{Condition Nodes}
 
-In contrast to the tree specification, the common condition node specified in Subsubsection \ref{subsubsec:common_condition_nodes_spec} is no longer used in the tree implementation, a decorator is used instead, as it will be explained in the next subsubsection.
+In contrast to the tree specification, the common condition node specified in Subsubsection \ref{subsubsec:common_condition_nodes_spec} was not used in the tree implementation, decorator nodes were used instead, as it will be explained in the next subsubsection.
 
 \subsubsection{Decorator Nodes}
 \label{subsubsec:decator_nodes_impl}
 
-The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value and return success or failure depending on the result. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose.
+The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value, returning success or failure depending on the result of the assessment. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose.
 
-Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, if both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they accept, as the first accepts integers and the second accepts strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field.
+Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, if both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they handle, as the first handles integers and the second strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field.
 
 \begin{figure}[!h]
     \centering
@@ -154,11 +154,11 @@ Considering the tree specification, all the use cases of the \texttt{Blackboard 
     \label{fig:blackboard_check_eq_condition_node}
 \end{figure}
 
-The first alternative to use the described decorator instead of the condition node can be seen in Figure \ref{fig:blackboard_check_eq_action_in_sequence}, in which the condition node is replaced by a decorator configured to return failure when there is a mismatch in the comparison and to return its child status when there is a match, which will always be a success, mimicking the behavior of the condition node. This approach can be used as an alternative to both cases presented in Figure \ref{fig:blackboard_check_eq_condition_node}.
+The first alternative to use the described decorator instead of the condition node can be seen in Figure \ref{fig:blackboard_check_eq_action_in_sequence}, in which the condition node is replaced by a decorator configured to return failure when there is a mismatch in the comparison and to return its child status, which will always be a success, when there is a match, mimicking the behavior of the condition node. This approach can be used as an alternative to both cases presented in Figure \ref{fig:blackboard_check_eq_condition_node}.
 
 The second alternative, illustrated in Figure \ref{fig:blackboard_check_eq_action_as_child}, is a less verbose approach, using the decorator in a more standard manner, instead of using it to mimic the behavior of a condition node. As this solution requires fewer nodes than the first alternative, it presents itself as a better option. However, this approach cannot be used for both cases depicted in Figure \ref{fig:blackboard_check_eq_condition_node}, as its behavior only corresponds to the behavior of the structure in Figure \ref{fig:blackboard_check_eq_condition_node_seq}.
 
-Therefore, the tree implementation, which will be presented in the next subsections, was structured in a way to adapt the tree specification using these alternatives. In the tree parts where the structure depicted in Figure \ref{fig:blackboard_check_eq_condition_node_fall} is utilized, the alternative approach illustrated in Figure \ref{fig:blackboard_check_eq_action_in_sequence} was employed to simulate a condition node. Conversely, in the parts where the structure depicted in Figure \ref{fig:blackboard_check_eq_condition_node_seq} is present, the alternative approach from Figure \ref{fig:blackboard_check_eq_action_as_child} was utilized.
+Therefore, the tree implementation, which will be presented in the next subsections, was structured in a way to adapt the tree specification using these alternatives. In the tree specification parts where the structure depicted in Figure \ref{fig:blackboard_check_eq_condition_node_fall} was utilized, the alternative approach illustrated in Figure \ref{fig:blackboard_check_eq_action_in_sequence} was employed to simulate a condition node. Conversely, in the parts where the structure depicted in Figure \ref{fig:blackboard_check_eq_condition_node_seq} is present, the alternative approach from Figure \ref{fig:blackboard_check_eq_action_as_child} was utilized.
 
 \begin{figure}[!h]
     \centering
@@ -202,7 +202,7 @@ The representation of a subtree in the \textit{BehaviorTree.CPP} library, shown 
 
 \subsection{Behaviors Controller Tree}
 
-The \textit{Behaviors Controller} tree implementation is basically the same as its specification, being the only notable difference the fact that it is now made explicit in the trees that they have a shared blackboard, by setting the \texttt{\_\_shared\_blackboard} to true.
+The \textit{Behaviors Controller} tree implementation, disregarding its subtrees, is basically the same as its specification, as it is possible to observe in Figure \ref{fig:behaviors_controller_bt_impl}, being the only notable difference the fact that it is now made explicit in the trees that they have a shared blackboard, by setting the \texttt{\_\_shared\_blackboard} attribute to true.
 
 \begin{figure}[!h]
     \centering
@@ -213,7 +213,7 @@ The \textit{Behaviors Controller} tree implementation is basically the same as i
 
 \subsection{Roles Swapper Initializer}
 
-In the implementation of the \texttt{Roles Swapper Initializer}, modifications were made to the tree specification, taking into account the information provided about the common nodes in Subsection \ref{subsubsec:common_action_nodes_spec}. The resulting implementation is depicted in Figure \ref{fig:roles_swapper_initializer_impl}. It is important to note that there is one implementation detail in this tree that deviates from its original specification, which is the data types of the variables stored in the blackboard.
+In the implementation of the \texttt{Roles Swapper Initializer} tree, modifications were made to the tree specification, taking into account the information provided about the common nodes in Subsection \ref{subsubsec:common_action_nodes_spec}. The resulting implementation is depicted in Figure \ref{fig:roles_swapper_initializer_impl}. It is important to note that there is one implementation detail in this tree that deviates from its original specification, which is the data types of the variables stored in the blackboard.
 
 \begin{figure}[!h]
     \centering
@@ -224,11 +224,11 @@ In the implementation of the \texttt{Roles Swapper Initializer}, modifications w
 
 In this tree and its subtrees, six blackboard variables are manipulated, which are the \texttt{game\_state}, the \texttt{game\_state\_team}, the \texttt{game\_state\_side}, the \texttt{use\_penalty\_mode}, the \texttt{use\_two\_strikers\_mode} and the \texttt{team\_state}.
 
-In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team} and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent the data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer.
+In the tree specification, the \texttt{game\_state}, the \texttt{game\_state\_team}, and the \texttt{game\_state\_side} variables were all presented as strings for simplifications reasons, however, none of the real messages received from the \textit{VSSReferee} use strings to represent these data, just integers (see Tables \ref{tab:referee_events_ids}, \ref{tab:target_team_event_codification} and \ref{tab:field_side_event_codification}), therefore, the type of these variables in the blackboard was changed to integer.
 
 The \texttt{use\_penalty\_mode} and the \texttt{use\_two\_strikers\_mode} variables were previously declared as booleans, nevertheless, to take advantage of the formerly developed \texttt{Set Blackboard Int} node, their data types were changed to integers as well, being \texttt{0} equivalent to \texttt{False} and \texttt{1} to \texttt{True}.
 
-The last variable, the \texttt{game\_state}, did not have its data type changed, it remained as a string for reasons of simplification and easier understanding of the tree.
+The last variable, the \texttt{team\_state}, did not have its data type changed, it remained a string as it is an internal variable of the tree, and keeping it as a string simplifies the tree and makes it more understandable.
 
 \begin{table}[!htbp]
     \centering
@@ -260,7 +260,7 @@ The last variable, the \texttt{game\_state}, did not have its data type changed,
         Foes        & 1     \\
         \bottomrule
     \end{tabular}
-    \caption{Codification of the target team of the event received from the \textit{VSSReferee}, using the event and the team color}
+    \caption{Codification, using the event and the team color, of the target team of the event received from the \textit{VSSReferee}}
     \label{tab:target_team_event_codification}
 \end{table}
 
@@ -274,13 +274,13 @@ The last variable, the \texttt{game\_state}, did not have its data type changed,
         Foes' side    & 1     \\
         \bottomrule
     \end{tabular}
-    \caption{Codification of the side of the field in which the event received from the \textit{VSSReferee} occurred, using the event and the team color}
+    \caption{Codification, using the event and the team color, of the side of the field in which the event received from the \textit{VSSReferee} occurred}
     \label{tab:field_side_event_codification}
 \end{table}
 
 \subsection{Events Handler and its subtrees}
 
-The \texttt{Events Handler} subtree has the same structure as its specification, the only difference from its specification is that it defines the \texttt{\_\_shared\_blackboard} attributes of its subtrees. The implementation can be seen in Figure \ref{fig:events_handler_impl}.
+The \texttt{Events Handler} subtree has the same structure as its specification, being the only difference that it specifies the \texttt{\_\_shared\_blackboard} attributes of its subtrees. The implementation can be seen in Figure \ref{fig:events_handler_impl}.
 
 \begin{figure}[!h]
     \centering
@@ -291,7 +291,7 @@ The \texttt{Events Handler} subtree has the same structure as its specification,
 
 Considering the changes presented in Subsection \ref{subsec:common_nodes_impl} and the changes to the data types of the variables on the blackboard, the implementations of all subtrees of the \texttt{Events Handler} subtree are analogous to their specifications. The implementations of the four subtrees are represented in Figures \ref{fig:penalty_kick_event_handler_impl}, \ref{fig:goal_kick_event_handler_impl}, \ref{fig:free_ball_event_handler_impl} and \ref{fig:kickoff_event_handler_impl}.
 
-One simple implementation detail that deserves attention is the presence of parameters in the \texttt{Set Penalty Mode} node in the \texttt{Penalty Kick Event Handler}. These parameters were added to the node so it could be more generic, instead of having those values hardcoded to the node's code.
+One simple implementation detail that deserves attention is the presence of parameters in the \texttt{Set Penalty Mode} node in the \texttt{Penalty Kick Event Handler}. These parameters were added to the node so it could be more generic, instead of having those values hardcoded into the node's code.
 
 \begin{figure}[!h]
     \centering
@@ -323,7 +323,7 @@ One simple implementation detail that deserves attention is the presence of para
 
 \subsection{Roles Swapper}
 
-Taking into account the insights discussed in Subsection \ref{subsec:common_nodes_impl}, the implementation of \texttt{Roles Swapper} adheres closely to its specification, as depicted in Figure \ref{fig:roles_swapper_impl}.
+Taking into account the insights discussed in Subsection \ref{subsec:common_nodes_impl}, the implementation of the \texttt{Roles Swapper} tree adheres closely to its specification, as depicted in Figure \ref{fig:roles_swapper_impl}.
 
 \begin{figure}[!h]
     \centering
@@ -334,9 +334,9 @@ Taking into account the insights discussed in Subsection \ref{subsec:common_node
 
 \subsection{Attack Swapper and Defense Swapper}
 
-Finally, the \texttt{Attack Swapper} and \texttt{Defense Swapper} subtrees were also implemented taking into account the modifications discussed in Subsection \ref{subsec:common_nodes_impl}, the result is illustrated in Figure \ref{fig:attack_swapper_impl} and \ref{fig:defense_swapper_impl}, respectively.
+Finally, the \texttt{Attack Swapper} and \texttt{Defense Swapper} subtrees were also implemented taking into account the modifications discussed in Subsection \ref{subsec:common_nodes_impl}, the results are illustrated in Figures \ref{fig:attack_swapper_impl} and \ref{fig:defense_swapper_impl}, respectively.
 
-Regarding the implementation of the nodes in both of these trees, it is important to note how the nodes that perform the roles changes and swap were developed. To enhance the performance of the trees, these nodes were developed as asynchronous nodes, specifically using coroutines as their foundation. This design choice allows the role changes to be executed in parallel with the rest of the tree, without blocking its execution. The use of coroutines to develop the nodes was possible thanks to the \textit{BehaviorTree.CPP} library, which provides many ways of creating asynchronous nodes.
+Regarding the implementation of the nodes in both of these trees, it is noteworthy how the nodes that perform the roles changes and swaps were developed. To enhance the performance of the trees, these nodes were developed as asynchronous nodes, specifically using coroutines as their foundation. This design choice allows the role changes to be executed in parallel with the rest of the tree, without blocking its execution. The use of coroutines to develop the nodes was possible thanks to the \textit{BehaviorTree.CPP} library, which provides many ways of creating asynchronous nodes.
 
 \begin{figure}[!h]
     \centering

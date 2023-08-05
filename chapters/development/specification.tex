@@ -1,14 +1,14 @@
 \section{Specification}
 \label{sec:specification}
 
-Given the requirements presented in Chapter \ref{ch:requirements}, a specification for the Coach behavior tree was developed, which was called \texttt{Behaviors Controller} tree. Due to the complexity of the tree, the main tree was divided into subtrees, taking advantage of the modularity of the BTs. The following subsections will individually elaborate on each of the subtrees within the system, providing a detailed explanation for each. 
+Given the requirements presented in Chapter \ref{ch:requirements}, a specification for the Coach's behavior tree was developed, which was called \texttt{Behaviors Controller}. Due to the complexity of the tree, the main tree was divided into subtrees, taking advantage of the modularity of BTs. The following subsections will individually elaborate on each of the subtrees within the system, providing a detailed explanation for each. 
 
 Furthermore, to be able to develop the tree, custom nodes were created, some that are shared between the trees and others more specific to each of the subtrees. To better organize the explanation of those nodes, the common nodes will be explained in the next subsection, while the specific nodes will be elucidated alongside the explanation of the subtrees they are part of.
 
 \subsection{Common Nodes}
 \label{subsec:common_nodes_spec}
 
-First, to understand the developed specification for the tree, it is necessary to understand the common nodes used to build it.
+First, to understand the developed specification of the tree, it is necessary to understand the common nodes used to build it.
 
 \subsubsection{Root Node}
 
@@ -26,7 +26,7 @@ In all the following trees, the root node is represented as depicted in Figure \
 \subsubsection{Control Flow Nodes}
 \label{subsubsec:control_nodes_spec}
 
-Three types of control nodes were used in the project, they are the non-reactive fallback and the non-reactive and reactive sequence nodes, as represented in Figure \ref{fig:control_nodes_spec}.
+Three types of control nodes were used in the project, they are the non-reactive fallback, the non-reactive sequence, and the reactive sequence nodes, as represented in Figure \ref{fig:control_nodes_spec}.
 
 \begin{figure}[!h]
     \centering
@@ -66,7 +66,7 @@ Three types of control nodes were used in the project, they are the non-reactive
 \subsubsection{Action Nodes}
 \label{subsubsec:common_action_nodes_spec}
 
-From all the action nodes used in the trees, there are two types of action nodes that are common to the trees.
+From all the action nodes used in the trees, there are two types of action nodes that are common to some trees.
 
 The first commonly used action node, depicted in Figure \ref{fig:always_success_action_node_spec}, is a simple node that always returns success when ticked. 
 
@@ -118,7 +118,7 @@ In a similar way to the \texttt{Set Blackboard} node, a common condition node us
 \subsubsection{Subtrees}
 \label{subsubsec:subtrees_spec}
 
-During the tree development process, in order to enhance the tree's modularity and comprehensibility, many subtrees were used in the specification. All the subtrees utilized are different, however, they share the same representation. The representation, shown in Figure \ref{fig:subtrees_spec}, is done by means of a node that acts as a placeholder for the complete specification of the subtree.
+During the tree development process, in order to enhance the tree's modularity and comprehensibility, many subtrees were used in the specification. All the subtrees utilized are different, however, they share the same representation. The representation of a subtree, shown in Figure \ref{fig:subtrees_spec}, is done by means of a node that acts as a placeholder for the complete specification of the subtree.
 
 \begin{figure}[!h]
     \centering
@@ -133,7 +133,7 @@ During the tree development process, in order to enhance the tree's modularity a
 
 \subsection{Behaviors Controller Tree}
 
-With a grasp of the nodes that are shared among the subtrees within the system, it is possible now to delve into the explanation of the main tree that defines the new game strategy, the \texttt{Behaviors Controller} tree.
+With a grasp of the nodes that are shared among the subtrees within the system, it is now possible to delve into the explanation of the main tree that defines the new game strategy, the \texttt{Behaviors Controller} tree.
 
 During a match there are two distinguishable moments, the first when the ball is stopped, e.g. when a foul happened or simply when the game is starting, and the second when the ball is in motion. To be able to fully control the behavior of the team during a match, we need a strategy that handles both of these game moments. For this reason, the basic structure of the main tree was modeled as a sequence of two subtrees, a structure illustrated in Figure \ref{fig:behaviors_controller_bt_spec}. The sequence, in this case, is a non-reactive sequence, as the moments when the ball is stopped are much less common, so there is no need to reactively check if the game is stopped.
 
@@ -156,7 +156,7 @@ The first subtree in the sequence is the \texttt{Roles Swapper Initializer} subt
 \subsection{Roles Swapper Initializer}
 \label{subsec:roles_swapper_initializer_spec}
 
-As mentioned previously, this subtree is specifically designed to handle situations in the game when the ball is not in motion. The purpose of this subtree is to incorporate the initialization part of the system directly into the tree structure. This modeling approach was selected to make the system more concise and organized. By integrating the initialization process within the tree, the behavior tree gains better control over its execution flow. The final initializer tree can be seen in Figure \ref{fig:roles_swapper_initializer_spec}.
+As previously mentioned, this subtree is specifically designed to handle situations in the game when the ball is not in motion. The purpose of this subtree is to incorporate the initialization part of the system directly into the tree structure. This modeling approach was selected to make the system more concise and organized. By integrating the initialization process within the tree, the behavior tree gains better control over its execution flow. The final initializer tree can be seen in Figure \ref{fig:roles_swapper_initializer_spec}.
 
 \begin{figure}[!h]
     \centering
@@ -192,15 +192,15 @@ As mentioned previously, this subtree is specifically designed to handle situati
     \label{fig:roles_swapper_initializer_spec}
 \end{figure}
 
-The initialization tree was modeled so that while the game is running, the tree will returns success and nothing of the initialization will be done, otherwise, the initialization will be done, depending on the event received from the referee (described in Section \ref{sec:rules}) and at the end, the tree will return success as well. 
+The initialization tree was modeled so that while the game is running, the tree will returns success and nothing of the initialization will be done, otherwise, the initialization will be performed, depending on the event received from the referee and, at the end, the tree will return success as well. 
 
-In order to handle the event received from the system, the event value is saved in a blackboard variable with the name \texttt{game\_state} and it is by using this variable that all initialization is performed. The value of the variable is set on the blackboard by an agent external to the tree, which is the one responsible for communicating with the referee and is not included in the strategy part of the Coach.
+In order to handle the event received from the system, the event value is saved in a blackboard variable with the name \texttt{game\_state} and it is by using this variable that all initialization is performed. The value of this variable is set on the blackboard by an agent external to the tree, which is the one responsible for communicating with the referee and is not included in the strategy part of the Coach.
 
-The base of the tree is a sequence of a fallback, which will be referenced as the primary fallback of this tree, and a final action node to ensure that at the end of the initialization, the game state is set to be \texttt{running}. 
+The base of the tree is a sequence of a fallback, which will be referenced as the primary fallback of this tree, and a final action node to ensure that at the end of the initialization, the game state is set to \texttt{running}. 
 
 The first child of the primary fallback is another fallback, referred to as the second fallback, which is responsible for checking if the game is running and, if it is not, starting the initialization phase. The initialization process is initiated by a sequence, the one that is the second child of the second fallback. This sequence resets some configuration variables and concludes by returning a failure. This failure is crucial to allow the primary fallback to proceed with the remaining steps of the initialization.
 
-The second child of the primary fallback is a subtree called \texttt{Events Handler}, which will be better explained in the Subsection \ref{subsec:events_handler_spec}. The objective of this subtree is to handle the different kinds of \textbf{game events}, as specified in Section \ref{sec:rules}, and set the team configuration accordingly. If the subtree is not able to handle the received event, it returns a failure.
+The second child of the primary fallback is a subtree called \texttt{Events Handler}, which will be better explained in Subsection \ref{subsec:events_handler_spec}. The objective of this subtree is to handle the different kinds of \textbf{game events}, as specified in Section \ref{sec:rules}, and set the team configuration accordingly. If the subtree is not able to handle the received event, it returns a failure.
 
 The third child of the primary fallback is a sequence, which is important in case the received event is the control event \texttt{Halt}. When a \texttt{Halt} is received, ideally all the robots' roles should remain the same, however, if for some reason there are robots with no role set, then a default initialization should be used. Therefore, this sequence returns success if a \texttt{Halt} was received and all the robots' roles are set and failure otherwise.
 
@@ -211,11 +211,11 @@ Finally, it is important to specify a detail about this tree and all of its subt
 \subsection{Events Handler and its subtrees}
 \label{subsec:events_handler_spec}
 
-As described previously, the \texttt{Events Handler} subtree is responsible for managing the game events received from the referee. Its structure, depicted in Figure \ref{fig:events_handler_spec}, consists of a fallback with four subtrees, each designed to handle a specific event. Each of these subtrees then first verifies if the received event matches the event it is meant to handle, if it does, the subtree proceeds with the corresponding event-specific initialization, otherwise, it simply returns a failure.
+As previously described, the \texttt{Events Handler} subtree is responsible for managing the game events received from the referee. Its structure, depicted in Figure \ref{fig:events_handler_spec}, consists of a fallback with four subtrees, each one designed to handle a specific event. Each of these subtrees then first verifies if the received event matches the event it is meant to handle, if it does, the subtree proceeds with the corresponding event-specific initialization, otherwise, it simply returns a failure.
 
-It is important to note that, in Section \ref{sec:rules}, five game events were defined, however, from those five events, the \texttt{Events Handler} subtree only handles four, it does not handle the \texttt{Free Kick} event. Despite that event being specified in the rules of the category, it is never sent by the referee due to its complexity, so it is not necessary to handle it in the tree.
+It is important to note that, in Section \ref{sec:rules}, five game events were defined, however, from those five events, the \texttt{Events Handler} subtree only handles four of them, it does not handle the \texttt{Free Kick} event. Despite that event being specified in the rules of the category, it is never sent by the referee due to its complexity, so it is not necessary to handle it in the tree.
 
-Another relevant piece of information about this subtree is that it does not set the initial roles of the robots, it just initializes the configurations for the \texttt{Roles Swapper} subtree. The initial roles of the robots are predefined values that are obtained from a configuration file, which defines arbitrarily for each robot an initial robot role and an initial position for each of the four game events handled by the \texttt{Events Handler} subtree.
+Another relevant piece of information about this subtree is that it does not set the initial roles of the robots, it just initializes the configurations for the \texttt{Roles Swapper} subtree. The initial roles of the robots are predefined values that are obtained from a configuration file, which arbitrarily defines an initial robot role and an initial position for each robot regarding each of the four game events handled by the \texttt{Events Handler} subtree.
 
 \begin{figure}[!h]
     \centering
@@ -237,7 +237,7 @@ Another relevant piece of information about this subtree is that it does not set
 
 \subsubsection{Penalty Kick Event Handler}
 
-The \texttt{Penalty Kick Event Handler}, presented in Figure \ref{fig:penalty_kick_event_handler_spec}, deals with the case when a \textit{Penalty Kick} event was received. The tree first checks whether the game state event received was a \textit{Penalty Kick}, if it was, then an initialization sequence for the \textit{Penalty Kick} event is executed. 
+The \texttt{Penalty Kick Event Handler}, presented in Figure \ref{fig:penalty_kick_event_handler_spec}, deals with the case when a \textit{Penalty Kick} event was received. The tree first checks whether the game state event received was a \textit{Penalty Kick}, and if it was, then an initialization sequence for the \textit{Penalty Kick} event is executed. 
 
 \begin{figure}[!h]
     \centering
@@ -264,9 +264,9 @@ The \texttt{Penalty Kick Event Handler}, presented in Figure \ref{fig:penalty_ki
     \label{fig:penalty_kick_event_handler_spec}
 \end{figure}
 
-The first child of this sequence is a node called \texttt{Set Penalty Mode}, which sets a blackboard variable named \texttt{use\_penalty\_mode}. This variable controls whether the penalty kicker role will be used in place of the striker and whether the penalty defender role will be used in place of the goalkeeper. The variable value is set in the blackboard and can be either \texttt{True} or \texttt{False}, its value is determined based on some user configurations for the match, depending on the opposing team.
+The first child of this initialization sequence is a node called \texttt{Set Penalty Mode}, which defines the value of a blackboard variable named \texttt{use\_penalty\_mode}. This variable controls whether the penalty kicker role will be used in place of the striker and whether the penalty defender role will be used in place of the goalkeeper. The variable value can be either \texttt{True} or \texttt{False}, its value is determined based on some user configurations for the match, depending on the opposing team.
 
-The second child of the sequence is a fallback. The structure built by this fallback and its children is used to check whether the penalty event received was for the friends' team and, if it was, set the \texttt{team\_state} blackboard variable to be \texttt{attacking}, otherwise set it to be \texttt{defending}. To know for which team the penalty event was, the \texttt{game\_state\_team} blackboard variable is checked, which is a variables updated using the data from the \textit{VSSReferee}.
+The second child of the sequence is a fallback. The structure composed by this fallback and its children is used to check whether the penalty event received was for the friends' team and, if it was, set the \texttt{team\_state} blackboard variable to be \texttt{attacking}, otherwise set it to be \texttt{defending}. To know for which team the penalty event was, the \texttt{game\_state\_team} blackboard variable is checked, which is a variable updated using the data from the \textit{VSSReferee}.
 
 \subsubsection{Goal Kick Event Handler}
 
@@ -301,7 +301,7 @@ In contrast to the configuration performed by the \texttt{Penalty Kick Event Han
 
 \subsubsection{Free Ball Event Handler}
 
-The \texttt{Free Ball Event Handler}, as illustrated in Figure \ref{fig:free_ball_event_handler_spec}, is very similar in terms of structure to the \texttt{Goal Kick Event Handler} subtree. The difference between these two trees, other than the \texttt{Free Ball Event Handler} subtree deals with \textit{Free Ball} events, is that while the \texttt{team\_state} in the \texttt{Goal Kick Event Handler} is defined based on which team the event was directed to, in the \texttt{Free Ball Event Handler}, the \texttt{team\_state} is defined depending on which side of the field the free ball event occurred, information obtained from the \texttt{game\_state\_side} blackboard variable, updated using the data from the \textit{VSSReferee}. In case the free ball event took place on the friends' side of the field, the team will defend, otherwise the team will attack and will use two strikers instead of one.
+The \texttt{Free Ball Event Handler}, illustrated in Figure \ref{fig:free_ball_event_handler_spec}, is very similar in terms of structure to the \texttt{Goal Kick Event Handler} subtree. The difference between these two trees, other than the fact that the \texttt{Free Ball Event Handler} subtree deals with \textit{Free Ball} events, is that while the \texttt{team\_state} in the \texttt{Goal Kick Event Handler} is defined based on which team the event was directed to, in the \texttt{Free Ball Event Handler}, the \texttt{team\_state} is defined depending on which side of the field the free ball event occurred, information obtained from the \texttt{game\_state\_side} blackboard variable, which is updated using the data from the \textit{VSSReferee}. In case the free ball event took place on the friends' side of the field, the team will defend, otherwise the team will attack and will use two strikers instead of one.
 
 \begin{figure}[!h]
     \centering
@@ -356,11 +356,11 @@ The final specific event handler subtree, the \texttt{Kickoff Event Handler}, de
 
 \subsection{Roles Swapper}
  
-The tree that is, in fact, responsible for swapping the roles basically has two sub-branches, as can be seen in Figure \ref{fig:roles_swapper_spec}, the one on the left for the attack state and the other on the right for the defense state, which are the two children branches of the fallback in the root of the tree. 
+The tree that is, in fact, responsible for swapping the roles basically has two sub-branches, as can be seen in Figure \ref{fig:roles_swapper_spec}, the one on the left for the attack state and the one on the right for the defense state, which are the two children branches of the fallback in the root of the tree. 
 
-In the attack sub-branch, the first node that is ticked is the node that checks whether the team is attacking or not, by verifying the value of the \texttt{team\_state} variable in the blackboard. If the team is attacking, then the rest of the attacking branch is executed, otherwise, the tree ticks the defense sub-branch.
+In the attack sub-branch, the first node that is ticked is the node that checks whether the team is attacking or not, which verifies the value of the \texttt{team\_state} variable in the blackboard. If the team is attacking, then the rest of the attacking branch is executed, otherwise, the tree will tick the defense sub-branch.
 
-Disregarding the part of the attacking sub-branch that checks whether the team is attacking or not, the two sub-branches have a very similar structure. These branches essentially verify whether the team should continue attacking/defending (using condition nodes), if so, the attack/defense internal swap subtrees are executed. In case the team should not continue to attack/defend, then the roles of the robots need to be changed from the attack roles to the defense roles, or from the defense roles to the attack roles. In addition, right after changing the roles, so the tree can check the current state of the team, the new state of the team must be set in the blackboard, by changing the value of the \texttt{team\_state} variable.
+Disregarding the part of the attacking sub-branch that checks whether the team is attacking or not, the two sub-branches have a very similar structure. These branches essentially verify whether the team should continue attacking/defending (using condition nodes), if so, the attack/defense internal swap subtrees are executed. In case the team should not continue to attack/defend, then the roles of the robots need to be changed from the attack roles to the defense roles, or from the defense roles to the attack roles. In addition, right after changing the roles, so the tree can check the current state of the team, the new state of the team is set in the blackboard, by changing the value of the \texttt{team\_state} variable.
 
 To swap the roles from one team state to another, the current role of each robot is analyzed and, based on the intra-group compatibility links between the roles (see Figure \ref{fig:moise_mapping}), a new role from the other state is assigned to the robot. For example, when switching from the defense state to the attack state, a robot playing the wingback role, will be assigned to play the striker role.
 
@@ -463,8 +463,8 @@ Finally, to carry out the role swaps between the attack roles when in the attack
 
 Both trees have similar working logic, only changing the types of role changes they perform. The purpose of these trees is to make the internal role changes of the attack and defense states, thus having several nodes that implement different changes. In the root of the two trees, non-reactive nodes wore used in order to improve the distribution of priorities between different role changes.
 
-There are two types of nodes that can change the roles of the robots, the \textit{swap nodes} and the \textit{change nodes}. The difference between them is that the swap nodes perform changes between two robots, while the change nodes just change the role of one robot to another role. In both cases, the nodes internally analyze a condition to see if the role changes should be done and then return \texttt{failure} if the change was not performed, \texttt{running} if it is still being carried out and \texttt{success} if the change has been fully completed. Besides that, at the end of each tree, there is a node \texttt{Always Success}, so that, if no changes have taken place, these trees return \texttt{success} to indicate that all robots have the ideal role for the moment.
+There are two types of nodes that can change the roles of the robots, the \textit{swap nodes} and the \textit{change nodes}. The difference between them is that the swap nodes perform changes between two robots, while the change nodes just change the role of one robot to another role. In both cases, the nodes internally analyze a condition to see if the role changes should be done and then return \texttt{failure} if the change was not performed, \texttt{running} if it is still being carried out and \texttt{success} if the change has been fully completed. Besides that, at the end of each tree, there is a \texttt{Always Success} node, so that, if no changes have taken place, these trees return \texttt{success} to indicate that all robots have the ideal role for the moment.
 
-Furthermore, there are some branches of these trees, which include some specific role changes, which will only be executed when a certain configuration has been activated during initialization, that is, when the \texttt{Roles Swapper Initializer} tree has activated some configuration flag. Whenever the swaps related to these branches are completed, the flag is deactivated, preventing re-entry to these branches. The use cases covered by these configurations are the use of the penalty kicker and penalty defender roles, enabled by the use of the \texttt{use\_penalty\_mode} flag, and the use of two strikers in certain game moments, enabled by the use of the \texttt{use\_two\_strikers\_mode} flag.
+Furthermore, there are some branches of these trees, related to some specific role changes, which will only be executed when a certain configuration has been activated during initialization, that is, when the \texttt{Roles Swapper Initializer} tree has activated some configuration flag. Whenever the swaps related to these branches are completed, the flag is deactivated, preventing re-entry to these branches. The use cases covered by these configurations are the use of the penalty kicker and penalty defender roles, enabled by the use of the \texttt{use\_penalty\_mode} flag, and the use of two strikers in certain game moments, enabled by the use of the \texttt{use\_two\_strikers\_mode} flag.
 
-It is important to note that all role changes presented in the trees are represented by the inter-groups compatibility links in Figure \ref{fig:moise_mapping}. For example, when the team is in the defense state, there may be a swap of roles between the robots playing the wingback and the fullback roles.
+Finally, it is important to note that all role changes included in the trees are represented by the inter-groups compatibility links in Figure \ref{fig:moise_mapping}. For example, when the team is in the defense state, there may be a swap of roles between the robots playing the wingback and the fullback roles.
