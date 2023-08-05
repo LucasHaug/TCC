@@ -431,9 +431,9 @@
     \fi
     \markboth{#1}{#1}
     % Include in TOC
-    \ifthenelse{\boolean{ABNTaftertoc}}
-    {\ABNTaddcontentsline{toc}{chapter}{#1}}
-    {}
+    % \ifthenelse{\boolean{ABNTaftertoc}}
+    % {\ABNTaddcontentsline{toc}{chapter}{#1}}
+    % {}
     \resetsubcounters{chapter}\par
 }%
 
@@ -879,6 +879,7 @@
     \global\@topnum\z@%
     \@afterindentfalse%
     \chapter*{\POLIbibliographyname}
+    \phantomsection%
     \list{\@biblabel{\@arabic\c@enumiv}}%
     {\settowidth\labelwidth{\@biblabel{#1}}%
         \leftmargin\labelwidth%
