@@ -879,7 +879,7 @@
     \global\@topnum\z@%
     \@afterindentfalse%
     \chapter*{\POLIbibliographyname}
-    \phantomsection%
+    \phantomsection
     \list{\@biblabel{\@arabic\c@enumiv}}%
     {\settowidth\labelwidth{\@biblabel{#1}}%
         \leftmargin\labelwidth%
