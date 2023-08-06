@@ -41,6 +41,9 @@
 %% multicol - better multicolumns
 \RequirePackage{multicol}
 
+%% xparse - arguments parsing
+\RequirePackage{xparse}
+
 
 %%%%%%  INTERNATIONALIZATION  %%%%%%
 
@@ -384,12 +387,12 @@
 }
 
 %% Include item in TOC (or not)
-\newcommand{\ABNTaddcontentsline}[3]{%
+\NewDocumentCommand{\ABNTaddcontentsline}{m m m O{#2}}{%
     \ifthenelse{\boolean{ABNTNextOutOfTOC}}%
     {\setboolean{ABNTNextOutOfTOC}{false}}%
     {%
         \ifthenelse{\boolean{ABNThypertoc}}%
-        {\addtocontents{#1}{\protect\contentsline{#2}{#3}{\thepage}{#2.\csname theH#2\endcsname}}}%
+        {\addtocontents{#1}{\protect\contentsline{#2}{#3}{\thepage}{#4.\csname theH#2\endcsname}}}%
         {\addcontentsline{#1}{#2}{#3}}%
     }%
 }
@@ -715,6 +718,7 @@
 
 %%%%%%  ANNEX AND APPENDIX
 \newcommand{\anapchaptername}{}
+\newcommand{\anaptype}{}
 \newlength{\ABNTanapindent}
 \setlength{\ABNTanapindent}{0cm}
 \newcommand{\ABNTanapsize}{\LARGE}
@@ -739,9 +743,9 @@
         \typeout{\@chapapp\space\thechapter.}%
         \ifthenelse{\equal{#1}{}}
         {\ABNTaddcontentsline{toc}{chapter}%
-            {\anapchaptername{} \thechapter}}
+            {\anapchaptername{} \thechapter}[\anaptype]}
         {\ABNTaddcontentsline{toc}{chapter}%
-            {\anapchaptername{} \thechapter{} -- #1}}
+            {\anapchaptername{} \thechapter{} -- #1}[\anaptype]}
     \else
         \ABNTaddcontentsline{toc}{chapter}{#1}
     \fi
@@ -783,9 +787,10 @@
     \setcounter{chapter}{0}
     \resetsubcounters{chapter}
     \gdef\thechapter{\Alph{chapter}}
-    \ifthenelse{\boolean{ABNThypertoc}}{\renewcommand{\chaptertype}{appen.}}{}
+    \ifthenelse{\boolean{ABNThypertoc}}{\renewcommand{\chaptertype}{appendix.}}{}
     \gdef\@chapapp{Apendice}
     \renewcommand{\anapchaptername}{\POLIappendixname}
+    \renewcommand{\anaptype}{appendix}
     \global\let\@chapter\@anapchapter}
 
 %% \annex
@@ -796,6 +801,7 @@
     \ifthenelse{\boolean{ABNThypertoc}}{\renewcommand{\chaptertype}{annex.}}{}
     \gdef\@chapapp{Anexo}
     \renewcommand{\anapchaptername}{\POLIannexname}
+    \renewcommand{\anaptype}{annex}
     \global\let\@chapter\@anapchapter}
 
 %% Portuguese names
