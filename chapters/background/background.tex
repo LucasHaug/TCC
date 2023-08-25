@@ -12,7 +12,7 @@ As presented in \cite{MASSurvey}, Multi-Agent Systems (MAS) is a subfield of Dis
 
 Multi-agent systems can be categorized in various ways, depending on the specific characteristics and properties of the system. The four most important types of MAS classifications for this work will be detailed as follows.
 
-The first characteristic of a system is regarding its leadership, a MAS can be either leader-follow or leaderless. A leader-follow system is a system that contains an agent that acts as the leader of the organization, while a leaderless MAS does not. This leader agent is an agent responsible for defining what the other agents should do, by performing task assignments. The leader can be predefined or can be collaboratively chosen by the other agents, besides that it is also possible to have multiple leaders in an organization, which work together to lead the other agents.
+The first characteristic of a system is regarding its leadership, a MAS can be either leader-follow or leaderless. A leader-follow system is a system that contains an agent that acts as the leader of the organization, while a leaderless MAS does not. This leader agent is an agent responsible for defining what the other agents should do, by performing task assignments. The leader can be predefined or can be collaboratively chosen by the other agents, besides that, it is also possible to have multiple leaders in an organization, which work together to lead the other agents.
 
 The second attribute is the heterogeneity of the MAS. A MAS can be composed of many agents that have different characteristics and functionalities or be composed of agents that have the same features, in the first case the system is categorized as a heterogeneous system, and in the second case as a homogeneous system.
 
@@ -22,7 +22,7 @@ Lastly, the fourth attribute regards the mobility of the agents, which specifies
 
 \section[\MOISEp]{\MOISEpBf}
 
-\MOISEp \cite{MOISEp} is a framework for modeling MAS developed by researchers from the University of São Paulo together with researchers from the Ecole Nationale Supérieure des Mines de Saint-Etienne, which extends its predecessor, called MOISE (Model of Organization for multI-agent SystEms) \cite{Moise}. Therefore, to better understand \MOISEp it is first necessary to comprehend the basics concepts of the MOISE model.
+\MOISEp \cite{MOISEp} is a framework for modeling MAS developed by researchers from the University of São Paulo together with researchers from the Ecole Nationale Supérieure des Mines de Saint-Etienne, which extends its predecessor, called MOISE (Model of Organization for multI-agent SystEms) \cite{Moise}. Therefore, to better understand \MOISEp it is first necessary to comprehend the basic concepts of the MOISE model.
 
 MOISE is a framework for designing and developing complex and dynamic organizations for multi-agent systems using an organization-centric point of view. The model provides a structured way of defining an organization so that all the agents work together in a coordinated and efficient manner, this structure is obtained by linking the roles that an agent can play to the plans that need to be executed for the organization to work as a whole. The model is divided into three levels:
 
@@ -32,7 +32,7 @@ MOISE is a framework for designing and developing complex and dynamic organizati
     \item \textit{Collective level}: The aggregation of roles in large structures.
 \end{itemize}
 
-Nevertheless, certain limitations within MOISE required addressing to enhance the framework, such as the lack of the ability to explicitly define global plans for the system within the model. And it was for this reason that the model needed to be extended to the \MOISEp model \cite{MOISEp}. \MOISEp introduces three types of specifications that collectively define the framework: Structural Specification, Functional Specification, and Deontic Specification. These three specifications are essential for defining how the MAS organization works so it can reach its goal.
+Nevertheless, certain limitations within MOISE required addressing to enhance the framework, such as the lack of the ability to explicitly define global plans for the system within the model. It was for this reason that the model needed to be extended to the \MOISEp model \cite{MOISEp}. \MOISEp introduces three types of specifications that collectively define the framework: Structural Specification, Functional Specification, and Deontic Specification. These three specifications are essential for defining how the MAS organization works so it can reach its goal.
 
 The \textbf{Structural Specification} delineates the organizational structure, defining the roles that the agents can play, their interrelationships, and group affiliations. This specification allows for the definition of hierarchical relationships, compatibility between roles, role authority, and other relevant characteristics. It also enables the specification of whether one role holds authority over another, the compatibility constraints between roles, and the number of agents that can be assigned to a particular role, among other structural details. An example of a \textbf{Structural Specification} from a MAS can be seen in Figure \ref{fig:moise_ss}.
 
@@ -71,7 +71,7 @@ From this example, it is possible to understand the different categories of link
     \label{tab:types_of_links_in_moise}
 \end{table}
 
-Conversely, the \textbf{Functional Specification} is employed to define a way the goals of the organization can be achieved. It involves defining global plans, which are a structured way of combining goals, and utilizing a set of global goals to formulate missions. These missions serve as the foundation for the organization's social scheme, and agents within the organization can commit to missions in accordance with the rules defined in the social scheme of how many agents can commit to a specified mission. An example of a social scheme is illustrated in Figure \ref{fig:moise_fs}.
+Conversely, the \textbf{Functional Specification} is employed to define a way the goals of the organization can be achieved. It involves defining global plans, which are a structured way of combining goals and utilizing a set of global goals to formulate missions. These missions serve as the foundation for the organization's social scheme, and agents within the organization can commit to missions in accordance with the rules defined in the social scheme of how many agents can commit to a specified mission. An example of a social scheme is illustrated in Figure \ref{fig:moise_fs}.
 
 Lastly, the \textbf{Deontic Specification} establishes the relationship between the Structural and Functional Specifications by specifying the permissions and obligations associated with each role in relation to a mission.
 
@@ -92,13 +92,13 @@ Lastly, the \textbf{Deontic Specification} establishes the relationship between 
 
 \section{Control Architectures}
 
-As defined in \cite{BTsInRobotics2}, a control architecture is a way of encoding a robot's functionality, by defining how a specified task is carried out. A control architecture provides a structured form of defining the intelligence of an agent, facilitating its comprehension, development, and debugging. There are many different types of control architectures that have been developed, each featuring a distinct set of tools, rules, and guidelines for organizing how to control a system.
+As defined in \cite{BTsInRobotics2}, a control architecture is a way of encoding a robot's functionality, by defining how a specified task is carried out. A control architecture provides a structured form of defining the intelligence of an agent, facilitating its comprehension, development, and debugging. Many different types of control architectures have been developed, each featuring a distinct set of tools, rules, and guidelines for organizing how to control a system.
 
-In this section, two of the most common control architectures in robotics are presented, the Finite State Machines (FSM) and the Hierarchical Finite State Machines (HFSM). Additionally, in the next section, the control architecture that is the focus of this work, the Behavior Trees (BT), will be detailed.
+In this section, two of the most common control architectures in robotics are presented, Finite State Machines (FSM) and Hierarchical Finite State Machines (HFSM). Additionally, in the next section, the control architecture that is the focus of this work, the Behavior Trees (BT), will be detailed.
 
 \subsection{Finite State Machines}
 
-FSMs are a very common mathematical model of computation, a FSM represents a system which, at any moment in time, can only be in one of a finite number of states. A FSM is defined by a list of states, an initial state, and a set of transition functions that determine how the system transits from one state to another, depending on some inputs, in addition to also being able to have final states of the system. The FSM can be represented as a directed graph, where the states are the nodes and the transitions are the edges. An example of a FSM can be seen in Figure \ref{fig:fsm_example}, where a FSM with three states is depicted, in which $s_1$ is the initial state, $s_3$ is the final one and the transitions between states are triggered by receiving a 1 or a 0.
+FSMs are a very common mathematical model of computation, a FSM represents a system which, at any moment in time, can only be in one of a finite number of states. An FSM is defined by a list of states, an initial state, and a set of transition functions that determine how the system transits from one state to another, depending on some inputs, in addition to also being able to have final states of the system. The FSM can be represented as a directed graph, where the states are the nodes and the transitions are the edges. An example of an FSM can be seen in Figure \ref{fig:fsm_example}, where an FSM with three states is depicted, in which $s_1$ is the initial state, $s_3$ is the final one and the transitions between states are triggered by receiving a 1 or a 0.
 
 \begin{figure}[!h]
     \centering
@@ -123,12 +123,12 @@ As described in \cite{BTsInRobotics}, FSMs are a very intuitive control architec
 
 \subsection{Hierarchical Finite State Machines}
 
-Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is another type of control architecture that is derived from FSMs. HFSMs are based on the concept of superstates, the idea that a state can contain one or more substates. Thus, in HFSMs there is also the concept of \textit{generalized transitions}, which allow transition from one superstate to another instead of countless transitions between substates, reducing the total number of transitions specified in the system. It is also important to note that, each superstate designates one substate as the starting state, which is the one that is executed whenever a transition to the superstate occurs. An example of HFSM is illustrated in Figure \ref{fig:hfsm_example}.
+Hierarchical Finite State Machine (HFSM), also referred to as State Charts, is another type of control architecture that is derived from FSMs. HFSMs are based on the concept of superstates, the idea that a state can contain one or more substates. Thus, in HFSMs there is also the concept of \textit{generalized transitions}, which allows a transition from one superstate to another instead of countless transitions between substates, reducing the total number of transitions specified in the system. It is also important to note that, each superstate designates one substate as the starting state, which is the one that is executed whenever a transition to the superstate occurs. An example of HFSM is illustrated in Figure \ref{fig:hfsm_example}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.75\linewidth]{chapters/background/images/HFSM Example.png}
-    \caption{Example of a HFSM controlling a NPC of a combat game. \textit{Patrol}, \textit{Use Rifle}, and \textit{Use Handgun} are superstates. Taken from \cite{BTsInRobotics}}
+    \caption{Example of an HFSM controlling an NPC of a combat game. \textit{Patrol}, \textit{Use Rifle}, and \textit{Use Handgun} are superstates. Taken from \cite{BTsInRobotics}}
     \label{fig:hfsm_example}
 \end{figure}
 
@@ -140,7 +140,7 @@ Behavior Trees (BTs) are a versatile control architecture widely known for their
 
 As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree. In a typical BT, the tick signal is propagated from left to right, therefore, a parent node will always tick its leftmost child before ticking the ones from the right.
 
-The internal nodes of the tree, the so called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, the sequence node, the parallel node, and the decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
+The internal nodes of the tree, the so-called control flow nodes regulate the execution flow of the tree, determining which nodes are executed and the logic of it. The basic control flow nodes in a BT are the fallback node, the sequence node, the parallel node, and the decorator node. On the other hand, execution nodes define commands that the tree should execute. They can be categorized into action nodes and condition nodes. The characteristics and functionalities of these nodes will be delineated in the subsequent subsection.
 
 \subsection{Types of Nodes}
 
@@ -268,7 +268,7 @@ The condition nodes, depicted in Figure \ref{fig:background_condition_node}, are
 
 \subsubsection{Subtree Nodes}
 
-In addition to the aforementioned nodes, an essential concept in BTs design is that of subtrees. When building large-scale trees, it is very useful to be able to divide the tree into smaller parts, creating small modules that are independent of each other, simplifying the development of the overall system. This is achieved using subtrees, which can be used as components to be incorporated into a larger tree. When the main tree ticks a subtree, the root node of the subtree ticks its children, as if all nodes of the subtree were included in the parent tree. The representation of a subtree is sown in Figure \ref{fig:background_subtree_node}.
+In addition to the aforementioned nodes, an essential concept in BT design is that of subtrees. When building large-scale trees, it is very useful to be able to divide the tree into smaller parts, creating small modules that are independent of each other, simplifying the development of the overall system. This is achieved using subtrees, which can be used as components to be incorporated into a larger tree. When the main tree ticks a subtree, the root node of the subtree ticks its children, as if all nodes of the subtree were included in the parent tree. The representation of a subtree is shown in Figure \ref{fig:background_subtree_node}.
 
 \begin{figure}[!h]
     \centering
@@ -344,10 +344,10 @@ To differentiate nodes with and without memory, in \cite{BTsInRobotics}, the nod
 
 \subsection{Advantages and Disadvantages}
 
-According to \cite{BTsInRobotics}, Behavior Trees offer several advantageous characteristics. One notable advantage is their modularity, allowing for easy rearrangement of system blocks and simplifying the subdivision of complex systems. Additionally, the building blocks of BTs can be reused, facilitating the development of large systems. The hierarchical organization of BTs enhances their analysis and understanding, and their human readability is also noteworthy. Another advantage is their ability to exhibit reactive behaviors, enabling quick and efficient responses to events. Lastly, BTs are highly expressive, capable of encoding various behaviors and generalizing numerous control architectures.
+According to \cite{BTsInRobotics}, Behavior Trees offer several advantageous characteristics. One notable advantage is their modularity, allowing for easy rearrangement of system blocks and simplifying the subdivision of complex systems. Additionally, the building blocks of BTs can be reused, facilitating the development of large systems. The hierarchical organization of BTs enhances their analysis and understanding, and their human readability is also noteworthy. Another advantage is their ability to exhibit reactive behaviors, enabling quick and efficient responses to events. Lastly, BTs are highly expressive and capable of encoding various behaviors and generalizing numerous control architectures.
 
 However, BTs also present some disadvantages, for example, the fact that compared to FSMs and HFSMs, they are much less mature, although there are already many new technologies related to BTs. Besides that, implementing a BT engine is a complex task, while a FSM can be implemented with a switch statement, however, this problem can be mitigated using already implemented frameworks for developing BTs. Finally, it is important to note that working with BTs requires a shift in mindset compared to FSMs. In BTs, the concept of states, commonly found in FSMs, is not typically used, instead, the focus is on the hierarchical structure and the flow of execution within the tree. While BTs are generally easier to understand, it is important to approach them with a different perspective.
 
 \section{Blackboard}
 
-A blackboard \cite{BlackboardDesignPattern} is a design pattern in software engineering used when separated processes need to work together in order to make collective decisions. Blackboards are basically a shared memory space or data structure that allows different modules of a system to exchange information. They serve as a central repository where data, variables, and states can be stored and accessed by various parts of the system. Blackboards are very commonly used in the context of control architectures, enabling the exchange of data between the different modules of the system, for example, in the case of BTs, share the output of one node with another one.
+A blackboard \cite{BlackboardDesignPattern} is a design pattern in software engineering used when separated processes need to work together to make collective decisions. Blackboards are basically a shared memory space or data structure that allows different modules of a system to exchange information. They serve as a central repository where data, variables, and states can be stored and accessed by various parts of the system. Blackboards are very commonly used in the context of control architectures, enabling the exchange of data between the different modules of the system, for example, in the case of BTs, share the output of one node with another one.

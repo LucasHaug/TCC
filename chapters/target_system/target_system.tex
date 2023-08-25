@@ -22,20 +22,20 @@ The game events described in the rules are:
     \item Goal Kick: Event that occurs, in general, when there is a foul in the attack, such as if two attacking robots enter the opposing team's goal area, and which results in a kick by the injured team, which can position the ball in any position within their goal area.
     \item Free Ball: Event that occurs when there is a deadlock and the ball is stopped for more than five seconds outside the goal areas, which leads to a ball dispute, where the ball is positioned in the free ball marking of the quadrant in which it occurred.
     \item Kickoff: Event that occurs when the game is started or restarted due to the occurrence of a goal. When this event occurs, the ball is placed in the center of the field, so a new game can start. Depending on what happened in the event, one team will have repositioning priority over the other.
- \end{itemize}
+\end{itemize}
 
 Meanwhile, the control events are specified as follows:
 
 \begin{itemize}
-     \item Game On: Event that indicates that the game is running.
-     \item Stop: Event that indicates that the game is not running.
-     \item Halt: Event that occurs when the game is halted so that a human referee can verify an occurrence in the game and take the necessary actions. Upon receiving this event, the team must be able to return to the exact state it was when it received the event flag.
-  \end{itemize}
+    \item Game On: Event that indicates that the game is running.
+    \item Stop: Event that indicates that the game is not running.
+    \item Halt: Event that occurs when the game is halted so that a human referee can verify an occurrence in the game and take the necessary actions. Upon receiving this event, the team must be able to return to the exact state it was when it received the event flag.
+\end{itemize}
 
 \section{Organization Model}
 \label{sec:organization_model}
 
-Using the \MOISEp model, a mapping of the current solution was made, in order to validate the use of the model, facilitate the understanding of the current system and observe gaps for improvements. The structural specification of the team obtained from this mapping can be seen in Figure \ref{fig:moise_mapping}.
+Using the \MOISEp model, a mapping of the current solution was made, to validate the use of the model, facilitate the understanding of the current system and observe gaps for improvements. The structural specification of the team obtained from this mapping can be seen in Figure \ref{fig:moise_mapping}.
 
 \begin{figure}[!ht]
     \centering
@@ -56,7 +56,7 @@ A team of the VSSS category just plays using three robots, however, as it is pos
     \item Wingback: Helps the defense, while trying to make counterattacks.
 \end{itemize}
 
-It is important to note that the behaviors of these roles, meaning their functional specification, have already been implemented using behavior trees prior to this work. This experience of using behavior trees to define the roles to be performed proved to be quite advantageous, due to the ease of implementation, flexibility, and modularity. It is also noteworthy that in this organization the deontic specification is very straightforward, since the roles present in the organization are actually differentiated according to their functional specification.
+It is important to note that the behaviors of these roles, meaning their functional specification, have already been implemented using behavior trees prior to this work. This experience of using behavior trees to define the roles to be performed proved to be quite advantageous, due to the ease of implementation, flexibility, and modularity. It is also noteworthy that in this organization the deontic specification is very straightforward since the roles present in the organization are actually differentiated according to their functional specification.
 
 Regarding the listed roles, some of these are played while the team is attacking and others while the team is defending. As not all roles can be performed simultaneously, there is an agent in the organization, called Coach, which is responsible for assigning each of the three robots of the team a certain role in the game, being, therefore, the leader of the organization. Taking into account that a game is a dynamic scenario, as time progresses, it is also necessary to perform role swaps between the robots, these swaps are also coordinated by the Coach and depend on the role that each robot is playing at the moment.
 
@@ -64,7 +64,7 @@ Thus, for a robot that is playing a certain role to play another role, there mus
 
 In general, the roles of penalty kicker and defender are used only when a penalty event occurs, with the penalty kicker being used in place of the striker and the penalty defender in the place of the goalkeeper. However, the team supports many penalty modes, thus there is also the case where a penalty can be kicked by a striker or defended by the goalkeeper. In other moments of the game, while the team is defending, the roles of goalkeeper, fullback, and wingback are used, and while the team is attacking, the roles of goalkeeper, assistant, and striker are usually used instead. Besides that, in some special moments of the game, an extra striker can be used in place of the assistant to make the team more offensive.
 
-To implement the Coach and all the swaps between the roles, the previous strategy used a finite state machine, which will be described in the next section. 
+To implement the Coach and all the swaps between the roles, the previous strategy used a finite state machine, which will be described in the next section.
 
 \section{Game Strategy}
 

@@ -23,9 +23,9 @@ The root node is represented as shown in Figure \ref{fig:root_node_impl}.
 
 \subsubsection{Control Flow Nodes}
 
-In contrast to the representation of control flow nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control flow node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are specified as reactive nodes, rather than marking the non-reactive nodes differently. 
+In contrast to the representation of control flow nodes discussed in Subsubsection \ref{subsubsec:control_nodes_spec}, the default behavior of a control flow node in the \textit{BehaviorTree.CPP} library is to be non-reactive. Therefore, as can be seen in Figure \ref{fig:control_nodes_impl}, nodes that deviate from this default behavior are specified as reactive nodes, rather than marking the non-reactive nodes differently.
 
-However, it is important to note that the \texttt{Sequence} node in this implementation differs slightly from the non-reactive sequence presented in Chapter \ref{ch:background}. When one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with the same behavior of the sequence with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree. 
+However, it is important to note that the \texttt{Sequence} node in this implementation differs slightly from the non-reactive sequence presented in Chapter \ref{ch:background}. When one of its children returns a failure, instead of ticking it again the next time the sequence is ticked, the whole sequence is restarted. The library also provides a sequence node with the same behavior of the sequence with memory as presented in Chapter \ref{ch:background}, but it was not used in the implementation of the tree.
 
 Additionally, another type of control flow node was used in the tree implementation, which is the decorator node, however, the reason why this node was used in the tree implementation will not be explained in this subsubsection, but in Subsubsection \ref{subsubsec:decator_nodes_impl}.
 
@@ -54,7 +54,7 @@ Additionally, another type of control flow node was used in the tree implementat
 
 \subsubsection{Action Nodes}
 
-The implementation of the common action nodes, in Figure \ref{fig:common_action_node_impl}, is very similar to the specification presented in Subsubsection \ref{subsubsec:common_action_nodes_spec}, the \texttt{Always Success} node is precisely the same and the node that sets a variable in the blackboard is a little bit different. 
+The implementation of the common action nodes, in Figure \ref{fig:common_action_node_impl}, is very similar to the specification presented in Subsubsection \ref{subsubsec:common_action_nodes_spec}, the \texttt{Always Success} node is precisely the same and the node that sets a variable in the blackboard is a little bit different.
 
 In the tree specification, all blackboard variables were represented as strings or booleans, however, in the implementation, some of those variables were created as integer variables instead, therefore, two nodes that store variables in the blackboard were used, one that stores strings and another that stores integers. These two nodes have the same syntax, in the node, the \texttt{value} field receives the value to be stored in the blackboard and the \texttt{output\_key} receives the name of the variable in which the value will be stored. One thing important to note is that the node in Figure \ref{fig:set_blackboard_string_impl} is a built-in node of the library, while the node in Figure \ref{fig:set_blackboard_int_impl} is a custom node inspired by the node from the library.
 
@@ -92,7 +92,7 @@ In contrast to the tree specification, the common condition node specified in Su
 
 The tree specification was created using condition nodes that verify whether the content of a variable in the blackboard is equal to a specified value, returning success or failure depending on the result of the assessment. However, the \textit{BehaviorTree.CPP} library does not provide a built-in condition node with the described behavior, instead, the library offers decorators that can be used for the same purpose.
 
-Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, if both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they handle, as the first handles integers and the second strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field.
+Two decorators from the library were used to substitute the condition nodes, the \texttt{Blackboard Check Int}, in Figure \ref{fig:blackboard_check_int_impl}, and the \texttt{Blackboard Check String}, in Figure \ref{fig:blackboard_check_string_impl}. Both these nodes are very similar, they compare a value A with a value B, in case both values are equal, this node will return the same status of its child otherwise it will return the value specified in the "return\_on\_mismatch" field. The difference between these two decorators is just the variable type that they handle, as the first handles integers and the second strings. One important thing to note is how these nodes actually access variables' values in the blackboard. This is accomplished by specifying the variable's name using the syntax \texttt{\{variable\_name\}}. By employing this syntax, the variable's value will be substituted during the comparison process, so it can be compared to the value in the other field.
 
 \begin{figure}[!h]
     \centering
@@ -113,7 +113,7 @@ Two decorators from the library were used to substitute the condition nodes, the
     \label{fig:common_decorator_nodes_impl}
 \end{figure}
 
-Regarding the use of these decorators, as it is not possible to simply replace a condition node with a decorator, it was necessary to make changes to the structure of the tree specification where the condition nodes which check the blackboard were used. To implement these modifications, an analysis of the structure which utilizes the \texttt{Blackboard Check} as a condition node was conducted, leading to the development of two alternative approaches using the \texttt{Blackboard Check} decorator implementation of the library.
+Regarding the use of these decorators, as it is not possible to simply replace a condition node with a decorator, it was necessary to make changes to the structure of the tree specification where the condition nodes that check the blackboard were used. To implement these modifications, an analysis of the structure which utilizes the \texttt{Blackboard Check} as a condition node was conducted, leading to the development of two alternative approaches using the \texttt{Blackboard Check} decorator implementation of the library.
 
 Considering the tree specification, all the use cases of the \texttt{Blackboard Check} as a condition node can be abstracted as the two structures in Figure \ref{fig:blackboard_check_eq_condition_node}. The first structure, Figure \ref{fig:blackboard_check_eq_condition_node_fall}, represents the cases where the condition node is used as the first child of a non-reactive fallback, whereas the second structure, Figure \ref{fig:blackboard_check_eq_condition_node_seq}, represents the cases where the parent node of the condition node is a non-reactive sequence instead.
 
@@ -124,10 +124,10 @@ Considering the tree specification, all the use cases of the \texttt{Blackboard 
         \scalebox{0.74} {
             \begin{forest}
                 [\root, controlflow
-                    [\fallback, controlflow
-                        [{Blackboard Check \\ variable == value}, condition]
-                        [{Conditional Action}, action]
-                    ]
+                        [\fallback, controlflow
+                                [{Blackboard Check \\ variable == value}, condition]
+                                [{Conditional Action}, action]
+                        ]
                 ]
             \end{forest}
         }
@@ -140,10 +140,10 @@ Considering the tree specification, all the use cases of the \texttt{Blackboard 
         \scalebox{0.74} {
             \begin{forest}
                 [\root, controlflow
-                    [\sequence, controlflow
-                        [{Blackboard Check \\ variable == value}, condition]
-                        [{Conditional Action}, action]
-                    ]
+                        [\sequence, controlflow
+                                [{Blackboard Check \\ variable == value}, condition]
+                                [{Conditional Action}, action]
+                        ]
                 ]
             \end{forest}
         }
@@ -181,7 +181,7 @@ Therefore, the tree implementation, which will be presented in the next subsecti
 
 \subsubsection{Subtrees}
 
-The representation of a subtree in the \textit{BehaviorTree.CPP} library, shown in Figure \ref{fig:subtrees_impl}, is very similar to the subtree specification described in the Subsubsection \ref{subsubsec:subtrees_spec}. The only notable difference between the two is that the library's implementation has an attribute called \texttt{\_\_shared\_blackboard}, which is used to specify whether the subtree will have its own blackboard or whether the tree which includes this subtree will share its blackboard with the subtree. In addition, the representation of a subtree node in \textit{Groot} also has a button that can be used to expand the subtree node and view the entire subtree.
+The representation of a subtree in the \textit{BehaviorTree.CPP} library, shown in Figure \ref{fig:subtrees_impl}, is very similar to the subtree specification described in the Subsubsection \ref{subsubsec:subtrees_spec}. The only notable difference between the two is that the library's implementation has an attribute called \texttt{\_\_shared\_blackboard}, which is used to specify whether the subtree will have its own blackboard or whether the tree that includes this subtree will share its blackboard with the subtree. In addition, the representation of a subtree node in \textit{Groot} also has a button that can be used to expand the subtree node and view the entire subtree.
 
 \begin{figure}[!h]
     \centering
