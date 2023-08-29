@@ -37,6 +37,8 @@
 % ========== References ==========
 
 \usepackage[style=abnt-numeric,sorting=none]{biblatex}
+\DeclareFieldFormat{url}{\bibstring{urlfrom}\addcolon\space\textless\url{#1}\textgreater}
+
 \addbibresource{references.bib}
 
 % ========== Document options ==========
