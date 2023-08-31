@@ -136,7 +136,29 @@ As it is possible to observe, HFSMs were developed to address some of the shortc
 
 \section{Behavior Trees}
 
-Behavior Trees (BTs) are a versatile control architecture widely known for their flexibility, modularity, ease of comprehension, and maintainability \cite{BTsInRobotics}. They can be described as a mathematical model that is structured as a directed rooted tree of hierarchical nodes. A BT is composed of two primary types of nodes: the control flow nodes, which are the internal nodes of the tree, and the execution nodes, which are the leaves. By combining various control flow and execution nodes, it is possible to construct a tree that describes an agent's behavior.
+Behavior Trees (BTs) are a versatile control architecture widely known for their flexibility, modularity, ease of comprehension, and maintainability \cite{BTsInRobotics}. They can be described as a mathematical model that is structured as a directed rooted tree of hierarchical nodes. A BT is composed of two primary types of nodes: the control flow nodes, which are the internal nodes of the tree, and the execution nodes, which are the leaves. By combining various control flow and execution nodes, it is possible to construct a tree that describes an agent's behavior. An example of a BT is illustrated in Figure \ref{fig:bt_example}, which shows the BT of a robot that tries to enter a room.
+
+\begin{figure}[!h]
+    \centering
+    \scalebox{0.8} {
+        \begin{forest}
+            [\root, controlflow
+                [\reactivesequence, controlflow
+                    [\reactivefallback, controlflow
+                        [{Is door open?}, condition, minimum height=10mm]
+                        [{Try 5\\ times}, decorator, minimum height=10mm
+                            [{Open door}, action, minimum height=10mm]
+                        ]
+                    ]
+                    [{Enter room}, action, minimum height=10mm]
+                    [{Close door}, action, minimum height=10mm]
+                ]
+            ]
+        \end{forest}
+    }
+    \caption{Example of BT from \cite{BehaviorTree.CPP}}
+    \label{fig:bt_example}
+\end{figure}
 
 As a directed rooted tree, every BT has as its base a root node, which is the one responsible for generating the \textit{tick signal}. This signal is sent from the root throughout the tree until it reaches a leaf node, when this happens, the leaf node is executed and returns a status accordingly, which can be \textit{success}, \textit{failure}, or \textit{running}. The status of the leaf node is propagated back until it returns to the root node, which sends the tick signal all over again throughout the tree, starting a new execution step and continuing the execution of the tree. In a typical BT, the tick signal is propagated from left to right, therefore, a parent node will always tick its leftmost child before ticking the ones from the right.
 
